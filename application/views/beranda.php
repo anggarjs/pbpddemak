@@ -312,7 +312,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   </li>
                 </ul>
               </li>
-
+              <li class="sidebar-item">
+                <a
+                  class="sidebar-link has-arrow waves-effect waves-dark"
+                  href="javascript:void(0)"
+                  aria-expanded="false"
+                >
+                  <i class="mdi mdi-account-multiple"></i>
+                  <span class="hide-menu">Manajemen User</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url()?>index.php/User/Tambah" class="sidebar-link">
+                      <i class="mdi mdi-account-network"></i>
+                      <span class="hide-menu"> Tambah Data</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="ui-user-contacts.html" class="sidebar-link">
+                      <i class="mdi mdi-account-star-variant"></i>
+                      <span class="hide-menu"> Data User</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"

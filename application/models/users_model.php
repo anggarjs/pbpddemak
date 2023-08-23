@@ -6,14 +6,12 @@ class Users_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('data_user');
 		$query = $this->db->get();		
-		return $query;		
-				
+		return $query;						
 	}//end of function	
 	
 	function get_username_ike(){		
 		$this->db->select('*');
-		$this->db->from('dc_user_aplikasi');
-		$this->db->like('USER_NAMA','ike');
+		$this->db->from('data_ulp');
 		$query = $this->db->get();		
 		return $query;		
 	}//end of function		
