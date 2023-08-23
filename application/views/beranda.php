@@ -225,7 +225,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     width="40"
                   />
                   <span class="ms-1 font-weight-medium d-none d-sm-inline-block"
-                    >Jonathan Doe
+                    ><?= $nama_user; ?>
                     <i data-feather="chevron-down" class="feather-sm"></i
                   ></span>
                 </a>

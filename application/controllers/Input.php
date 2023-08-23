@@ -13,7 +13,7 @@ class Input extends CI_Controller {
 	
 	function upload_rab(){
 	
-		$data[] 			= '';
+		$data['nama_user'] = $_SESSION['username'];
 		$data['content'] 	= $this->load->view('form_upload_rab',$data,true);
 		$this->load->view('beranda',$data);	
 	}
