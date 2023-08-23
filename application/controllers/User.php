@@ -8,23 +8,15 @@ class User extends CI_Controller {
 	
 	function Tambah(){		
 		$this->load->model('users_model');
-		$users 		= $this->users_model->get_all_untuk_login();
-		
-		//setting session
-		$newdata = array(
-			'username' 		=> $this->input->post('username'),
-		);
-		$this->session->set_userdata($newdata);
-				
-		//cek username dan password
-		foreach ($users->result() as $row){
-			if($this->input->post('username') == $row->nama_user && md5($this->input->post('password')) == $row->pass_user)
-				redirect('Input');			
-			else
-				redirect('Welcome');			
+
+		$pilihan_ulp['0'] 		= "- Pilih ULP -";
+		$ulp 					= $this->users_model->get_data_ulp();
+		foreach($ulp->result() as $row){
+			$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
 		}
-		
-		$data[] 			= '';
+		$data['pilihan_ulp'] 	= $pilihan_ulp;		
+	
+		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('form_tambah_user',$data,true);
 		$this->load->view('beranda',$data);			
 	}

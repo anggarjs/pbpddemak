@@ -45,12 +45,23 @@
                 <div class="mb-3">
 				  <form>
 					<input class="form-control" type="file" id="formFile" />
-				    <button
-                        type="submit"
-                        class="btn btn-info rounded-pill px-4 mt-3"
-                      >
-                        Submit
-                    </button>
+					  <hr />
+
+					  <div class="p-3 border-top">
+						<div class="text-end">
+						  <button
+							type="submit"
+							class="
+							  btn btn-info
+							  rounded-pill
+							  px-4
+							  waves-effect waves-light
+							"
+						  >
+							Save
+						  </button>
+						</div>
+					  </div>
 				  </form>
                 </div>
               </div>
