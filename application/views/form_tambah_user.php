@@ -25,7 +25,11 @@
 					Form Penambahan Data User
 					</h4>
 				</div>
-                <form class="form-horizontal">
+                <!-- <form class="form-horizontal"> -->
+				<?php 
+				$attributes 	= array('class' => 'form-horizontal');
+				echo form_open('User/Tambah',$attributes);
+				?>
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-12 col-lg-6">
@@ -44,12 +48,40 @@
                             <input
                               type="text"
                               class="form-control"
-                              id="fname2"
+                              name="username"
                               placeholder=""
+							  
+							  value="<?php if(set_value('username')!='') echo set_value('username');?>"
+                        required
+                        data-validation-required-message="This field is required"							  
                             />
+							<?php echo form_error('username'); ?>
                           </div>
+						  
                         </div>
+							
                       </div>
+					                    <div class="mb-3 form-group">
+                    <label
+                      >Basic Text Input
+                      <span class="text-danger">*</span></label
+                    >
+                    <div class="controls">
+                      <input
+                        type="text"
+                        name="text"
+                        class="form-control"
+                        required
+                        data-validation-required-message="This field is required"
+                      />
+                    </div>
+                    <div class="form-control-feedback">
+                      <small
+                        >Add <code>required</code> attribute to field for
+                        required validation.</small
+                      >
+                    </div>
+                  </div>
                       <div class="col-sm-12 col-lg-6">
                         <div class="mb-3 row">
                           <label
@@ -63,43 +95,39 @@
                             >Asal Unit Kerja</label
                           >
 						<div class="col-md-9">
-						  <!-- <select class="form-control form-select">
-							<option value="">Male</option>
-							<option value="">Female</option>
-
-						  </select> -->
 							<?php
 							if(set_value('pilihan_ulp')!='') $set_select = set_value('pilihan_ulp');
 							else $set_select = '0';					
 							echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-control form-select" ');?>
 						</div>
+
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-sm-12 col-lg-6">
+
+                      </div>
+                      <div class="col-sm-12 col-lg-6">
                         <div class="mb-3 row">
                           <label
-                            for="uname1"
+                            for="lname2"
                             class="
                               col-sm-3
                               text-end
                               control-label
                               col-form-label
                             "
-                            >Password</label
+                            >Role User</label
                           >
-                          <div class="col-sm-9">
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="exampleInputpwd4"
-                            placeholder=""
-                          />
-                          </div>
+						<div class="col-md-9">
+							<?php
+							if(set_value('pilihan_role')!='') $set_select = set_value('pilihan_role');
+							else $set_select = '0';					
+							echo form_dropdown('pilihan_role',$pilihan_role,$set_select,'class="form-control form-select" ');?>
+						</div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                   <hr />
@@ -119,7 +147,8 @@
                       </button>
                     </div>
                   </div>
-                </form>
+                <!-- </form> -->
+				<?php echo form_close(); ?>
               </div>
             </div>
           </div>

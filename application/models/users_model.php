@@ -14,6 +14,13 @@ class Users_model extends CI_Model {
 		$this->db->from('data_ulp');
 		$query = $this->db->get();		
 		return $query;		
+	}//end of function
+		
+	function get_data_role(){		
+		$this->db->select('*');
+		$this->db->from('data_role');
+		$query = $this->db->get();		
+		return $query;		
 	}//end of function		
 	
 	function get_info_login($user_id){		
