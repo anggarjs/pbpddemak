@@ -9,35 +9,53 @@ class User extends CI_Controller {
 	function Tambah(){		
 		$this->load->model('users_model');
 		
+		
 		$this->form_validation->set_rules('username', 'Username', 'required');
-		//$this->form_validation->set_rules('pilihan_ulp', 'Klasifikasi Gangguan', 'callback_validasi_data_list');
-		//$this->form_validation->set_rules('pilihan_role', 'Zona Wilayah Gangguan', 'callback_validasi_data_list');
+		/*$this->form_validation->set_rules('pilihan_ulp', 'Klasifikasi Gangguan', 'callback_validasi_data_list');
+		$this->form_validation->set_rules('pilihan_role', 'Zona Wilayah Gangguan', 'callback_validasi_data_list');
+*/
 
 		// Setting Error Message
 		$this->form_validation->set_message('required', 'Silahkan mengisi data %s');
 		// Setting Delimiter
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');		
 		
+		
 		if($this->form_validation->run() == FALSE){
-			$pilihan_ulp['0'] 		= "- Pilih ULP -";
+			$pilihan_ulp[''] 		= "- Pilih ULP -";
 			$ulp 					= $this->users_model->get_data_ulp();
 			foreach($ulp->result() as $row){
 				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
 			}
 			$data['pilihan_ulp'] 	= $pilihan_ulp;	
 
-			$pilihan_role['0'] 		= "- Pilih Role -";
+			$pilihan_role[''] 		= "- Pilih Role -";
 			$role 					= $this->users_model->get_data_role();
 			foreach($role->result() as $row){
 				$pilihan_role[$row->id_role] = $row->nama_role; 
 			}
 			$data['pilihan_role'] 	= $pilihan_role;			
 		
+			//redirect to view
 			$data['nama_user'] 	= $_SESSION['username'];
 			$data['content'] 	= $this->load->view('form_tambah_user',$data,true);
 			$this->load->view('beranda',$data);
 		}//end of if
+		
 		else{
+			$data = array(
+				'nama_user' 			=> $this->input->post('pilihan_ulp').'.'.trim($this->input->post('username')),
+				'pass_user' 			=> md5('pbpddemak'),
+				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
+				'id_role' 				=> $this->input->post('pilihan_role'),
+
+			);
+			
+			//insert into database
+			$this->users_model->insert_user($data);
+			
+			//redirect to view
+			redirect('User/Tambah');			
 			
 		}//end of else
 	}//end of function

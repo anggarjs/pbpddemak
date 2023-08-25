@@ -288,7 +288,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="form-basic.html" class="sidebar-link">
+                    <a href="<?php echo base_url()?>index.php/Input/upload_rab" class="sidebar-link">
                       <i class="mdi mdi-vector-difference-ba"></i>
                       <span class="hide-menu"> Upload RAB</span>
                     </a>
