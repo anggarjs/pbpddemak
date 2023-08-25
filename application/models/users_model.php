@@ -21,7 +21,11 @@ class Users_model extends CI_Model {
 		$this->db->from('data_role');
 		$query = $this->db->get();		
 		return $query;		
-	}//end of function		
+	}//end of function
+
+	function insert_user($data){	
+		$this->db->insert('data_user', $data);
+	}//end of function	
 	
 	function get_info_login($user_id){		
 		$this->db->select('dc_pegawai.PEGAWAI_NAMA,dc_user_aplikasi.USER_NAMA,dc_pegawai.BAGIAN_APJ_ID');
