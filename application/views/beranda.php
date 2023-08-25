@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <!-- Logo -->
             <!-- ============================================================== -->
             <div class="navbar-brand">
-              <a href="index.html" class="logo">
+              <a href="<?php echo base_url('index.php/Input/upload_rab') ?>" class="logo">
                 <!-- Logo icon -->
                 <b class="logo-icon">
                   <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
