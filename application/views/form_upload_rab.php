@@ -29,32 +29,26 @@
 							Form Upload RAB
 							</h4>
 						</div>
-						<div class="card card-body">
-							<div class="mb-3">
-								<form>
-								<input class="form-control" type="file" id="formFile" />
-								<hr />
-								<div class="p-3 border-top">
-									<div class="text-end">
-									<button
-									type="submit"
-									class="
-									btn btn-info
-									rounded-pill
-									px-4
-									waves-effect waves-light
-									"
-									>
-									Save
-									</button>
-									</div>
-								</div>
-								</form>
-							</div>
+						<div class="card-body">
 						</div>
+						<div class="p-3 border-top">
+							<div class="text-end">
+								<button
+								type="submit"
+								class="
+								btn btn-info
+								rounded-pill
+								px-4
+								waves-effect waves-light
+								"
+								>
+								Save
+								</button>
+							</div>
+						</div>						
 					</div>
 				</div>
-          </div>
+			</div>
           <!-- Row -->
         </div>
         <!-- ============================================================== -->

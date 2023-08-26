@@ -83,7 +83,7 @@
 					<!-- </form> -->
 					<?php echo form_close(); ?>
 					</div>
-				</div>
+				</div><!-- end <div class="col-12"> -->
 			</div>
           <!-- End Row -->
         </div>
