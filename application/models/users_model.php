@@ -10,7 +10,10 @@ class Users_model extends CI_Model {
 	}//end of function	
 	
 	function get_data_ulp(){		
-		return $this->db->get('data_ulp')->result_array();
+		$this->db->select('*');
+		$this->db->from('data_ulp');
+		$query = $this->db->get();		
+		return $query;		
 	}//end of function
 		
 	function get_data_role(){		
