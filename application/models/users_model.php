@@ -19,6 +19,15 @@ class Users_model extends CI_Model {
 		$query = $this->db->get();		
 		return $query;		
 	}//end of function
+	
+	function cek_login($user_id,$pswd){		
+		$this->db->select('*');
+		$this->db->from('data_user');		
+		$this->db->where('nama_user',$user_id);
+		$this->db->where('pass_user',$pswd);
+		$query = $this->db->get();
+		return $query;		
+	}//end of function	
 
 	function insert_user($data){	
 		$this->db->insert('data_user', $data);

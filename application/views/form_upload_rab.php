@@ -20,38 +20,38 @@
       		<div class="row">
       			<div class="col-12">
 
-      				<!-- ----------------------------------------- -->
-      				<!-- 3. Custom File Upload -->
-      				<!-- ----------------------------------------- -->
-      				<div class="card">
-      					<div class="card-header bg-info">
-      						<h4 class="card-title text-white">
-      							Form Upload RAB
-      						</h4>
-      					</div>
-      					<div class="card card-body">
-      						<div class="mb-3">
-      							<?php echo $this->session->flashdata('error'); ?>
-      							<form action="<?php echo base_url('index.php/Input/proses_upload_rab') ?>" enctype="multipart/form-data"" method="post">
-      								<input class="form-control" type="file" name="excel_file" accept=".xlsx" id="excel_file" />
-      								<hr />
-      								<div class="p-3 border-top">
-      									<div class="text-end">
-      										<button type="submit" class="
+      				<<<<<<< HEAD <!-- ----------------------------------------- -->
+      					<!-- 3. Custom File Upload -->
+      					<!-- ----------------------------------------- -->
+      					<div class="card">
+      						<div class="card-header bg-info">
+      							<h4 class="card-title text-white">
+      								Form Upload RAB
+      							</h4>
+      						</div>
+      						<div class="card card-body">
+      							<div class="mb-3">
+      								<?php echo $this->session->flashdata('error'); ?>
+      								<form action="<?php echo base_url('index.php/Input/proses_upload_rab') ?>" enctype="multipart/form-data"" method=" post">
+      									<input class="form-control" type="file" name="excel_file" accept=".xlsx" id="excel_file" />
+      									<hr />
+      									<div class="p-3 border-top">
+      										<div class="text-end">
+      											<button type="submit" class="
 									btn btn-info
 									rounded-pill
 									px-4
 									waves-effect waves-light
 									">
-      											Save
-      										</button>
+      												Save
+      											</button>
+      										</div>
       									</div>
-      								</div>
-      							</form>
+      								</form>
+      							</div>
       						</div>
-      					</div>
 
-      				</div>
+      					</div>
       			</div>
       		</div>
       		<!-- Row -->

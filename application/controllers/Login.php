@@ -9,20 +9,19 @@ class Login extends CI_Controller {
 	function cek_login(){		
 		$this->load->model('users_model');
 		$users 		= $this->users_model->get_all_untuk_login();
+		$valid 		= false; //kondisi awal parameter login
 		
 		//setting session
 		$newdata = array(
 			'username' 		=> $this->input->post('username'),
 		);
 		$this->session->set_userdata($newdata);
-				
-		//cek username dan password
-		foreach ($users->result() as $row){
-			if($this->input->post('username') == $row->nama_user && md5($this->input->post('password')) == $row->pass_user)
-				redirect('Input');			
-			else
-				redirect('Welcome');			
-		}
+		
+		$cek_login	= $this->users_model->cek_login($this->input->post('username'),md5($this->input->post('password')))->num_rows();
+		if($cek_login > 0)
+			redirect('Input');
+		else
+			redirect('Welcome');
 	}
 	
 	function logout(){
