@@ -10,10 +10,7 @@ class Users_model extends CI_Model {
 	}//end of function	
 	
 	function get_data_ulp(){		
-		$this->db->select('*');
-		$this->db->from('data_ulp');
-		$query = $this->db->get();		
-		return $query;		
+		return $this->db->get('data_ulp')->result_array();
 	}//end of function
 		
 	function get_data_role(){		
@@ -92,7 +89,11 @@ class Users_model extends CI_Model {
 	function insert_user_sms($data){	
 		$this->db->insert('pbk', $data);
 	}//end of function
-	
+
+	public function insert_ulp($data){
+		return $this->db->insert('data_ulp', $data);
+	}
+
 	function insert_log_activity($data){	
 		$this->db->insert('dc_log_activity', $data);
 	}//end of function	
