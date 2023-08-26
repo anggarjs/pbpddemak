@@ -8,8 +8,6 @@ class User extends CI_Controller {
 	
 	function Tambah(){		
 		$this->load->model('users_model');
-		
-		
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		/*$this->form_validation->set_rules('pilihan_ulp', 'Klasifikasi Gangguan', 'callback_validasi_data_list');
 		$this->form_validation->set_rules('pilihan_role', 'Zona Wilayah Gangguan', 'callback_validasi_data_list');
@@ -38,7 +36,7 @@ class User extends CI_Controller {
 		
 			//redirect to view
 			$data['nama_user'] 	= $_SESSION['username'];
-			$data['content'] 	= $this->load->view('form_tambah_user',$data,true);
+			$data['content'] 	= $this->load->view('user/form_tambah_user',$data,true);
 			$this->load->view('beranda',$data);
 		}//end of if
 		
@@ -52,13 +50,28 @@ class User extends CI_Controller {
 			);
 			
 			//insert into database
-			$this->users_model->insert_user($data);
+			$this->users_model->insert_user($data);		
 			
-			//redirect to view
-			redirect('User/Tambah');			
-			
+			redirect('User/View');					
 		}//end of else
 	}//end of function
+
+	function View(){		
+		$this->load->model('users_model');
+		$data_users 		= $this->users_model->get_all_data_user();
+		
+		$data_user[''] 		= "";
+		foreach($data_users->result() as $row){
+			$data_user[$row->id_user] = $row->nama_role; 
+		}
+		$data['data_users'] = $data_users;	
+		
+		//redirect to view
+		$data['nama_user'] 	= $_SESSION['username'];
+		$data['content'] 	= $this->load->view('user/view_all_user',$data,true);
+		$this->load->view('beranda',$data);		
+	}//end of function
+
 	
 	function validasi_data_list($str){
 		if ($str == '0'){				
