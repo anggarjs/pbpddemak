@@ -33,6 +33,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>dist/css/style.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url()?>dist/css/error.css" rel="stylesheet" />
+    <!-- This page plugin CSS -->
+    <link rel="stylesheet" href="<?php echo base_url()?>dist/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">	
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -330,7 +332,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a href="ui-user-contacts.html" class="sidebar-link">
+                    <a href="<?php echo base_url()?>index.php/User/View" class="sidebar-link">
                       <i class="mdi mdi-account-star-variant"></i>
                       <span class="hide-menu"> Data User</span>
                     </a>
@@ -387,6 +389,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!--Custom JavaScript -->
     <script src="<?php echo base_url()?>dist/js/feather.min.js"></script>
     <script src="<?php echo base_url()?>dist/js/custom.min.js"></script>
+    <!--This page plugins -->
+    <script src="<?php echo base_url()?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url()?>dist/js/pages/datatable/custom-datatable.js"></script>
+    <script src="<?php echo base_url()?>dist/js/pages/datatable/datatable-basic.init.js"></script>	
   </body>
 </html>
 
