@@ -112,7 +112,12 @@ class Users_model extends CI_Model {
 	}//end of function
 
 	public function insert_ulp($data){
-		return $this->db->insert('data_ulp', $data);
+		$insert_data = [
+			'id_ulp' => $data[0],
+			'nama_ulp' => $data[1],
+			'ket_ulp' => $data[2]
+		];
+		return $this->db->insert('data_ulp', $insert_data);
 	}
 
 	function insert_log_activity($data){	
