@@ -308,7 +308,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="table-datatable-basic.html" class="sidebar-link">
+                    <a href="<?php echo base_url('index.php/Capel'); ?>" class="sidebar-link">
                       <i class="mdi mdi-border-vertical"></i>
                       <span class="hide-menu"> Data Capel</span>
                     </a>
