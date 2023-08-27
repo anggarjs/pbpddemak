@@ -271,7 +271,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="index.html" class="sidebar-link">
+                    <a href="#" class="sidebar-link">
                       <i class="mdi mdi-adjust"></i>
                       <span class="hide-menu"> Classic </span>
                     </a>
