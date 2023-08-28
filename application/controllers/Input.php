@@ -47,13 +47,15 @@ class Input extends CI_Controller {
 	}
 	
 	function Upload_rab2(){
+		$this->load->model('capel_model');
+		
 		$path 						= 'uploads/';
 		$new_name 					= 'Temporary';
 		$config['file_name'] 		= $new_name;
 		
 		$config['upload_path']		= './uploads/';
         $config['allowed_types'] 	= 'xlsx|xls';
-        $config['max_size'] 		= 2048;
+        $config['max_size'] 		= 8192;
 		$this->load->library('upload', $config);	
 	
 		if ($this->upload->do_upload('filerab')){
@@ -67,10 +69,30 @@ class Input extends CI_Controller {
 				$reader 	= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();				
 			
 			$spreadsheet 	= $reader->load($file_name);
-			$sheet_data 	= $spreadsheet->getActiveSheet()->toArray();			
-						
+			
+			$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
+			$dayalama		 	= $spreadsheet->getSheetByName('DATA')->getCell('D17')->getValue()*1000;
+			$dayabaru		 	= $spreadsheet->getSheetByName('DATA')->getCell('D20')->getValue()*1000;
+			//$biaya_sambung		= $spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue();
+			//$biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getCalculatedValue();
 
-
+			$data = array(
+				'id_ulp'				=> 52550,
+				'nama_capel' 			=> trim($nama_pelanggan),
+				'daya_lama' 			=> $dayalama,
+				'daya_baru' 			=> $dayabaru,
+				'biaya_penyambungan' 	=> $biaya_sambung,
+				'biaya_investasi' 		=> $biaya_invest,	
+			);
+			
+			//insert into database
+			$this->capel_model->insert_capel($data);			
+			
+			if(file_exists($file_name)){
+				unlink($file_name);
+			}
+			
+			//echo $cellValue;
 		}
 	}
 	
