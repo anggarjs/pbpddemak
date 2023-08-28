@@ -20,50 +20,51 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
+						<?php 
+							$attributes 	= array('class' => 'form-horizontal');
+							echo form_open('User/Tambah',$attributes);
+						?>					
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
 							Form Penambahan Data User
 							</h4>
 						</div>
-						
-						<?php 
-						$attributes 	= array('class' => 'was-validated');
-						echo form_open('User/Tambah',$attributes);
-						?>
-						<div class="card-body">
+						<div class="card-body">		
 							<div class="mb-3">
-								<label for="validationTextarea">Username</label>
+								<label>Nama User</label>
 								<input
-								type="text"
-								name="username"
-								class="form-control"
-								required
+								  type="text"
+								  class="form-control"
+								  value="<?php if(set_value('username')!='') echo set_value('username');?>"
+								  name="username"
 								/>
 							</div>
-
-							<div class="form-group mb-3">
-								<label for="validationTextarea">Asal Unit Kerja</label>
+							<?php echo form_error('username'); ?>
+							
+							<div class="mb-3">
+								<label>Asal Unit Kerja</label>
 								<?php
 									if(set_value('pilihan_ulp')!='') $set_select = set_value('pilihan_ulp');
 									else $set_select = '';					
+<<<<<<< HEAD
 									echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select" required');
+=======
+									echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select col-12" ');
+>>>>>>> aff40e034b15018b040e18cae743b3bbfa8c2cc9
 								?>
-								<div class="invalid-feedback">
-								Pilih Unit Kerja
-								</div>
 							</div>
+							<?php echo form_error('pilihan_ulp'); ?>
 							
-							<div class="form-group mb-3">
-								<label for="validationTextarea">Role Kerja</label>
+							<div class="mb-3">
+								<label>Role Kerja</label>
 								<?php
 									if(set_value('pilihan_role')!='') $set_select = set_value('pilihan_role');
 									else $set_select = '';					
-									echo form_dropdown('pilihan_role',$pilihan_role,$set_select,'class="form-select" required ');
-								?>					  
-								<div class="invalid-feedback">
-								Pilih Role User
-								</div>
-							</div>						  
+									echo form_dropdown('pilihan_role',$pilihan_role,$set_select,'class="form-select" ');
+								?>
+							</div>
+							<?php echo form_error('pilihan_role'); ?>
+							
 						</div>
 						<div class="p-3 border-top">
 							<div class="text-end">
@@ -80,8 +81,8 @@
 								</button>
 							</div>
 						</div>
-					<!-- </form> -->
-					<?php echo form_close(); ?>
+						<!-- </form> -->
+						<?php echo form_close(); ?>
 					</div>
 				</div><!-- end <div class="col-12"> -->
 			</div>

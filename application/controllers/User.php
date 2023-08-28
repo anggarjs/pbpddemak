@@ -8,13 +8,12 @@ class User extends CI_Controller {
 	
 	function Tambah(){		
 		$this->load->model('users_model');
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		/*$this->form_validation->set_rules('pilihan_ulp', 'Klasifikasi Gangguan', 'callback_validasi_data_list');
-		$this->form_validation->set_rules('pilihan_role', 'Zona Wilayah Gangguan', 'callback_validasi_data_list');
-*/
+		$this->form_validation->set_rules('username', 'Nama User', 'required');
+		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
+		$this->form_validation->set_rules('pilihan_role', 'Role Kerja', 'required|callback_validasi_data_list');
 
 		// Setting Error Message
-		$this->form_validation->set_message('required', 'Silahkan mengisi data %s');
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
 		// Setting Delimiter
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');		
 		

@@ -27,53 +27,68 @@
 						</div>
 						<div class="card-body">
 							<h6 class="card-subtitle mb-3">
-							<div class="table-responsive">
-							<table
-							  id="zero_config"
-							  class="table table-striped table-bordered text-nowrap">
+							<div class="table-responsive mt-3">
+								<table
+								id="sing_row_del"
+								class="
+								table table-striped table-bordered
+								display
+								text-nowrap
+								"
+								style="width: 100%"
+								>
 								<thead>
 									<!-- start row -->
 									<tr>
+									<th>Action</th>
 									<th>Nama User</th>
 									<th>Asal Unit Kerja</th>
 									<th>Role User</th>
+									
 									</tr>
 									<!-- end row -->
 								</thead>
 								<tbody>
 									<?php
 									foreach($data_users->result() as $row){
-										//$data_user[$row->id_user] = $row->nama_role;
 										echo '<tr>';
+									?>
+                    <td>
+                      <div class="dropdown dropstart">
+                        <a
+                          href="#"
+                          class="link"
+                          id="dropdownMenuButton"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          <i
+                            data-feather="more-horizontal"
+                            class="feather-sm"
+                          ></i>
+                        </a>
+                        <ul
+                          class="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton"
+                        >
+                          <li><a class="dropdown-item" href="#">Edit</a></li>
+                          <li><a class="dropdown-item" href="#">Delete</a></li>
+                        </ul>
+                      </div>
+                    </td>									
+									<?php
 										echo '<td>'.$row->nama_user.'</td>';
 										echo '<td>'.$row->nama_ulp.'</td>';
 										echo '<td>'.$row->nama_role.'</td>';
 										echo '</tr>';
 									}
 									?>
-									<!-- start row 
-									<tr>
-									<td>Tiger Nixon</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>61</td>
-									<td>2011/04/25</td>
-									<td>$320,800</td>
-									</tr>
-									<!-- start row 
-									<tr>
-									<td>Ashton Cox</td>
-									<td>Junior Technical Author</td>
-									<td>San Francisco</td>
-									<td>66</td>
-									<td>2009/01/12</td>
-									<td>$86,000</td>
-									</tr>
 									<!-- end row -->
 								</tbody>
 								<tfoot>
 									<!-- start row -->
 									<tr>
+									<th>Action</th>
 									<th>Nama User</th>
 									<th>Asal Unit Kerja</th>
 									<th>Role User</th>
