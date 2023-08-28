@@ -17,45 +17,45 @@
       		<!-- -------------------------------------------------------------- -->
       		<!-- Start Page Content -->
       		<!-- -------------------------------------------------------------- -->
-      		<div class="row">
-      			<div class="col-12">
-      				<!-- ----------------------------------------- -->
-      				<!-- 3. Custom File Upload -->
-      				<!-- ----------------------------------------- -->
-      				<div class="card">
-      					<div class="card-header bg-info">
-      						<h4 class="card-title text-white">
-      							Form Upload RAB
-      						</h4>
-      					</div>
-      					<div class="card card-body">
-      						<div class="mb-3">
-      							<form action="<?php echo base_url('index.php/Input/proses_upload_rab') ?>" enctype="multipart/form-data"" method="post">
-      								<input class="form-control <?php echo ($this->session->flashdata('error') == true) ? 'is-invalid' : ''; ?>" type="file" name="excel_file" accept=".xlsx" id="excel_file" />
-      								<div class="invalid-feedback">
-      									<?php if ($this->session->flashdata('error')) : ?>
-      										<div class="error"><?php echo $this->session->flashdata('error'); ?>
-      										</div>
-      									<?php endif; ?>
-      								</div>
-      								<hr />
-      								<div class="p-3 border-top">
-      									<div class="text-end">
-      										<button type="submit" class="
-									btn btn-info
-									rounded-pill
-									px-4
-									waves-effect waves-light
-									">
-      											Save
-      										</button>
-      									</div>
-      								</div>
-      							</form>
-      						</div>
-      					</div>
-
-      				</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<?php 
+							$attributes 	= array('class' => 'form-horizontal');
+							echo form_open_multipart('Input/Upload_rab2',$attributes);
+						?>					
+						<div class="card-header bg-info">
+							<h4 class="card-title text-white">
+							Form Upload Hasil Survei
+							</h4>
+						</div>
+						<div class="card-body">		
+							<div class="mb-3">
+								<label>Upload File Hasil Survei</label>
+								<input type="file" class="form-control" name="filerab" />
+							</div>
+							<?php echo form_error('username'); ?>
+							
+							
+						</div>
+						<div class="p-3 border-top">
+							<div class="text-end">
+								<button
+								type="submit"
+								class="
+								btn btn-info
+								rounded-pill
+								px-4
+								waves-effect waves-light
+								"
+								>
+								Save
+								</button>
+							</div>
+						</div>
+						<!-- </form> -->
+						<?php echo form_close(); ?>
+					</div>
       			</div>
       		</div>
       		<!-- Row -->
@@ -68,7 +68,6 @@
       	<!-- footer -->
       	<!-- ============================================================== -->
       	<footer class="footer text-center">
-      		All Rights Reserved by Nice admin.
       	</footer>
       	<!-- ============================================================== -->
       	<!-- End footer -->
