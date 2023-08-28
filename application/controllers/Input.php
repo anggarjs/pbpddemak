@@ -34,7 +34,7 @@ class Input extends CI_Controller {
             $uploaded_data = $this->upload->data();
             $file_path = base_url() . 'assets/uploads/' . $uploaded_data['file_name'];
 
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file_path);
+            $spreadsheet = IOFactory::load($file_path);
             $sheet = $spreadsheet->getActiveSheet();
             $data = $sheet->toArray();
 

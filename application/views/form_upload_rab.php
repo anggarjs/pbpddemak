@@ -30,9 +30,14 @@
       					</div>
       					<div class="card card-body">
       						<div class="mb-3">
-      							<?php echo $this->session->flashdata('error'); ?>
       							<form action="<?php echo base_url('index.php/Input/proses_upload_rab') ?>" enctype="multipart/form-data"" method="post">
-      								<input class="form-control" type="file" name="excel_file" accept=".xlsx" id="excel_file" />
+      								<input class="form-control <?php echo ($this->session->flashdata('error') == true) ? 'is-invalid' : ''; ?>" type="file" name="excel_file" accept=".xlsx" id="excel_file" />
+      								<div class="invalid-feedback">
+      									<?php if ($this->session->flashdata('error')) : ?>
+      										<div class="error"><?php echo $this->session->flashdata('error'); ?>
+      										</div>
+      									<?php endif; ?>
+      								</div>
       								<hr />
       								<div class="p-3 border-top">
       									<div class="text-end">
