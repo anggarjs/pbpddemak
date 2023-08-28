@@ -43,6 +43,19 @@ class Users_model extends CI_Model {
 		$query = $this->db->get();		
 		return $query;						
 	}//end of function	
+
+	// get data capel
+	function get_all_data_capel(){		
+		$this->db->select('*');
+		$this->db->from('view_capel');
+		$query = $this->db->get();		
+		return $query;						
+	}//end of function	
+
+	// insert data capel 
+	function insert_capel($data){
+		return $this->db->insert('data_capel', $data);
+	}
 	
 	function get_info_login($user_id){		
 		$this->db->select('dc_pegawai.PEGAWAI_NAMA,dc_user_aplikasi.USER_NAMA,dc_pegawai.BAGIAN_APJ_ID');
@@ -53,7 +66,6 @@ class Users_model extends CI_Model {
 		return $query;		
 	}//end of function	
 
-	
 	function get_upj_id($user_id){		
 		$this->db->select('UPJ_ID');
 		$this->db->from('dc_pegawai');
@@ -93,14 +105,14 @@ class Users_model extends CI_Model {
 		$this->db->insert('pbk', $data);
 	}//end of function
 
-	public function insert_ulp($data){
-		$insert_data = [
-			'id_ulp' => $data[0],
-			'nama_ulp' => $data[1],
-			'ket_ulp' => $data[2]
-		];
-		return $this->db->insert('data_ulp', $insert_data);
-	}
+	// public function insert_ulp($data){
+	// 	$insert_data = [
+	// 		'id_ulp' => $data[0],
+	// 		'nama_ulp' => $data[1],
+	// 		'ket_ulp' => $data[2]
+	// 	];
+	// 	return $this->db->insert('data_ulp', $insert_data);
+	// }
 
 	function insert_log_activity($data){	
 		$this->db->insert('dc_log_activity', $data);
