@@ -68,13 +68,19 @@ class Input extends CI_Controller {
 			else 
 				$reader 	= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();				
 			
-			$spreadsheet 	= $reader->load($file_name);
-			
-			$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
+			//load file and get data
+			$reader->setReadDataOnly(TRUE);
+			$spreadsheet 		= $reader->load($file_name);		
+ 			$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
 			$dayalama		 	= $spreadsheet->getSheetByName('DATA')->getCell('D17')->getValue()*1000;
 			$dayabaru		 	= $spreadsheet->getSheetByName('DATA')->getCell('D20')->getValue()*1000;
-			//$biaya_sambung		= $spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue();
-			//$biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getCalculatedValue();
+			$biaya_sambung		= str_replace('.','',$spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue());
+			$temp_biaya_invest	= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
+
+			if(strstr($temp_biaya_invest,'=')==true){
+				$biaya_invest = floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
+				//echo $code;
+			}
 
 			$data = array(
 				'id_ulp'				=> 52550,
@@ -87,12 +93,11 @@ class Input extends CI_Controller {
 			
 			//insert into database
 			$this->capel_model->insert_capel($data);			
-			
+	 	
 			if(file_exists($file_name)){
 				unlink($file_name);
-			}
-			
-			//echo $cellValue;
+			} 
+
 		}
 	}
 	
