@@ -17,45 +17,36 @@
       		<!-- -------------------------------------------------------------- -->
       		<!-- Start Page Content -->
       		<!-- -------------------------------------------------------------- -->
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<?php 
-							$attributes 	= array('class' => 'form-horizontal');
-							echo form_open_multipart('Input/Upload_rab2',$attributes);
-						?>					
-						<div class="card-header bg-info">
-							<h4 class="card-title text-white">
-							Form Upload Hasil Survei
-							</h4>
-						</div>
-						<div class="card-body">		
-							<div class="mb-3">
-								<label>Upload File Hasil Survei</label>
-								<input type="file" class="form-control" name="filerab" />
-							</div>
-							<?php echo form_error('username'); ?>
-							
-							
-						</div>
-						<div class="p-3 border-top">
-							<div class="text-end">
-								<button
-								type="submit"
-								class="
+      		<div class="row">
+      			<div class="col-12">
+      				<div class="card">
+      					<?php echo $this->session->flashdata('error'); ?>
+      					<form action="<?php echo base_url('Input/proses_upload_rab'); ?>" method="post" enctype="multipart/form-data">
+      					<div class="card-header bg-info"> 
+      						<h4 class="card-title text-white">
+      							Form Upload Hasil Survei
+      						</h4>
+      					</div>
+      					<div class="card-body">
+      						<div class="mb-3">
+      							<label>Upload File Hasil Survei</label>
+      							<input type="file" class="form-control" name="excel_file" accept=".xlsx" />
+      						</div>
+      					</div>
+      					<div class="p-3 border-top">
+      						<div class="text-end">
+      							<button type="submit" class="
 								btn btn-info
 								rounded-pill
 								px-4
 								waves-effect waves-light
-								"
-								>
-								Save
-								</button>
-							</div>
-						</div>
-						<!-- </form> -->
-						<?php echo form_close(); ?>
-					</div>
+								">
+      								Save
+      							</button>
+      						</div>
+      					</div>
+      					</form>
+      				</div>
       			</div>
       		</div>
       		<!-- Row -->

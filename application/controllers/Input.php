@@ -2,8 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
+	
+	use PhpOffice\PhpSpreadsheet\IOFactory;
 class Input extends CI_Controller {
+    public function __construct() {
+        parent::__construct();
+    }
+
 	function index(){
 		if(isset($_SESSION['username']))
 			redirect('Input/upload_rab');
@@ -19,30 +24,23 @@ class Input extends CI_Controller {
 	}
 	
 	public function proses_upload_rab(){
-		$config['upload_path'] = base_url() . 'assets/uploads/';
-        $config['allowed_types'] = 'xlsx|xls';
-        $config['max_size'] = 2048;
-
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'xlsx';
 		$this->load->library('upload', $config);
 
-        if (!$this->upload->do_upload('excel_file')) {
+		if (!$this->upload->do_upload('excel_file')) {
             $error = $this->upload->display_errors();
             $this->session->set_flashdata('error', $error);
             redirect('Input/upload_rab');
         } else {
             $uploaded_data = $this->upload->data();
-            $file_path = base_url() . 'assets/uploads/' . $uploaded_data['file_name'];
+            $file_path = './uploads/' . $uploaded_data['file_name'];
 
             $spreadsheet = IOFactory::load($file_path);
             $sheet = $spreadsheet->getActiveSheet();
-            $data = $sheet->toArray();
+            $data['excel_data'] = $sheet->toArray();
 
-            foreach ($data as $row) {
-                $this->users_model->insert_ulp($row); // Panggil fungsi model untuk menyimpan data ke database
-            }
-
-            $this->session->set_flashdata('success', 'Data has been imported successfully.');
-            redirect('Input/upload_rab');
+            $this->load->view('hasil_import', $data);
         }
 	}
 	
@@ -97,7 +95,7 @@ class Input extends CI_Controller {
 			if(file_exists($file_name)){
 				unlink($file_name);
 			} 
-
+            redirect('Input/upload_rab');
 		}
 	}
 	
