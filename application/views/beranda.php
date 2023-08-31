@@ -20,7 +20,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url() ?>assets/images/favicon.png" />
   <!-- Custom CSS -->
   <link href="<?php echo base_url() ?>dist/css/style.min.css" rel="stylesheet" />
-  <link href="<?php echo base_url() ?>dist/css/error.css" rel="stylesheet" />
+  <link href="<?php echo base_url() ?>css/error.css" rel="stylesheet" />
   <!-- This page plugin CSS -->
   <link rel="stylesheet" href="<?php echo base_url() ?>dist/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
 
