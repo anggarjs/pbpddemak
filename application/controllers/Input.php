@@ -71,6 +71,7 @@ class Input extends CI_Controller {
 
 				$data = array(
 					'id_ulp'				=> $this->input->post('pilihan_ulp'),
+					'nomor_surat_ulp_up3'	=> $this->input->post('no_surat_ke_up3'),
 					'nama_capel' 			=> trim($nama_pelanggan),
 					'daya_lama' 			=> $dayalama,
 					'daya_baru' 			=> $dayabaru,
