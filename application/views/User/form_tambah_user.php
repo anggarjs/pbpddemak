@@ -46,7 +46,7 @@
 								<?php
 									if(set_value('pilihan_ulp')!='') $set_select = set_value('pilihan_ulp');
 									else $set_select = '';					
-									echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select" required');
+									echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select"');
 								?>
 							</div>
 							<?php echo form_error('pilihan_ulp'); ?>
