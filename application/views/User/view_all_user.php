@@ -28,11 +28,7 @@
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
       							<div class="table-responsive mt-3">
-      								<table id="sing_row_del" class="
-								table table-striped table-bordered
-								display
-								text-nowrap
-								" style="width: 100%">
+      								<table class="table table-striped table-bordered text-nowrap" style="width: 100%">
       									<thead>
       										<!-- start row -->
       										<tr>
@@ -40,45 +36,40 @@
       											<th>Nama User</th>
       											<th>Asal Unit Kerja</th>
       											<th>Role User</th>
-
       										</tr>
       										<!-- end row -->
       									</thead>
       									<tbody>
       										<?php
-											foreach ($data_users->result() as $row) {
-												echo '<tr>';
-											?>
+												foreach ($data_users->result() as $row) {
+													echo '<tr>';
+												?>
       											<td>
-      												<div class="dropdown dropstart">
-      													<a href="#" class="link" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-      														<i data-feather="more-horizontal" class="feather-sm"></i>
+      												<div class="d-flex justify-content-around">
+      													<a href="<?php echo base_url('User/Edit/'). $row->id_user; ?>">
+      														<span style="position: relative; bottom:7px;" class="text-info"><i data-feather="edit"></i></span>
       													</a>
-      													<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      														<li><a class="dropdown-item" href="#">Edit</a></li>
-      														<li><a class="dropdown-item" href="#">Delete</a></li>
-      													</ul>
       												</div>
       											</td>
       										<?php
-												echo '<td>' . $row->nama_user . '</td>';
-												echo '<td>' . $row->nama_ulp . '</td>';
-												echo '<td>' . $row->nama_role . '</td>';
-												echo '</tr>';
-											}
-											?>
+													echo '<td>' . $row->nama_user . '</td>';
+													echo '<td>' . $row->nama_ulp . '</td>';
+													echo '<td>' . $row->nama_role . '</td>';
+													echo '</tr>';
+												}
+												?>
       										<!-- end row -->
       									</tbody>
-      									<tfoot>
-      										<!-- start row -->
-      										<tr>
+      									<!-- <tfoot> -->
+      									<!-- start row -->
+      									<!-- <tr>
       											<th>Action</th>
       											<th>Nama User</th>
       											<th>Asal Unit Kerja</th>
       											<th>Role User</th>
-      										</tr>
-      										<!-- end row -->
-      									</tfoot>
+      										</tr> -->
+      									<!-- end row -->
+      									<!-- </tfoot> -->
       								</table>
       							</div>
       					</div>

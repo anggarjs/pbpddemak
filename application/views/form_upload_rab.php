@@ -68,15 +68,13 @@
 								rounded-pill
 								px-4
 								waves-effect waves-light
-								"
-								>
-								Save
-								</button>
-							</div>
-						</div>
-						<!-- </form> -->
-						<?php echo form_close(); ?>
-					</div>
+								">
+      								Save
+      							</button>
+      						</div>
+      					</div>
+      					</form>
+      				</div>
       			</div>
       		</div>
       		<!-- Row -->
