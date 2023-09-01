@@ -15,6 +15,7 @@ class Input extends CI_Controller {
 	function upload_rab(){
 		$this->load->model('capel_model');
 		$this->load->model('users_model');
+		$this->load->model('material_model');
 		
 		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
 		$this->form_validation->set_rules('no_surat_ke_up3', 'Nomor Surat', 'required');
@@ -38,7 +39,7 @@ class Input extends CI_Controller {
 		}
 		else{		
 			$path 						= 'uploads/';
-			$new_name 					= 'Temporary';
+			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
 			$config['file_name'] 		= $new_name;
 			
 			$config['upload_path']		= './uploads/';
@@ -48,7 +49,7 @@ class Input extends CI_Controller {
 		
 			if ($this->upload->do_upload('filerab')){
 				
-				$file_name 			= $path.'Temporary.xlsx';
+				$file_name 			= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
 				$arr_file 			= explode('.', $file_name);
 				$extension 			= end($arr_file);
 				if('csv' == $extension) 
@@ -66,11 +67,12 @@ class Input extends CI_Controller {
 				$temp_biaya_invest	= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
 
 				if(strstr($temp_biaya_invest,'=')==true)
-					$biaya_invest = floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
+					$biaya_invest 	= floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
 				
 
 				$data = array(
 					'id_ulp'				=> $this->input->post('pilihan_ulp'),
+					'id_status_capel'		=> 1,
 					'nomor_surat_ulp_up3'	=> $this->input->post('no_surat_ke_up3'),
 					'nama_capel' 			=> trim($nama_pelanggan),
 					'daya_lama' 			=> $dayalama,
@@ -79,7 +81,39 @@ class Input extends CI_Controller {
 					'biaya_investasi' 		=> $biaya_invest,	
 				);				
 				//insert into database
-				$this->capel_model->insert_capel($data);			
+				$this->capel_model->insert_capel($data);
+				
+				//get id capel
+				$id_capel					= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->row()->id_capel;
+				
+				$start_data					= 16;
+				$akhir_data					= 100;
+				for ($i = $start_data;$i<=$akhir_data;$i++) {
+					$temp_data_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getValue();
+					if(strstr($temp_data_material,'=')==true)
+						$data_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getOldCalculatedValue();
+					
+					$temp_vol_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getValue();
+					if(strstr($temp_vol_material,'=')==true)
+						$vol_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getOldCalculatedValue();
+									
+					
+					
+					//get_id_detail mdu
+					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material)->row()->id_detail_mdu;
+					
+					//insert
+					if($vol_material){
+					$data = array(
+						'id_detail_mdu'		=> $id_detail_mdu,
+						'id_capel'			=> $id_capel,
+						'volume_mdu'		=> $vol_material,
+					);				
+					//insert into database
+					$this->material_model->insert_kebutuhan_mdu($data);
+					}
+				}
+				
 				
 				//rename file
 				$new_name 					= $this->input->post('pilihan_ulp').'_'.trim($nama_pelanggan).'_'. $dayabaru.'KVA.xlsx';

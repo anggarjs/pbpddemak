@@ -12,8 +12,11 @@ class Login extends CI_Controller {
 		$valid 		= false; //kondisi awal parameter login
 		
 		//setting session
+		$arr_file 			= explode('.', $this->input->post('username'));
+		$name	 			= end($arr_file);		
 		$newdata = array(
 			'username' 		=> $this->input->post('username'),
+			'nama_user' 	=> $name,
 		);
 		$this->session->set_userdata($newdata);
 		
