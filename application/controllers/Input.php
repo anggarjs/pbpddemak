@@ -38,11 +38,11 @@ class Input extends CI_Controller {
 			$this->load->view('beranda',$data);
 		}
 		else{		
-			$path 						= 'uploads/';
+			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
 			$config['file_name'] 		= $new_name;
 			
-			$config['upload_path']		= './uploads/';
+			$config['upload_path']		= './uploads/'.$this->input->post('pilihan_ulp').'/';
 			$config['allowed_types'] 	= 'xlsx|xls';
 			$config['max_size'] 		= 8192;
 			$this->load->library('upload', $config);	
@@ -116,41 +116,13 @@ class Input extends CI_Controller {
 				
 				
 				//rename file
-				$new_name 					= $this->input->post('pilihan_ulp').'_'.trim($nama_pelanggan).'_'. $dayabaru.'KVA.xlsx';
+				$new_name 					= 'RAB_'.$this->input->post('pilihan_ulp').'_'.trim($nama_pelanggan).'_'. $dayabaru.'KVA.xlsx';
 				$path_new_file				= $path.$new_name;
 				rename($file_name,$path_new_file);
 				
 				redirect('Input/upload_rab');			
 			}//end if
 		}
-	}
-	
-	public function proses_upload_rab(){
-		$config['upload_path'] = base_url() . 'assets/uploads/';
-        $config['allowed_types'] = 'xlsx|xls';
-        $config['max_size'] = 2048;
-
-		$this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('excel_file')) {
-            $error = $this->upload->display_errors();
-            $this->session->set_flashdata('error', $error);
-            redirect('Input/upload_rab');
-        } else {
-            $uploaded_data = $this->upload->data();
-            $file_path = base_url() . 'assets/uploads/' . $uploaded_data['file_name'];
-
-            $spreadsheet = IOFactory::load($file_path);
-            $sheet = $spreadsheet->getActiveSheet();
-            $data = $sheet->toArray();
-
-            foreach ($data as $row) {
-                $this->users_model->insert_ulp($row); // Panggil fungsi model untuk menyimpan data ke database
-            }
-
-            $this->session->set_flashdata('success', 'Data has been imported successfully.');
-            redirect('Input/upload_rab');
-        }
 	}
 	
 	function validasi_data_list($str){

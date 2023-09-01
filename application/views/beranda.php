@@ -182,7 +182,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-receipt"></i>
-                <span class="hide-menu">Form Input</span>
+                <span class="hide-menu">Pengelolaan PBPD</span>
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
@@ -191,28 +191,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <span class="hide-menu"> Upload RAB</span>
                   </a>
                 </li>
-              </ul>
-
-            <li class="sidebar-item">
-              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-border-inside"></i>
-                <span class="hide-menu">Data PBPD</span>
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
                   <a href="<?php echo base_url('Capel'); ?>" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Data Capel</span>
                   </a>
-                </li>
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url('Capel/Tambah'); ?>" class="sidebar-link">
-                    <i class="mdi mdi-border-style"></i>
-                    <span class="hide-menu"> Tambah Capel</span>
-                  </a>
-                </li>
+                </li>				
               </ul>
-            </li>
+
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-account-multiple"></i>
