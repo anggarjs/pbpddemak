@@ -18,18 +18,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url() ?>assets/images/favicon.png" />
+  <!-- Feather Icon -->
+  <script src="https://unpkg.com/feather-icons"></script>
   <!-- Custom CSS -->
   <link href="<?php echo base_url() ?>dist/css/style.min.css" rel="stylesheet" />
   <link href="<?php echo base_url() ?>css/error.css" rel="stylesheet" />
   <!-- This page plugin CSS -->
   <link rel="stylesheet" href="<?php echo base_url() ?>dist/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
@@ -63,7 +58,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           <!-- Logo -->
           <!-- ============================================================== -->
           <div class="navbar-brand">
-            <a href="<?php echo base_url('index.php/Input/upload_rab') ?>" class="logo">
+            <a href="<?php echo base_url('Input/upload_rab') ?>" class="logo">
               <!-- Logo icon -->
               <b class="logo-icon">
                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -191,7 +186,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>index.php/Input/upload_rab" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
                     <i class="mdi mdi-vector-difference-ba"></i>
                     <span class="hide-menu"> Upload RAB</span>
                   </a>
@@ -205,13 +200,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url('index.php/Capel'); ?>" class="sidebar-link">
+                  <a href="<?php echo base_url('Capel'); ?>" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Data Capel</span>
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url('index.php/Capel/Tambah'); ?>" class="sidebar-link">
+                  <a href="<?php echo base_url('Capel/Tambah'); ?>" class="sidebar-link">
                     <i class="mdi mdi-border-style"></i>
                     <span class="hide-menu"> Tambah Capel</span>
                   </a>
@@ -225,13 +220,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>index.php/User/Tambah" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
                     <i class="mdi mdi-account-network"></i>
                     <span class="hide-menu"> Tambah Data</span>
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>index.php/User/View" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
                     <i class="mdi mdi-account-star-variant"></i>
                     <span class="hide-menu"> Data User</span>
                   </a>
@@ -239,7 +234,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </ul>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>index.php/Login/logout" aria-expanded="false">
+              <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>Login/logout" aria-expanded="false">
                 <i class="mdi mdi-directions"></i>
                 <span class="hide-menu">Log Out</span>
               </a>
@@ -263,30 +258,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <!-- customizer Panel -->
   <!-- ============================================================== -->
 
-    <div class="chat-windows"></div>
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="<?php echo base_url()?>dist/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url()?>dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- apps -->
-    <script src="<?php echo base_url()?>dist/js/app.min.js"></script>
-    <script src="<?php echo base_url()?>dist/js/app.init.js"></script>
-    <script src="<?php echo base_url()?>dist/js/app-style-switcher.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="<?php echo base_url()?>dist/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js"></script>
-    <script src="<?php echo base_url()?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
-    <!--Wave Effects -->
-    <script src="<?php echo base_url()?>dist/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="<?php echo base_url()?>dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="<?php echo base_url()?>dist/js/feather.min.js"></script>
-    <script src="<?php echo base_url()?>dist/js/custom.min.js"></script>
-    <!--This page plugins -->
-    <script src="<?php echo base_url()?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url()?>dist/js/pages/datatable/custom-datatable.js"></script>
-    <script src="<?php echo base_url()?>dist/js/pages/datatable/datatable-basic.init.js"></script>	
-  </body>
+  <div class="chat-windows"></div>
+  <!-- ============================================================== -->
+  <!-- All Jquery -->
+  <!-- ============================================================== -->
+  <script src="<?php echo base_url() ?>dist/libs/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap tether Core JavaScript -->
+  <script src="<?php echo base_url() ?>dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- apps -->
+  <script src="<?php echo base_url() ?>dist/js/app.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/app.init.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/app-style-switcher.js"></script>
+  <!-- slimscrollbar scrollbar JavaScript -->
+  <script src="<?php echo base_url() ?>dist/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js"></script>
+  <script src="<?php echo base_url() ?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+  <!--Wave Effects -->
+  <script src="<?php echo base_url() ?>dist/js/waves.js"></script>
+  <!--Menu sidebar -->
+  <script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
+  <!--Custom JavaScript -->
+  <script src="<?php echo base_url() ?>dist/js/feather.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/custom.min.js"></script>
+  <!--This page plugins -->
+  <script src="<?php echo base_url() ?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/pages/datatable/custom-datatable.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-basic.init.js"></script>
+  <!-- Feather Icon -->
+  <script>
+    feather.replace();
+  </script>
+</body>
+
 </html>

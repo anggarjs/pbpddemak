@@ -132,5 +132,10 @@ class Users_model extends CI_Model {
 		$this->db->where('USER_ID', $user_id);
 		$this->db->update('dc_user_aplikasi', $data);
 	}//end of function	
+
+	function update_user($data, $id_user){	
+		$this->db->where('id_user', $id_user);
+		$this->db->update('data_user', $data);
+	}//end of function	
 }//end of class
 ?>
