@@ -25,6 +25,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <link href="<?php echo base_url() ?>css/error.css" rel="stylesheet" />
   <!-- This page plugin CSS -->
   <link rel="stylesheet" href="<?php echo base_url() ?>dist/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  <!-- JS DATATABLES -->
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -283,10 +289,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?php echo base_url() ?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?php echo base_url() ?>dist/js/pages/datatable/custom-datatable.js"></script>
   <script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-basic.init.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <!-- Feather Icon -->
   <script>
     feather.replace();
   </script>
+  <!-- Script DataTable -->
+  <script>
+    $(document).ready(function() {
+      $('#tabel-view-user').DataTable();
+    });
+    $(document).ready(function() {
+      $('#tabel-data-survey').DataTable();
+    });
+  </script>
+  <!-- End DataTables -->
 </body>
 
 </html>

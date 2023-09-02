@@ -90,7 +90,7 @@ class User extends CI_Controller
 			return TRUE;
 	} //end of function
 
-	function edit($id_user)
+	function Edit($id_user)
 	{
 		$pilihan_ulp[''] 		= "- Pilih ULP -";
 		$ulp 					= $this->users_model->get_data_ulp();
@@ -108,6 +108,7 @@ class User extends CI_Controller
 
 		//redirect to view
 		$data['id_user'] = $id_user;
+		$data['data_user'] = $this->users_model->pilih_data_user($id_user);
 		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('user/form_edit_user', $data, true);
 		$this->load->view('beranda', $data);
@@ -125,7 +126,7 @@ class User extends CI_Controller
 			'required' => '%s Harus diisi'
 		]);
 		if ($this->form_validation->run() == FALSE) {
-			redirect('User/Edit/'.$id);
+			$this->Edit($id);
 		} else {
 			$data = array(
 				'nama_user' 			=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),

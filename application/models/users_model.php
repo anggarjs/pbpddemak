@@ -137,5 +137,11 @@ class Users_model extends CI_Model {
 		$this->db->where('id_user', $id_user);
 		$this->db->update('data_user', $data);
 	}//end of function	
+
+	public function pilih_data_user($id_user)
+    {
+        return $this->db->get_where('view_user', ['id_user' => $id_user])->row_array();
+    }
+	// end of function
 }//end of class
 ?>
