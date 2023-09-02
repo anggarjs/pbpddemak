@@ -19,6 +19,9 @@ class Input extends CI_Controller {
 		
 		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
 		$this->form_validation->set_rules('no_surat_ke_up3', 'Nomor Surat', 'required');
+		$this->form_validation->set_rules('tgl_mohon_plgn', 'Tanggal Permohonan Pelanggan', 'required');
+		$this->form_validation->set_rules('tgl_ams_up3', 'Tanggal AMS Surat ke UP3', 'required');
+		$this->form_validation->set_rules('filerab', 'File RAB belum ada', 'uploaded[filerab]');
 
 		// Setting Error Message
 		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
@@ -38,12 +41,12 @@ class Input extends CI_Controller {
 			$this->load->view('beranda',$data);
 		}
 		else{		
-			$path 						= 'uploads/';
+			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
 			$config['file_name'] 		= $new_name;
 			
-			$config['upload_path']		= './uploads/';
-			$config['allowed_types'] 	= 'xlsx|xls';
+			$config['upload_path']		= './uploads/'.$this->input->post('pilihan_ulp').'/';
+			$config['allowed_types'] 	= 'xlsx|xls|pdf';
 			$config['max_size'] 		= 8192;
 			$this->load->library('upload', $config);	
 		
@@ -69,8 +72,8 @@ class Input extends CI_Controller {
 				if(strstr($temp_biaya_invest,'=')==true)
 					$biaya_invest 	= floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
 				
-
-				$data = array(
+				
+				$data_plg = array(
 					'id_ulp'				=> $this->input->post('pilihan_ulp'),
 					'id_status_capel'		=> 1,
 					'nomor_surat_ulp_up3'	=> $this->input->post('no_surat_ke_up3'),
@@ -81,11 +84,12 @@ class Input extends CI_Controller {
 					'biaya_investasi' 		=> $biaya_invest,	
 				);				
 				//insert into database
-				$this->capel_model->insert_capel($data);
+				//$this->capel_model->insert_capel($data_plg);
 				
 				//get id capel
 				$id_capel					= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->row()->id_capel;
 				
+				//get data MDU
 				$start_data					= 16;
 				$akhir_data					= 100;
 				for ($i = $start_data;$i<=$akhir_data;$i++) {
@@ -110,47 +114,23 @@ class Input extends CI_Controller {
 						'volume_mdu'		=> $vol_material,
 					);				
 					//insert into database
-					$this->material_model->insert_kebutuhan_mdu($data);
+					//$this->material_model->insert_kebutuhan_mdu($data);
 					}
 				}
 				
 				
 				//rename file
-				$new_name 					= $this->input->post('pilihan_ulp').'_'.trim($nama_pelanggan).'_'. $dayabaru.'KVA.xlsx';
+				$new_name 					= 'RAB_'.$this->input->post('pilihan_ulp').'_'.trim($nama_pelanggan).'_'. $dayabaru.'KVA.xlsx';
 				$path_new_file				= $path.$new_name;
 				rename($file_name,$path_new_file);
 				
-				redirect('Input/upload_rab');			
+				//redirect('Input/konfirmasi/'.$data_plg);			
 			}//end if
 		}
 	}
 	
-	public function proses_upload_rab(){
-		$config['upload_path'] = base_url() . 'assets/uploads/';
-        $config['allowed_types'] = 'xlsx|xls';
-        $config['max_size'] = 2048;
-
-		$this->load->library('upload', $config);
-
-        if (!$this->upload->do_upload('excel_file')) {
-            $error = $this->upload->display_errors();
-            $this->session->set_flashdata('error', $error);
-            redirect('Input/upload_rab');
-        } else {
-            $uploaded_data = $this->upload->data();
-            $file_path = base_url() . 'assets/uploads/' . $uploaded_data['file_name'];
-
-            $spreadsheet = IOFactory::load($file_path);
-            $sheet = $spreadsheet->getActiveSheet();
-            $data = $sheet->toArray();
-
-            foreach ($data as $row) {
-                $this->users_model->insert_ulp($row); // Panggil fungsi model untuk menyimpan data ke database
-            }
-
-            $this->session->set_flashdata('success', 'Data has been imported successfully.');
-            redirect('Input/upload_rab');
-        }
+	function konfirmasi($data_plg){
+		
 	}
 	
 	function validasi_data_list($str){
