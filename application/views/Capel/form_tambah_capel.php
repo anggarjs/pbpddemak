@@ -27,7 +27,7 @@
       					</div>
       					<div class="card-body">
 							<div class="mb-3">
-								<form action="<?php echo base_url('index.php/Capel/Tambah');?>" method="post">
+								<form action="<?php echo base_url('Capel/Tambah');?>" method="post">
       							<label>Nama Capel</label>
       							<input type="text" name="nama_capel" id="nama_capel" class="form-control <?php echo (form_error('nama_capel')) ? 'is-invalid' : ''; ?>" />
       							<div class="invalid-feedback">

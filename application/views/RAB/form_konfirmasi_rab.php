@@ -26,66 +26,114 @@
 						?>					
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
-							Form Upload Hasil Survei
+							Konfirmasi Data Upload
 							</h4>
 						</div>
 						<div class="card-body">
+							<!-- ROW #1 -->
 							<div class="row pt-3">
 								<div class="col-md-6">						
 									<div class="mb-3">
-										<label>Asal Unit Kerja</label>
-										<?php
-											if(set_value('pilihan_ulp')!='') $set_select = set_value('pilihan_ulp');
-											else $set_select = '';					
-											echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select"');
+										<label>Asal Unit Kerja :</label>
+										<?php 			
+											echo '<b>'.$id_ulp.'</b>';
 										?>
 									</div>
-									<?php echo form_error('pilihan_ulp'); ?>
+									
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label>Nomor Surat AMS ke UP3</label>
-										<input
-										  type="text"
-										  class="form-control"
-										  value="<?php if(set_value('no_surat_ke_up3')!='') echo set_value('no_surat_ke_up3');?>"
-										  name="no_surat_ke_up3"
-										/>
+										<label>Daya Lama Pelanggan :</label>
+										<?php 			
+											echo '<b>'.number_format($daya_lama).' VA'.'</b>';
+										?>
 									</div>
-									<?php echo form_error('no_surat_ke_up3'); ?>
+									
 								</div>							
 							</div>
+							<!-- ROW #2 -->
 							<div class="row">
+								<div class="col-md-6">						
+									<div class="mb-3">
+										<label>Nama Pelanggan :</label>
+										<?php 			
+											echo '<b>'.$nama_capel.'</b>';
+										?>
+									</div>
+									
+								</div>
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label class="control-label">Tgl Surat Permohonan Pelanggan</label>
-										<input type="date" class="form-control" name="tgl_mohon_plgn" 
-										value="<?php if(set_value('tgl_mohon_plgn')!='') echo set_value('tgl_mohon_plgn');?>"/>
+										<label>Daya Baru Pelanggan :</label>
+										<?php 			
+											echo '<b>'.number_format($daya_baru).' VA'.'</b>';
+										?>
 									</div>
-									<?php echo form_error('tgl_mohon_plgn'); ?>
+									
+								</div>	
+							</div>
+							<!-- ROW #3 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>Tgl Surat Permohonan Plgn :</label>
+										<?php 			
+											$date = date_create($tgl_surat_plgn);
+											echo '<b>'.date_format($date,"d-m-Y").'</b>';
+										?>
+									</div>									
 								</div>
-								<!--/span-->
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label class="control-label">Tgl Surat AMS ke UP3</label>
-										<input type="date" class="form-control" name="tgl_ams_up3"
-										value="<?php if(set_value('tgl_ams_up3')!='') echo set_value('tgl_ams_up3');?>"/>
+										<label>Biaya Penyambungan :</label>
+										<?php 			
+											echo '<b>'.'Rp '.number_format($biaya_penyambungan).'</b>';
+										?>
 									</div>
-									<?php echo form_error('tgl_ams_up3'); ?>
+								</div>	
+							</div>
+							<!-- ROW #4 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>Tgl Surat AMS ke UP3 :</label>
+										<?php 			
+											$date2 = date_create($tgl_ams_up3);
+											echo '<b>'.date_format($date2,"d-m-Y").'</b>';
+										?>
+									</div>									
 								</div>
-								<!--/span-->
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Biaya Investasi :</label>
+										<?php 			
+											echo '<b>'.'Rp '.number_format($biaya_investasi).'</b>';
+										?>
+									</div>
+								</div>	
 							</div>							
- 							<!-- <div class="mb-3">
-								<label>Upload File Surat Permohonan Pelanggan</label>
-								<input type="file" class="form-control" name="filerab" />
-							</div> -->
-							
+
+							<!-- ROW #5 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>No Surat AMS ke UP3 :</label>
+										<?php 			
+											echo '<b>'.$nomor_surat_ulp_up3.'</b>';
+										?>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>
+								</div>	
+							</div>								
 							
 							<div class="mb-3">
-								<label>Upload File RAB Hasil Survei</label>
-								<input type="file" class="form-control" name="filerab" />
+								<label>Data List Material :</label>
+								
 							</div>
-							<?php echo form_error('filerab'); ?>
+							
 							
 							
 						</div>
