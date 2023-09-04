@@ -139,4 +139,11 @@ class User extends CI_Controller
 			redirect('User/View');
 		}
 	}
+	function hapus_user($id_user){
+		if($this->users_model->hapus_data_user($id_user) == true){
+			redirect('User/View');
+		}else{
+			redirect('User/View');
+		}
+	}
 }

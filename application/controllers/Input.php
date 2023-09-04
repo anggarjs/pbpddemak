@@ -1,30 +1,26 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
+	use PhpOffice\PhpSpreadsheet\Spreadsheet;
+	use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
-class Input extends CI_Controller
-{
-	function index()
-	{
-		if (isset($_SESSION['username']))
+class Input extends CI_Controller {
+	function index(){
+		if(isset($_SESSION['username']))
 			redirect('Input/upload_rab');
 		else
-			redirect('Welcome');
+			redirect('Welcome');		
 	}
 
 	
 	function upload_rab(){
-		$data['nama_user'] 	= $_SESSION['username'];
-		$data['content'] 	= $this->load->view('form_upload_rab',$data,true);
-		$this->load->view('beranda',$data);
-	}
-	
-	public function proses_upload_rab(){
-		$config['upload_path'] = base_url() . 'assets/uploads/';
-        $config['allowed_types'] = 'xlsx|xls';
-        $config['max_size'] = 2048;
+		$this->load->model('capel_model');
+		$this->load->model('users_model');
+		$this->load->model('material_model');
+		
+		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
+		$this->form_validation->set_rules('no_surat_ke_up3', 'Nomor Surat', 'required');
+		$this->form_validation->set_rules('tgl_mohon_plgn', 'Tanggal Permohonan Pelanggan', 'required');
+ 		$this->form_validation->set_rules('tgl_ams_up3', 'Tanggal AMS Surat ke UP3', 'required');
 
 		// Setting Error Message
 		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
@@ -133,5 +129,40 @@ class Input extends CI_Controller
 			}//end if
 		}
 	}
+	
+	function konfirmasi($data_plg){
+		//$this->load->model('capel_model');
+		
+		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
+		$data['id_ulp']					= $data_plg['id_ulp'];
+		$data['nama_capel']				= $data_plg['nama_capel'];
+		$data['daya_lama']				= $data_plg['daya_lama'];
+		$data['daya_baru']				= $data_plg['daya_baru'];
+		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
+		$data['biaya_investasi']		= $data_plg['biaya_investasi'];
+		$data['tgl_surat_plgn']			= $data_plg['tgl_surat_plgn'];
+		$data['tgl_ams_up3']			= $data_plg['tgl_ams_up3'];
+		$data['nomor_surat_ulp_up3']	= $data_plg['nomor_surat_ulp_up3'];
+		
+		
+
+
+		$data['nama_user'] 				= $_SESSION['username'];
+		$data['content'] 				= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
+		$this->load->view('beranda',$data);
+
+		//insert into database
+		//$this->capel_model->insert_capel($data_plg);
+	}
+	
+	function validasi_data_list($str){
+		if ($str == '0'){				
+			$this->form_validation->set_message('validasi_data_list', 'Silakan memilih salah satu pilihan yang ada pada daftar %s terlebih dahulu');
+			return FALSE;
+		}
+		else		
+			return TRUE;
+	}//end of function
+
 	
 }

@@ -27,8 +27,8 @@
       					</div>
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
-      							<div class="table-responsive mt-3">
-      								<table id="tabel-view-user" class="table table-striped table-bordered text-nowrap" style="width: 100%">
+      							<div class="mt-3 overflow-scroll">
+      								<table style="width: 100%" id="tabel-view-user" class="table table-striped table-bordered display nowrap">
       									<thead>
       										<!-- start row -->
       										<tr>
@@ -41,35 +41,28 @@
       									</thead>
       									<tbody>
       										<?php
-												foreach ($data_users->result() as $row) {
-													echo '<tr>';
-												?>
+											foreach ($data_users->result() as $row) {
+												echo '<tr>';
+											?>
       											<td>
       												<div class="d-flex justify-content-around">
-      													<a href="<?php echo base_url('User/Edit/'). $row->id_user; ?>">
+      													<a href="<?php echo base_url('User/Edit/') . $row->id_user; ?>">
       														<span style="position: relative; bottom:7px;" class="text-info"><i data-feather="edit"></i></span>
+      													</a>
+      													<a href="<?php echo base_url('User/hapus_user/') . $row->id_user; ?>">
+      														<span style="position: relative; bottom:7px;" class="text-danger"><i data-feather="trash"></i></span>
       													</a>
       												</div>
       											</td>
       										<?php
-													echo '<td>' . $row->nama_user . '</td>';
-													echo '<td>' . $row->nama_ulp . '</td>';
-													echo '<td>' . $row->nama_role . '</td>';
-													echo '</tr>';
-												}
-												?>
+												echo '<td>' . $row->nama_user . '</td>';
+												echo '<td>' . $row->nama_ulp . '</td>';
+												echo '<td>' . $row->nama_role . '</td>';
+												echo '</tr>';
+											}
+											?>
       										<!-- end row -->
       									</tbody>
-      									<!-- <tfoot> -->
-      									<!-- start row -->
-      									<!-- <tr>
-      											<th>Action</th>
-      											<th>Nama User</th>
-      											<th>Asal Unit Kerja</th>
-      											<th>Role User</th>
-      										</tr> -->
-      									<!-- end row -->
-      									<!-- </tfoot> -->
       								</table>
       							</div>
       					</div>
