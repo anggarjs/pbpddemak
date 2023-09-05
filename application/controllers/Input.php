@@ -81,14 +81,18 @@ class Input extends CI_Controller {
 					'biaya_penyambungan' 	=> $biaya_sambung,
 					'biaya_investasi' 		=> $biaya_invest,
 					'tgl_surat_plgn' 		=> $this->input->post('tgl_mohon_plgn'),
-					'tgl_ams_up3' 			=> $this->input->post('tgl_ams_up3'),					
+					'tgl_ams_up3' 			=> $this->input->post('tgl_ams_up3'),
+					'path_file' 			=> $this->input->post('path_file'),
 				);
-				$this->konfirmasi($data_plg);
-/* 				
-				//get id capel
-				$id_capel					= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->row()->id_capel;
 				
+				
+/* 				//get id capel
+				$id_capel					= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->row()->id_capel;
+	 */			
 				//get data MDU
+				
+				$array_data_material 		= array();
+				$array_data_material2 		= array();
 				$start_data					= 16;
 				$akhir_data					= 100;
 				for ($i = $start_data;$i<=$akhir_data;$i++) {
@@ -96,11 +100,18 @@ class Input extends CI_Controller {
 					if(strstr($temp_data_material,'=')==true)
 						$data_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getOldCalculatedValue();
 					
+					$temp_satuan_material	= $spreadsheet->getSheetByName('REKAP MDU')->getCell('E'.(string)$i)->getValue();
+					if(strstr($temp_satuan_material,'=')==true)
+						$satuan_material 	= $spreadsheet->getSheetByName('REKAP MDU')->getCell('E'.(string)$i)->getOldCalculatedValue();
+										
 					$temp_vol_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getValue();
 					if(strstr($temp_vol_material,'=')==true)
 						$vol_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getOldCalculatedValue();
 									
-					
+					//
+					if($vol_material)
+						$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
+/* 						$array_data_material[] = array($data_material, $satuan_material, $vol_material);
 					
 					//get_id_detail mdu
 					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material)->row()->id_detail_mdu;
@@ -114,23 +125,21 @@ class Input extends CI_Controller {
 					);				
 					//insert into database
 					//$this->material_model->insert_kebutuhan_mdu($data);
-					}
-				} */
+					} */
+				}
+				//var_dump($array_data_material);
+				
+				$this->konfirmasi($data_plg,$array_data_material);
 				
 				
-				
-				
-				//rename file
-				$new_name 					= 'RAB_'.$this->input->post('pilihan_ulp').'_'.trim($nama_pelanggan).'_'. $dayabaru.'KVA.xlsx';
-				$path_new_file				= $path.$new_name;
-				rename($file_name,$path_new_file);
+
 				
 				//redirect('Input/konfirmasi/'.$data_plg);			
 			}//end if
 		}
 	}
 	
-	function konfirmasi($data_plg){
+	function konfirmasi($data_plg,$array_data_material){
 		//$this->load->model('capel_model');
 		
 		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
@@ -143,9 +152,9 @@ class Input extends CI_Controller {
 		$data['tgl_surat_plgn']			= $data_plg['tgl_surat_plgn'];
 		$data['tgl_ams_up3']			= $data_plg['tgl_ams_up3'];
 		$data['nomor_surat_ulp_up3']	= $data_plg['nomor_surat_ulp_up3'];
-		
-		
-
+		$data['path_file']				= $data_plg['path_file'];
+		$data['data_material']			= $array_data_material;
+	
 
 		$data['nama_user'] 				= $_SESSION['username'];
 		$data['content'] 				= $this->load->view('RAB/form_konfirmasi_rab',$data,true);

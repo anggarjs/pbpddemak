@@ -31,7 +31,7 @@
 						</div>
 						<div class="card-body">
 							<!-- ROW #1 -->
-							<div class="row pt-3">
+							<div class="row">
 								<div class="col-md-6">						
 									<div class="mb-3">
 										<label>Asal Unit Kerja :</label>
@@ -125,17 +125,67 @@
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">
-									</div>
+										<label>Link RAB :</label>
+										<a href="<?php echo base_url().$path_file; ?>">Download File</a>
+									</div>	
 								</div>	
-							</div>								
-							
-							<div class="mb-3">
-								<label>Data List Material :</label>
-								
 							</div>
 							
+							<!-- ROW #6 SPACER-->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+
+									</div>	
+								</div>	
+							</div>	
 							
-							
+							<!-- ROW #7 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>Data List Material :</b></label>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>	
+								</div>	
+							</div>
+							<div class="table-responsive">
+								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
+									<thead>
+									<!-- start row -->
+										<tr>
+											<th>No</th>
+											<th>Nama Material</th>
+											<th>Satuan</th>
+											<th>Volume</th>
+										</tr>
+										<!-- end row -->
+									</thead>
+									<tbody>
+										<?php
+										$i		= 1;
+										foreach ($data_material as $row) {
+											echo '<tr>';
+											echo '<td>' . $i . '</td>';
+											echo '<td>' . $row['nama'] . '</td>';
+											echo '<td>' . $row['satuan'] . '</td>';
+											echo '<td>' . $row['volume'] . '</td>';
+											echo '</tr>';
+											$i++;
+										}
+										?>
+									</tbody>
+
+								</table>
+							</div>						
 						</div>
 						<div class="p-3 border-top">
 							<div class="text-end">
