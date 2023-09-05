@@ -62,12 +62,16 @@ class Input extends CI_Controller {
 				//load file and get data
 				$reader->setReadDataOnly(TRUE);
 				$spreadsheet 		= $reader->load($file_name);		
-				$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
-				$dayalama		 	= $spreadsheet->getSheetByName('DATA')->getCell('D17')->getValue()*1000;
-				$dayabaru		 	= $spreadsheet->getSheetByName('DATA')->getCell('D20')->getCalculatedValue()*1000;
-				$biaya_sambung		= str_replace('.','',$spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue());
-				$temp_biaya_invest	= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
-
+				
+				$dayalama		 		= $spreadsheet->getSheetByName('DATA')->getCell('D17')->getValue()*1000;
+				$dayabaru		 		= $spreadsheet->getSheetByName('DATA')->getCell('D20')->getCalculatedValue()*1000;
+				$biaya_sambung			= str_replace('.','',$spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue());
+				
+				$temp_nama_pelanggan	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
+				if(strstr($temp_nama_pelanggan,'=')==true)
+					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getOldCalculatedValue();
+				
+				$temp_biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
 				if(strstr($temp_biaya_invest,'=')==true)
 					$biaya_invest 	= floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
 				
@@ -113,20 +117,25 @@ class Input extends CI_Controller {
 						$vol_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getOldCalculatedValue();
 					
 					//get_id_detail mdu
-					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material)->row()->id_detail_mdu;					
-									
-					//insert into array dan insert database kebutuhan mdu per capel
-					if($vol_material){
-						$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
-						$data = array(
-							'id_detail_mdu'		=> $id_detail_mdu,
-							'id_capel'			=> $id_capel,
-							'volume_mdu'		=> $vol_material,
-						);
-						//insert database
-						$this->material_model->insert_kebutuhan_mdu($data);
+					$var_id					= '';
+					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
+					foreach($id_detail_mdu->result() as $row){
+						$var_id				= $row->id_detail_mdu;
+					}					
+
+					if($var_id){
+						if($vol_material){
+							$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
+							$data = array(
+								'id_detail_mdu'		=> $var_id,
+								'id_capel'			=> $id_capel,
+								'volume_mdu'		=> $vol_material,
+							);
+							//insert database
+							$this->material_model->insert_kebutuhan_mdu($data);
+						}
 					}
-				}
+				}//end reading volume MDU
 
 				//parsing to konfirmasi upload
 				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel);		
