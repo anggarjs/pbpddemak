@@ -139,11 +139,17 @@ class User extends CI_Controller
 			redirect('User/View');
 		}
 	}
-	function hapus_user($id_user){
-		if($this->users_model->hapus_data_user($id_user) == true){
+	function hapus_user_selected()
+	{
+		if ($this->input->post('check')) {
+			$delete_items = $this->input->post('check');
+	    
+			foreach ($delete_items as $item) {
+			    $this->users_model->hapus_data_user($item);
+			}
+			redirect('User/View'); 
+		  } else {
 			redirect('User/View');
-		}else{
-			redirect('User/View');
-		}
+		  }
 	}
 }

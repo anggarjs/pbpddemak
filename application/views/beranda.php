@@ -252,6 +252,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   <div class="chat-windows"></div>
   <!-- ============================================================== -->
+  <!-- My Javascript -->
+  <script src="<?php echo base_url() ?>assets/js/script.js"></script>
   <!-- All Jquery -->
   <!-- ============================================================== -->
   <script src="<?php echo base_url() ?>dist/libs/jquery/dist/jquery.min.js"></script>
