@@ -44,8 +44,8 @@
       										<?php foreach ($data_capel->result() as $data) : ?>
       											<tr>
 													<td><?= $data->nama_capel; ?></td>
-													<td><?= $data->daya_capel; ?></td>
-													<td><?= $data->biaya_penyambungan; ?></td>
+													<td><?= $data->daya_baru; ?></td>
+													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= $data->biaya_investasi; ?></td>
 													<td><?= $data->nama_ulp; ?></td>
       											</tr>

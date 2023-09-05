@@ -70,6 +70,8 @@ class Input extends CI_Controller {
 				$temp_nama_pelanggan	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
 				if(strstr($temp_nama_pelanggan,'=')==true)
 					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getOldCalculatedValue();
+				else
+					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
 				
 				$temp_biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
 				if(strstr($temp_biaya_invest,'=')==true)
