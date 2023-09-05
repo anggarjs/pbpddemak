@@ -14,5 +14,9 @@ class Capel_model extends CI_Model {
 		return $query;		
 	}//end of function	
 	
+	function hapus_capel($id_capel){	
+		$this->db->where('id_capel',$id_capel);
+		$this->db->delete('data_capel');	
+	}//end of function		
 }//end of class
 ?>

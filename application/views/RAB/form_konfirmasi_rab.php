@@ -19,11 +19,7 @@
       		<!-- -------------------------------------------------------------- -->
 			<div class="row">
 				<div class="col-12">
-					<div class="card">
-						<?php 
-							$attributes 	= array('class' => 'form-horizontal');
-							echo form_open_multipart('Input/Upload_rab',$attributes);
-						?>					
+					<div class="card">				
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
 							Konfirmasi Data Upload
@@ -190,18 +186,31 @@
 						<div class="p-3 border-top">
 							<div class="text-end">
 								<button
+								type="button"
+								class="								
+								btn btn-danger
+								rounded-pill
+								px-4
+								waves-effect waves-light"
+								
+								onclick="location.href='<?php echo base_url()?>/Input/Batal_Upload/<?php echo $id_ulp ?>/<?php echo $id_capel ?>';"
+								>
+      								Batal
+      							</button>							
+								<button
 								type="submit"
 								class="
 								btn btn-info
 								rounded-pill
 								px-4
-								waves-effect waves-light
-								">
-      								Save
+								waves-effect waves-light"
+								onclick="location.href='<?php echo base_url()?>/Input/Simpan_Upload/<?php echo $id_ulp ?>/<?php echo $nama_capel ?>/<?php echo $daya_baru ?>';"
+								>
+      								Simpan
       							</button>
       						</div>
       					</div>
-      					</form>
+      					
       				</div>
       			</div>
       		</div>

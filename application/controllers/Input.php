@@ -82,17 +82,21 @@ class Input extends CI_Controller {
 					'biaya_investasi' 		=> $biaya_invest,
 					'tgl_surat_plgn' 		=> $this->input->post('tgl_mohon_plgn'),
 					'tgl_ams_up3' 			=> $this->input->post('tgl_ams_up3'),
-					'path_file' 			=> $this->input->post('path_file'),
 				);
+				//insert into database
+				$this->capel_model->insert_capel($data_plg);
 				
+				//set session nama capel ketika simpan konfirmasi rab
+				$newdata2 = array(
+					'nama_capel' 			=> trim($nama_pelanggan),
+				);
+				$this->session->set_userdata($newdata2);
 				
-/* 				//get id capel
+				//get id capel
 				$id_capel					= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->row()->id_capel;
-	 */			
-				//get data MDU
-				
+						
+				//get data MDU				
 				$array_data_material 		= array();
-				$array_data_material2 		= array();
 				$start_data					= 16;
 				$akhir_data					= 100;
 				for ($i = $start_data;$i<=$akhir_data;$i++) {
@@ -107,41 +111,31 @@ class Input extends CI_Controller {
 					$temp_vol_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getValue();
 					if(strstr($temp_vol_material,'=')==true)
 						$vol_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getOldCalculatedValue();
-									
-					//
-					if($vol_material)
-						$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
-/* 						$array_data_material[] = array($data_material, $satuan_material, $vol_material);
 					
 					//get_id_detail mdu
-					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material)->row()->id_detail_mdu;
-					
-					//insert
+					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material)->row()->id_detail_mdu;					
+									
+					//insert into array dan insert database kebutuhan mdu per capel
 					if($vol_material){
-					$data = array(
-						'id_detail_mdu'		=> $id_detail_mdu,
-						'id_capel'			=> $id_capel,
-						'volume_mdu'		=> $vol_material,
-					);				
-					//insert into database
-					//$this->material_model->insert_kebutuhan_mdu($data);
-					} */
+						$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
+						$data = array(
+							'id_detail_mdu'		=> $id_detail_mdu,
+							'id_capel'			=> $id_capel,
+							'volume_mdu'		=> $vol_material,
+						);
+						//insert database
+						$this->material_model->insert_kebutuhan_mdu($data);
+					}
 				}
-				//var_dump($array_data_material);
-				
-				$this->konfirmasi($data_plg,$array_data_material);
-				
-				
 
-				
-				//redirect('Input/konfirmasi/'.$data_plg);			
+				//parsing to konfirmasi upload
+				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel);		
 			}//end if
 		}
 	}
 	
-	function konfirmasi($data_plg,$array_data_material){
-		//$this->load->model('capel_model');
-		
+	function konfirmasi($data_plg,$array_data_material,$file_name,$id_capel){
+
 		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
 		$data['id_ulp']					= $data_plg['id_ulp'];
 		$data['nama_capel']				= $data_plg['nama_capel'];
@@ -152,17 +146,47 @@ class Input extends CI_Controller {
 		$data['tgl_surat_plgn']			= $data_plg['tgl_surat_plgn'];
 		$data['tgl_ams_up3']			= $data_plg['tgl_ams_up3'];
 		$data['nomor_surat_ulp_up3']	= $data_plg['nomor_surat_ulp_up3'];
-		$data['path_file']				= $data_plg['path_file'];
+		$data['path_file']				= $file_name;
+		$data['id_capel']				= $id_capel;
+	
+		$data['data_plg']				= $data_plg;
 		$data['data_material']			= $array_data_material;
 	
 
 		$data['nama_user'] 				= $_SESSION['username'];
 		$data['content'] 				= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
 		$this->load->view('beranda',$data);
-
-		//insert into database
-		//$this->capel_model->insert_capel($data_plg);
 	}
+	
+	function Batal_Upload($ulp,$id_capel){
+		$this->load->model('capel_model');
+		$this->load->model('users_model');
+		$this->load->model('material_model');		
+		
+		//delete temporary file
+		$path						= './uploads/'.$ulp.'/';
+		unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+		
+		//rollback database
+		$this->material_model->hapus_kebutuhan_mdu($id_capel);
+		$this->capel_model->hapus_capel($id_capel);
+		
+		redirect('Input');
+	}
+	
+	function Simpan_Upload($ulp,$nama_pelanggan,$dayabaru){
+		
+		$path 						= 'uploads/'.$ulp.'/';
+		//path old file
+		$file_name 					= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
+
+		//rename file
+		$new_name 					= 'RAB_'.$ulp.'_'.$_SESSION['nama_capel'].'_'. $dayabaru.'VA.xlsx';
+		$path_new_file				= $path.$new_name;
+		rename($file_name,$path_new_file);
+			
+		redirect('Input');
+	}		
 	
 	function validasi_data_list($str){
 		if ($str == '0'){				

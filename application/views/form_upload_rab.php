@@ -98,12 +98,11 @@
 								rounded-pill
 								px-4
 								waves-effect waves-light
-								">
-      								Save
+								">Upload
       							</button>
       						</div>
       					</div>
-      					</form>
+      					<?php echo form_close(); ?>
       				</div>
       			</div>
       		</div>
