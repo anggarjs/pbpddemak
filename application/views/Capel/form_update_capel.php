@@ -19,7 +19,12 @@
       		<!-- -------------------------------------------------------------- -->
 			<div class="row">
 				<div class="col-12">
-					<div class="card">				
+					<div class="card">
+						<?php 
+							$attributes 	= array('class' => 'form-horizontal');
+							echo form_open('Capel/Update/'.$id_capel,$attributes);
+							echo '<input type="hidden" value="'.$id_capel.'" name="id_capel" />';
+						?>
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
 							Update Progress Capel
@@ -122,11 +127,11 @@
 								<div class="col-md-6">
 									<div class="mb-3">
 										<label>Link RAB :</label>
-										<!-- <a href="<?php echo base_url().$path_file; ?>">Download File</a> -->
+										<a href="<?php echo base_url().$path_file; ?>">Download File</a>
 									</div>	
 								</div>	
 							</div>
-							
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
 							<!-- ROW #8 -->
 							<div class="row">
 								<div class="col-md-6">	
@@ -141,31 +146,38 @@
 									<?php echo form_error('status_capel'); ?>
 								</div>
 								<div class="col-md-6">
-									<div class="mb-3">
-										<label><b>Update Progress Material :</b></label>
-										<?php
-											if(set_value('status_material')!='') $set_select = set_value('status_material');
-											else $set_select = $id_status_material;				
-											echo form_dropdown('status_material',$status_material,$set_select,'class="form-select"');
-										?>										
+									<div class="mb-3">	
+										<label>Nomor Surat AMS ke ULP</label>
+										<input
+										  type="text"
+										  class="form-control"
+										  value="<?php if(set_value('nomor_surat_up3_ulp')!='') echo set_value('nomor_surat_up3_ulp');?>"
+										  name="nomor_surat_up3_ulp"
+										/>									
 									</div>
-									<?php echo form_error('status_material'); ?>
+									<?php echo form_error('nomor_surat_up3_ulp'); ?>
 								</div>	
-							</div>							
-							
-							<!-- ROW #6 SPACER-->
+							</div>
+
+							<!-- ROW #8 -->
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-
-									</div>									
+										
+									</div>
+									
 								</div>
 								<div class="col-md-6">
-									<div class="mb-3">
-
-									</div>	
+									<div class="mb-3">	
+										<label class="control-label">Tgl Surat AMS Persetujuan ke ULP</label>
+										<input type="date" class="form-control" name="tgl_persetujuan_up3" 
+										value="<?php if(set_value('tgl_persetujuan_up3')!='') echo set_value('tgl_persetujuan_up3');?>"/>
+									</div>
+									<?php echo form_error('tgl_persetujuan_up3'); ?>
 								</div>	
-							</div>	
+							</div>							
+							
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							
 							<!-- ROW #7 -->
 							<div class="row">
@@ -223,7 +235,7 @@
       							</button>
       						</div>
       					</div>
-      					
+      					<?php echo form_close(); ?>
       				</div>
       			</div>
       		</div>

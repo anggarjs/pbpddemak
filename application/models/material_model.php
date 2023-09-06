@@ -32,5 +32,7 @@ class Material_model extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	} //end of function	
+	
+
 }//end of class
 ?>

@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan
+      							Data Calon Pelanggan Telah Disetujui UP3
       						</h4>
       					</div>
       					<div class="card-body">
@@ -32,13 +32,13 @@
       									<thead>
       										<!-- start row -->
       										<tr>
-												<th>Persetujuan UP3</th>
+												<th>Pengecekan</th>
 												<th>Nama ULP</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>
 												<th>BP</th>
 												<th>RAB</th>
-      											<th>Status Permohonan</th>						
+      											<th>Status Material</th>						
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -47,7 +47,7 @@
       											<tr>
       												<td>
       													<div class="d-flex justify-content-around">
-      														<a href="<?php echo base_url('Capel/Update/') . $data->id_capel; ?>">
+      														<a href="<?php echo base_url('Capel/Update_material/') . $data->id_capel; ?>">
       															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
       														</a>
       													</div>
@@ -57,7 +57,7 @@
 													<td><?= $data->daya_baru; ?></td>
 													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= number_format($data->biaya_investasi); ?></td>
-													<td><?= $data->status_capel; ?></td>			
+													<td><?= $data->status_material; ?></td>			
       											</tr>
       										<?php endforeach; ?>
       									</tbody>

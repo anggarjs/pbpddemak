@@ -19,10 +19,15 @@
       		<!-- -------------------------------------------------------------- -->
 			<div class="row">
 				<div class="col-12">
-					<div class="card">				
+					<div class="card">
+						<?php 
+							$attributes 	= array('class' => 'form-horizontal');
+							echo form_open('Capel/Update_material/'.$id_capel,$attributes);
+							echo '<input type="hidden" value="'.$id_capel.'" name="id_capel" />';
+						?>
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
-							Konfirmasi Data Upload
+							Update Progress Capel
 							</h4>
 						</div>
 						<div class="card-body">
@@ -126,6 +131,30 @@
 									</div>	
 								</div>	
 							</div>
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
+							<!-- ROW #8 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>Update Progress Material :</b></label>
+										<?php
+											if(set_value('status_material')!='') $set_select = set_value('status_material');
+											else $set_select = $id_status_material;				
+											echo form_dropdown('status_material',$status_material,$set_select,'class="form-select"');
+										?>										
+									</div>
+									<?php echo form_error('status_material'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">	
+										<label>Keterangan Tambahan</label>
+										<textarea class="form-control"
+										name="keterangan_material"
+										rows="5"><?php if(set_value('keterangan_material')!='') echo set_value('keterangan_material');?></textarea>
+									</div>
+									<?php echo form_error('keterangan_material'); ?>
+								</div>	
+							</div>						
 							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							
@@ -140,28 +169,28 @@
 									<div class="mb-3">
 									</div>	
 								</div>	
-							</div>
+							</div>						
 							<div class="table-responsive">
 								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
 									<thead>
-									<!-- start row -->
+									
 										<tr>
 											<th>No</th>
 											<th>Nama Material</th>
 											<th>Satuan</th>
 											<th>Volume</th>
 										</tr>
-										<!-- end row -->
+										
 									</thead>
 									<tbody>
 										<?php
 										$i		= 1;
-										foreach ($data_material as $row) {
+										foreach ($data_material->result() as $row) {
 											echo '<tr>';
 											echo '<td>' . $i . '</td>';
-											echo '<td>' . $row['nama'] . '</td>';
-											echo '<td>' . $row['satuan'] . '</td>';
-											echo '<td>' . $row['volume'] . '</td>';
+											echo '<td>' . $row->nama_detail_mdu . '</td>';
+											echo '<td>' . $row->satuan . '</td>';
+											echo '<td>' . $row->volume_mdu . '</td>';
 											echo '</tr>';
 											$i++;
 										}
@@ -169,36 +198,23 @@
 									</tbody>
 
 								</table>
-							</div>						
+							</div>
+							
 						</div>
 						<div class="p-3 border-top">
-							<div class="text-end">
-								<button
-								type="button"
-								class="								
-								btn btn-danger
-								rounded-pill
-								px-4
-								waves-effect waves-light"
-								
-								onclick="location.href='<?php echo base_url()?>/Input/Batal_Upload/<?php echo $id_ulp ?>/<?php echo $id_capel ?>';"
-								>
-      								Batal
-      							</button>							
+							<div class="text-end">						
 								<button
 								type="submit"
 								class="
 								btn btn-info
 								rounded-pill
 								px-4
-								waves-effect waves-light"
-								onclick="location.href='<?php echo base_url()?>/Input/Simpan_Upload/<?php echo $id_ulp ?>/<?php echo $nama_capel ?>/<?php echo $daya_baru ?>';"
-								>
-      								Simpan
+								waves-effect waves-light
+								">Simpan
       							</button>
       						</div>
       					</div>
-      					
+      					<?php echo form_close(); ?>
       				</div>
       			</div>
       		</div>

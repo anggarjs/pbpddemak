@@ -28,6 +28,16 @@ class Capel_model extends CI_Model {
 		return $query;
 	}//end of function
 	
+	function get_all_data_capel_approved(){
+		$table_name = "view_capel";
+		
+		$this->db->select("*");
+		$this->db->from($table_name);
+		$this->db->where('id_status_capel',2);
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
 	function get_data_capel($id_capel){		
 		$this->db->select('*');
 		$this->db->from('view_capel');		
@@ -43,6 +53,14 @@ class Capel_model extends CI_Model {
 		return $query;
 	} //end of function
 
+	function update_capel($data, $id_capel){	
+		$this->db->where('id_capel', $id_capel);
+		$this->db->update('data_capel', $data);
+	}//end of function
 	
+	function update_kondisi_material($data, $id_capel){	
+		$this->db->where('id_capel', $id_capel);
+		$this->db->update('data_capel', $data);
+	}//end of function		
 }//end of class
 ?>
