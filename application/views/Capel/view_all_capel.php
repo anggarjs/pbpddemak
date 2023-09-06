@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data User
+      							Data Calon Pelanggan
       						</h4>
       					</div>
       					<div class="card-body">
@@ -32,22 +32,30 @@
       									<thead>
       										<!-- start row -->
       										<tr>
+												<th>Update</th>
+												<th>Nama ULP</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>
-      											<th>Biaya Penyambungan</th>
-      											<th>Biaya Investasi</th>
-      											<th>Nama ULP</th>
+      											<th>Status Permohonan</th>
+      											<th>Status Material</th>      											
       										</tr>
       										<!-- end row -->
       									</thead>
       									<tbody>
       										<?php foreach ($data_capel->result() as $data) : ?>
       											<tr>
+      												<td>
+      													<div class="d-flex justify-content-around">
+      														<a href="<?php echo base_url('Capel/Update/') . $data->id_capel; ?>">
+      															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
+      														</a>
+      													</div>
+      												</td>												
+													<td><?= $data->nama_ulp; ?></td>
 													<td><?= $data->nama_capel; ?></td>
 													<td><?= $data->daya_baru; ?></td>
-													<td><?= number_format($data->biaya_penyambungan); ?></td>
-													<td><?= $data->biaya_investasi; ?></td>
-													<td><?= $data->nama_ulp; ?></td>
+													<td><?= $data->status_capel; ?></td>
+													<td><?= $data->status_material; ?></td>													
       											</tr>
       										<?php endforeach; ?>
       									</tbody>

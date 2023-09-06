@@ -11,8 +11,7 @@ class Users_model extends CI_Model
 		return $query;
 	} //end of function	
 
-	function get_data_ulp()
-	{
+	function get_data_ulp(){
 		$this->db->select('*');
 		$this->db->from('data_ulp');
 		$query = $this->db->get();

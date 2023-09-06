@@ -16,6 +16,21 @@ class Material_model extends CI_Model {
 	function hapus_kebutuhan_mdu($id_capel){	
 		$this->db->where('id_capel',$id_capel);
 		$this->db->delete('data_kebutuhan_mdu');	
-	}//end of function	
+	}//end of function
+	
+	function get_data_material($id_capel){		
+		$this->db->select('*');
+		$this->db->from('view_kebutuhan_mdu');		
+		$this->db->where('id_capel',$id_capel);
+		$query = $this->db->get();
+		return $query;		
+	}//end of function
+
+	function get_status_material(){
+		$this->db->select('*');
+		$this->db->from('data_status_material');
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
 }//end of class
 ?>

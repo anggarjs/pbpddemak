@@ -13,6 +13,9 @@ class Input extends CI_Controller {
 
 	
 	function upload_rab(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');		
+		
 		$this->load->model('capel_model');
 		$this->load->model('users_model');
 		$this->load->model('material_model');
@@ -36,7 +39,7 @@ class Input extends CI_Controller {
 			$data['pilihan_ulp'] 	= $pilihan_ulp;	
 			
 			$data['nama_user'] 		= $_SESSION['username'];
-			$data['content'] 		= $this->load->view('form_upload_rab',$data,true);
+			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
 			$this->load->view('beranda',$data);
 		}
 		else{		
@@ -146,7 +149,9 @@ class Input extends CI_Controller {
 	}
 	
 	function konfirmasi($data_plg,$array_data_material,$file_name,$id_capel){
-
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
 		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
 		$data['id_ulp']					= $data_plg['id_ulp'];
 		$data['nama_capel']				= $data_plg['nama_capel'];
@@ -170,6 +175,9 @@ class Input extends CI_Controller {
 	}
 	
 	function Batal_Upload($ulp,$id_capel){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');		
+				
 		$this->load->model('capel_model');
 		$this->load->model('users_model');
 		$this->load->model('material_model');		
@@ -186,6 +194,8 @@ class Input extends CI_Controller {
 	}
 	
 	function Simpan_Upload($ulp,$nama_pelanggan,$dayabaru){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
 		
 		$path 						= 'uploads/'.$ulp.'/';
 		//path old file
@@ -196,7 +206,7 @@ class Input extends CI_Controller {
 		$path_new_file				= $path.$new_name;
 		rename($file_name,$path_new_file);
 			
-		redirect('Input');
+		redirect('Capel/View_capel');
 	}		
 	
 	function validasi_data_list($str){
