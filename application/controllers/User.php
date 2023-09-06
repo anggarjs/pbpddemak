@@ -54,11 +54,11 @@ class User extends CI_Controller
 				'pass_user' 			=> md5('pbpddemak'),
 				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
 				'id_role' 				=> $this->input->post('pilihan_role'),
-
 			);
 
 			//insert into database
 			$this->users_model->insert_user($data);
+			$this->session->set_flashdata('success_insert', 'User berhasil ditambahkan');
 
 			redirect('User/View');
 		} //end of else
@@ -130,12 +130,13 @@ class User extends CI_Controller
 			$this->Edit($id);
 		} else {
 			$data = array(
-				'nama_user' 			=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
+				'nama_user' 			=> trim($this->input->post('username')),
 				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
 				'id_role' 				=> $this->input->post('pilihan_role'),
 			);
 
 			$this->users_model->update_user($data, $id);
+			$this->session->set_flashdata('success_edit', 'User berhasil diedit');
 			redirect('User/View');
 		}
 	}
@@ -147,8 +148,10 @@ class User extends CI_Controller
 			foreach ($delete_items as $item) {
 			    $this->users_model->hapus_data_user($item);
 			}
+			$this->session->set_flashdata('success_hapus', 'User berhasil dihapus');
 			redirect('User/View'); 
 		  } else {
+			$this->session->set_flashdata('gagal_hapus', 'User gagal dihapus');
 			redirect('User/View');
 		  }
 	}
