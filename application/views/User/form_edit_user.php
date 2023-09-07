@@ -62,12 +62,7 @@
       						</div>
       						<div class="p-3 border-top">
       							<div class="text-end">
-      								<button type="submit" class="
-								btn btn-info
-								rounded-pill
-								px-4
-								waves-effect waves-light
-								">
+      								<button type="submit" class="btn btn-info rounded-pill px-4 waves-effect waves-light">
       									Save
       								</button>
       							</div>

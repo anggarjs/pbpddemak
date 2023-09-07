@@ -283,6 +283,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <!-- ============================================================== -->
   <!-- My Javascript -->
   <script src="<?php echo base_url() ?>assets/js/script.js"></script>
+  <!-- SweetAlert CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- All Jquery -->
   <!-- ============================================================== -->
   <script src="<?php echo base_url() ?>dist/libs/jquery/dist/jquery.min.js"></script>
@@ -298,7 +300,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <!--Wave Effects -->
   <script src="<?php echo base_url() ?>dist/js/waves.js"></script>
   <!--Flexigrid -->
-  <script src="<?php echo base_url() ?>dist/js/flexigrid.js"></script>  
+  <script src="<?php echo base_url() ?>dist/js/flexigrid.js"></script>
   <!--Menu sidebar -->
   <script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
   <!--Custom JavaScript -->

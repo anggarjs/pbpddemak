@@ -142,9 +142,8 @@ class User extends CI_Controller
 	}
 	function hapus_user_selected()
 	{
-		if ($this->input->post('check')) {
-			$delete_items = $this->input->post('check');
-	    
+		$delete_items = $this->input->post('check');
+		if ($delete_items) { 
 			foreach ($delete_items as $item) {
 			    $this->users_model->hapus_data_user($item);
 			}
