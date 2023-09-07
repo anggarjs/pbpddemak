@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan Telah Disetujui UP3
+      							Data Calon Pelanggan Telah Lengkap Material
       						</h4>
       					</div>
       					<div class="card-body">
@@ -47,7 +47,7 @@
       											<tr>
       												<td>
       													<div class="d-flex justify-content-around">
-      														<a href="<?php echo base_url('Capel/Update_material/') . $data->id_capel; ?>">
+      														<a href="<?php echo base_url('Capel/Update_progress_capel/') . $data->id_capel; ?>">
       															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
       														</a>
       													</div>

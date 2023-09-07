@@ -48,7 +48,7 @@ class Input extends CI_Controller {
 			$config['file_name'] 		= $new_name;
 			
 			$config['upload_path']		= './uploads/'.$this->input->post('pilihan_ulp').'/';
-			$config['allowed_types'] 	= 'xlsx|xls|pdf';
+			$config['allowed_types'] 	= 'xlsx|xls';
 			$config['max_size'] 		= 8192;
 			$this->load->library('upload', $config);	
 		

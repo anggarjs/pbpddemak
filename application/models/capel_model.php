@@ -29,14 +29,20 @@ class Capel_model extends CI_Model {
 	}//end of function
 	
 	function get_all_data_capel_approved(){
-		$table_name = "view_capel";
-		
 		$this->db->select("*");
-		$this->db->from($table_name);
-		$this->db->where('id_status_capel',2);
+		$this->db->from('view_capel');
+		$this->db->where('id_status_material <','3');
 		$query = $this->db->get();
 		return $query;
-	}//end of function	
+	}//end of function
+	
+	function get_all_data_capel_ulp(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_material >','2');
+		$query = $this->db->get();
+		return $query;
+	}//end of function		
 	
 	function get_data_capel($id_capel){		
 		$this->db->select('*');

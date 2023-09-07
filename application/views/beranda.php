@@ -193,24 +193,47 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
-                    <i class="mdi mdi-vector-difference-ba"></i>
+                    <i class="mdi mdi-content-paste"></i>
                     <span class="hide-menu"> Upload RAB</span>
                   </a>
                 </li>
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel</span>
+                    <span class="hide-menu"> Data Capel [SARPP]</span>
                   </a>
                 </li>
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel Disetujui</span>
+                    <span class="hide-menu"> Data Capel [LOGISTIK]</span>
                   </a>
-                </li>					
+                </li>
+                <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>Capel/view_capel_ulp" class="sidebar-link">
+                    <i class="mdi mdi-border-vertical"></i>
+                    <span class="hide-menu"> Data Capel [ULP]</span>
+                  </a>
+                </li>				
               </ul>
-
+			</li>
+			
+            <li class="sidebar-item">
+              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                <i class="mdi mdi-border-none"></i>
+                <span class="hide-menu">Logistik</span>
+              </a>
+              <ul aria-expanded="false" class="collapse first-level">
+                <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
+                    <i class="mdi mdi-arrange-bring-forward"></i>
+                    <span class="hide-menu"> Material Kurang PBPD</span>
+                  </a>
+                </li>
+				
+              </ul>			  
+			</li>
+			
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-account-multiple"></i>

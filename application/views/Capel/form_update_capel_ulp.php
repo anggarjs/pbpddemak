@@ -22,12 +22,16 @@
 					<div class="card">
 						<?php 
 							$attributes 	= array('class' => 'form-horizontal');
-							echo form_open('Capel/Update/'.$id_capel,$attributes);
+							echo form_open_multipart('Capel/Update_progress_capel/'.$id_capel,$attributes);
 							echo '<input type="hidden" value="'.$id_capel.'" name="id_capel" />';
+							echo '<input type="hidden" value="'.$id_ulp.'" name="id_ulp" />';
+							echo '<input type="hidden" value="'.$nama_capel.'" name="nama_capel" />';
+							echo '<input type="hidden" value="'.$daya_baru.'" name="daya_baru" />';
+							
 						?>
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
-							Update Persetujuan Capel
+							Update Progress Capel
 							</h4>
 						</div>
 						<div class="card-body">
@@ -131,6 +135,48 @@
 									</div>	
 								</div>	
 							</div>
+							
+							<!-- ROW #5 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>Tgl Surat AMS Persetujuan :</label>
+										<?php 		
+											$date2 = date_create($tgl_persetujuan_up3);
+											echo '<b>'.date_format($date2,"d-m-Y").'</b>';										
+										?>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Status Material :</label>
+										<?php 			
+											echo '<b>'.$status_material.'</b>';
+										?>									
+									</div>
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>No Surat AMS Persetujuan :</label>
+										<?php 			
+											echo '<b>'.$nomor_surat_up3_ulp.'</b>';
+										?>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Tgl Pengecekan Material :</label>
+										<?php 			
+											/* echo '<b>'.$tgl_lengkap_material.'</b>'; */
+											$date2 = date_create($tgl_lengkap_material);
+											echo '<b>'.date_format($date2,"d-m-Y").'</b>';													
+										?>									
+									</div>	
+								</div>	
+							</div>							
+							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
 							<!-- ROW #8 -->
 							<div class="row">
@@ -139,55 +185,35 @@
 										<label><b>Update Progress Pelanggan :</b></label>
 										<?php
 											if(set_value('status_capel')!='') $set_select = set_value('status_capel');
-											else $set_select = $id_status_capel;				
-											echo form_dropdown('status_capel',$status_capel,$set_select,'class="form-select"');
+											else $set_select = 3;				
+											echo form_dropdown('status_capel',$status_capel,$set_select,'class="form-select" disabled');
 										?>										
 									</div>
 									<?php echo form_error('status_capel'); ?>
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">	
-										<label>Nomor Surat AMS ke ULP</label>
-										<input
-										  type="text"
-										  class="form-control"
-										  value="<?php 
-										  if(set_value('nomor_surat_up3_ulp')!='') 
-											  echo set_value('nomor_surat_up3_ulp');
-										  else
-											echo $nomor_surat_up3_ulp; ?>"
-										  name="nomor_surat_up3_ulp"
-										/>									
+										<label class="control-label">Tgl Pembayaran Pelanggan</label>
+										<input type="date" class="form-control" name="tgl_bayar_plgn" 
+										value="<?php 
+										if(set_value('tgl_bayar_plgn')!='') 
+											echo set_value('tgl_bayar_plgn');
+										else
+											echo $tgl_bayar_plgn;
+										?>"/>
 									</div>
-									<?php echo form_error('nomor_surat_up3_ulp'); ?>
+									<?php echo form_error('tgl_bayar_plgn'); ?>
 								</div>	
 							</div>
 
-							<!-- ROW #8 -->
-							<div class="row">
-								<div class="col-md-6">	
-									<div class="mb-3">
-										
-									</div>
-									
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">	
-										<label class="control-label">Tgl Surat AMS Persetujuan ke ULP</label>
-										<input type="date" class="form-control" name="tgl_persetujuan_up3" 
-										value="<?php 
-										if(set_value('tgl_persetujuan_up3')!='') 
-											echo set_value('tgl_persetujuan_up3');
-										else
-											echo $tgl_persetujuan_up3;
-										?>"/>
-									</div>
-									<?php echo form_error('tgl_persetujuan_up3'); ?>
-								</div>	
+							<div class="row">								
+								<div class="mb-3">
+									<label>Upload File Permohonan Material <b>(Scan PDF TUG)</b></label>
+									<input type="file" class="form-control" name="filetug" />	
+								</div>									
 							</div>							
 							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
-							
 							<!-- ROW #7 -->
 							<div class="row">
 								<div class="col-md-6">	
@@ -209,18 +235,21 @@
 											<th>Nama Material</th>
 											<th>Satuan</th>
 											<th>Volume</th>
+											<th>Status Ketersediaan</th>
 										</tr>
 										
 									</thead>
 									<tbody>
 										<?php
 										$i		= 1;
+
 										foreach ($data_material->result() as $row) {
 											echo '<tr>';
 											echo '<td>' . $i . '</td>';
 											echo '<td>' . $row->nama_detail_mdu . '</td>';
 											echo '<td>' . $row->satuan . '</td>';
 											echo '<td>' . $row->volume_mdu . '</td>';
+											echo '<td> <input type="checkbox" disabled class="form-check-input" id="customCheck3" checked name="status_tersedia[]" value="'.$row->id_rincian_mdu.'"/></td>';
 											echo '</tr>';
 											$i++;
 										}

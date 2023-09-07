@@ -81,9 +81,11 @@
 							</div> -->
 							
 							
-							<div class="mb-3">
-								<label>Upload File RAB Hasil Survei</label>
-								<input type="file" class="form-control" name="filerab" />
+							<div class="row">								
+								<div class="mb-3">
+									<label>Upload File RAB Hasil Survei</label>
+									<input type="file" class="form-control" name="filerab" />	
+								</div>									
 							</div>
 							<?php echo form_error('filerab'); ?>
 							
