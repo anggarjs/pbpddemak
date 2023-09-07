@@ -203,6 +203,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <span class="hide-menu"> Data Capel</span>
                   </a>
                 </li>
+                <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
+                    <i class="mdi mdi-border-vertical"></i>
+                    <span class="hide-menu"> Data Capel Disetujui</span>
+                  </a>
+                </li>					
               </ul>
 
             <li class="sidebar-item">

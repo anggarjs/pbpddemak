@@ -127,19 +127,7 @@
 								</div>	
 							</div>
 							
-							<!-- ROW #6 SPACER-->
-							<div class="row">
-								<div class="col-md-6">	
-									<div class="mb-3">
-
-									</div>									
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-
-									</div>	
-								</div>	
-							</div>	
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							
 							<!-- ROW #7 -->
 							<div class="row">
