@@ -33,6 +33,15 @@ class Material_model extends CI_Model {
 		return $query;
 	} //end of function	
 	
-
+	function reset_status_material($data, $id_capel){	
+		$this->db->where('id_capel', $id_capel);
+		$this->db->update('data_kebutuhan_mdu', $data);
+	}//end of function	
+	
+	function update_status_material($data, $id_rincian_mdu){	
+		$this->db->where('id_rincian_mdu', $id_rincian_mdu);
+		$this->db->update('data_kebutuhan_mdu', $data);
+	}//end of function	
+	
 }//end of class
 ?>

@@ -118,7 +118,7 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>No Surat AMS ke UP3 :</label>
+										<label>No Surat AMS ULP ke UP3 :</label>
 										<?php 			
 											echo '<b>'.$nomor_surat_ulp_up3.'</b>';
 										?>
@@ -151,7 +151,11 @@
 										<input
 										  type="text"
 										  class="form-control"
-										  value="<?php if(set_value('nomor_surat_up3_ulp')!='') echo set_value('nomor_surat_up3_ulp');?>"
+										  value="<?php 
+										  if(set_value('nomor_surat_up3_ulp')!='') 
+											  echo set_value('nomor_surat_up3_ulp');
+										  else
+											echo $nomor_surat_up3_ulp; ?>"
 										  name="nomor_surat_up3_ulp"
 										/>									
 									</div>
@@ -171,7 +175,12 @@
 									<div class="mb-3">	
 										<label class="control-label">Tgl Surat AMS Persetujuan ke ULP</label>
 										<input type="date" class="form-control" name="tgl_persetujuan_up3" 
-										value="<?php if(set_value('tgl_persetujuan_up3')!='') echo set_value('tgl_persetujuan_up3');?>"/>
+										value="<?php 
+										if(set_value('tgl_persetujuan_up3')!='') 
+											echo set_value('tgl_persetujuan_up3');
+										else
+											echo $tgl_persetujuan_up3;
+										?>"/>
 									</div>
 									<?php echo form_error('tgl_persetujuan_up3'); ?>
 								</div>	

@@ -135,6 +135,7 @@ class Input extends CI_Controller {
 								'id_detail_mdu'		=> $var_id,
 								'id_capel'			=> $id_capel,
 								'volume_mdu'		=> $vol_material,
+								/* 'status_tersedia'	=> 1, */
 							);
 							//insert database
 							$this->material_model->insert_kebutuhan_mdu($data);

@@ -61,6 +61,8 @@ class Capel_model extends CI_Model {
 	function update_kondisi_material($data, $id_capel){	
 		$this->db->where('id_capel', $id_capel);
 		$this->db->update('data_capel', $data);
-	}//end of function		
+	}//end of function
+
+		
 }//end of class
 ?>

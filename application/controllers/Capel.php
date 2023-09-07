@@ -62,7 +62,8 @@ class Capel extends CI_Controller {
 				$data['nomor_surat_ulp_up3']	= $row->nomor_surat_ulp_up3;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
-				
+				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
+				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;				
 			}
 			$data['id_capel']					= $id_capel;
 
@@ -126,7 +127,9 @@ class Capel extends CI_Controller {
 				$data['nomor_surat_ulp_up3']	= $row->nomor_surat_ulp_up3;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
-				
+				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
+				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;
+				$data['keterangan_material']	= $row->keterangan_material;
 			}
 			$data['id_capel']					= $id_capel;
 
@@ -147,16 +150,33 @@ class Capel extends CI_Controller {
 			$this->load->view('beranda',$data);
 		}
 		else{	
+			//update into database
 			$data_plg = array(
 				'id_status_material'	=> $this->input->post('status_material'),
 				'keterangan_material'	=> $this->input->post('keterangan_material'),
-			);
-			//update into database
-			$this->capel_model->update_kondisi_material($data_plg,$this->input->post('id_capel'));			
+			);		
+			$this->capel_model->update_kondisi_material($data_plg,$this->input->post('id_capel'));
+
+			//set to 0 status material
+			$data = array(
+				'status_tersedia'		=> 0,
+			);			
+			$this->material_model->reset_status_material($data,$this->input->post('id_capel'));
 			
+			//updating kondisi per material
+			$data_status_tersedia		= $this->input->post('status_tersedia');
+			foreach($data_status_tersedia as $row){
+				if($row){
+					echo $row;
+					$data = array(
+						'status_tersedia'		=> 1,
+					);			
+					$this->material_model->update_status_material($data,$row);					
+				}					
+			}			
 			redirect('Capel/view_capel_approved');			
 		}
-	}
+	}//end of function
 	
 	
 	function validasi_data_list($str){

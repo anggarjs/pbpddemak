@@ -118,7 +118,7 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>No Surat AMS ke UP3 :</label>
+										<label>No Surat AMS ULP ke UP3 :</label>
 										<?php 			
 											echo '<b>'.$nomor_surat_ulp_up3.'</b>';
 										?>
@@ -131,6 +131,38 @@
 									</div>	
 								</div>	
 							</div>
+							
+							<!-- ROW #5 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>Tgl Surat AMS Persetujuan :</label>
+										<?php 		
+											$date2 = date_create($tgl_persetujuan_up3);
+											echo '<b>'.date_format($date2,"d-m-Y").'</b>';										
+										?>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>	
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>No Surat AMS Persetujuan :</label>
+										<?php 			
+											echo '<b>'.$nomor_surat_up3_ulp.'</b>';
+										?>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>	
+								</div>	
+							</div>							
+							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
 							<!-- ROW #8 -->
 							<div class="row">
@@ -150,7 +182,12 @@
 										<label>Keterangan Tambahan</label>
 										<textarea class="form-control"
 										name="keterangan_material"
-										rows="5"><?php if(set_value('keterangan_material')!='') echo set_value('keterangan_material');?></textarea>
+										rows="5"><?php 
+										if(set_value('keterangan_material')!='') 
+											echo set_value('keterangan_material');
+										else
+											echo $keterangan_material;
+										?></textarea>
 									</div>
 									<?php echo form_error('keterangan_material'); ?>
 								</div>	
@@ -179,18 +216,24 @@
 											<th>Nama Material</th>
 											<th>Satuan</th>
 											<th>Volume</th>
+											<th>Status Ketersediaan</th>
 										</tr>
 										
 									</thead>
 									<tbody>
 										<?php
 										$i		= 1;
+
 										foreach ($data_material->result() as $row) {
 											echo '<tr>';
 											echo '<td>' . $i . '</td>';
 											echo '<td>' . $row->nama_detail_mdu . '</td>';
 											echo '<td>' . $row->satuan . '</td>';
 											echo '<td>' . $row->volume_mdu . '</td>';
+											if($row->status_tersedia == 1)
+												echo '<td> <input type="checkbox" class="form-check-input" id="customCheck3" checked name="status_tersedia[]" value="'.$row->id_rincian_mdu.'"/></td>';
+											else
+												echo '<td> <input type="checkbox" class="form-check-input" id="customCheck3" name="status_tersedia[]" value="'.$row->id_rincian_mdu.'"/></td>';
 											echo '</tr>';
 											$i++;
 										}
