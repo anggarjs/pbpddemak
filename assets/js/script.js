@@ -16,3 +16,32 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
     });
+
+    // sweetalert hapus
+document.addEventListener('DOMContentLoaded', function() {
+  // Daftar tombol hapus
+  var deleteButtons = document.querySelectorAll('.hapus-data-surat');
+
+  // Tambahkan event listener untuk setiap tombol hapus
+  deleteButtons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Mencegah aksi default dari tombol hapus
+
+      // Tampilkan SweetAlert konfirmasi
+      Swal.fire({
+        title: 'Konfirmasi',
+        text: 'Apakah Anda yakin ingin menghapus user?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Arahkan ke URL penghapusan data
+          button.closest('form').submit();
+        }
+      });
+    });
+  });
+});
+// end sweetalert hapus
