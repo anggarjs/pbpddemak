@@ -57,7 +57,7 @@
       									</div>
       								<?php endif; ?>
       								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
-      									<table style="width: 100%" id="tabel-view-user" class="tablesaw no-wrap table-bordered table-hover table" data-tablesaw>
+      									<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
       										<thead>
       											<!-- start row -->
       											<tr style="vertical-align: middle;">
@@ -95,7 +95,7 @@
       															</a>
       														</div>
       													</td>
-      													<td><?php echo $row->nama_user; ?></td>
+      													<td><?php echo $row->nama_user_pegawai; ?></td>
       													<td><?php echo $row->nama_ulp; ?></td>
       													<td><?php echo $row->nama_role; ?></td>
       												<?php endforeach; ?>

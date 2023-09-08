@@ -219,7 +219,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>Logistik/materialkurangPBPD" class="sidebar-link">
                     <i class="mdi mdi-arrange-bring-forward"></i>
                     <span class="hide-menu"> Material Kurang PBPD</span>
                   </a>

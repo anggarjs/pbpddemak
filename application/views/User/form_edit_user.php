@@ -30,7 +30,8 @@
       						<div class="card-body">
       							<div class="mb-3">
       								<label>Nama User</label>
-      								<input type="text" class="form-control <?php echo (form_error('username')) ? 'is-invalid' : ''; ?>" value="<?php echo $data_user['nama_user']; ?>" name="username" />
+      								<input type="text" class="form-control <?php echo (form_error('username')) ? 'is-invalid' : ''; ?>" value="<?php echo $nama_user_pegawai; ?>" name="username" />
+      								<div class="form-text" id="basic-addon4">Hapus semua isi nama user jika ingin mengedit</div>
       								<div class="invalid-feedback">
       									<?php if (form_error('username') == true) : ?>
       										<?php echo form_error('username'); ?>
@@ -41,9 +42,10 @@
       							<div class="mb-3">
       								<label>Asal Unit Kerja</label>
       								<?php
-										echo $selected_value = '(' . $data_user['nama_ulp'] . ')';
+										if (set_value('pilihan_ulp') != '') $set_select = set_value('pilihan_ulp');
+										else $set_select = $id_ulp;
+										echo form_dropdown('pilihan_ulp', $pilihan_ulp, $set_select, 'class="form-select ' . (form_error('pilihan_ulp') ? 'is-invalid' : '') . '"');
 										?>
-      								<?php echo form_dropdown('pilihan_ulp', $pilihan_ulp, $data_user['nama_ulp'], 'class="form-select ' . (form_error('pilihan_ulp') ? 'is-invalid' : '') . '"'); ?>
       								<div class="invalid-feedback">
       									<?php echo form_error('pilihan_ulp'); ?>
       								</div>
@@ -52,9 +54,10 @@
       							<div class="mb-3">
       								<label>Role Kerja</label>
       								<?php
-										echo $selected_value = '(' . $data_user['nama_role'] . ')';
+										if (set_value('pilihan_role') != '') $set_select = set_value('pilihan_role');
+										else $set_select = $id_role;
+										echo form_dropdown('pilihan_role', $pilihan_role, $set_select, 'class="form-select ' . (form_error('pilihan_role') ? 'is-invalid' : '') . '"');
 										?>
-      								<?php echo form_dropdown('pilihan_role', $pilihan_role, set_value('pilihan_role'), 'class="form-select ' . (form_error('pilihan_role') ? 'is-invalid' : '') . '"'); ?>
       								<div class="invalid-feedback">
       									<?php echo form_error('pilihan_role'); ?>
       								</div>

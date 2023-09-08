@@ -158,7 +158,11 @@ class Users_model extends CI_Model
 
 	public function pilih_data_user($id_user)
 	{
-		return $this->db->get_where('view_user', ['id_user' => $id_user])->row_array();
+		$this->db->select("*");
+		$this->db->from("view_user");
+		$this->db->where("id_user", $id_user);
+		$query = $this->db->get();
+		return $query;
 	}
 	function hapus_data_user($id_user){
 		$this->db->where('id_user', $id_user);

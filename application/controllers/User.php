@@ -50,7 +50,7 @@ class User extends CI_Controller
 
 		else {
 			$data = array(
-				'nama_user' 			=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
+				'nama_user_pegawai' 	=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
 				'pass_user' 			=> md5('pbpddemak'),
 				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
 				'id_role' 				=> $this->input->post('pilihan_role'),
@@ -93,6 +93,14 @@ class User extends CI_Controller
 
 	function Edit($id_user)
 	{
+		foreach ($this->users_model->pilih_data_user($id_user)->result() as $row) {
+			$data['id_ulp'] = $row->id_ulp;
+			$data['id_role'] = $row->id_role;
+			$data['nama_user_pegawai'] = $row->nama_user_pegawai;
+			$data['nama_ulp'] = $row->nama_ulp;
+			$data['nama_role'] = $row->nama_role;
+		}
+		$data['id_user'] = $row->id_user;
 		$pilihan_ulp[''] 		= "- Pilih ULP -";
 		$ulp 					= $this->users_model->get_data_ulp();
 		foreach ($ulp->result() as $row) {
@@ -109,7 +117,6 @@ class User extends CI_Controller
 
 		//redirect to view
 		$data['id_user'] = $id_user;
-		$data['data_user'] = $this->users_model->pilih_data_user($id_user);
 		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('user/form_edit_user', $data, true);
 		$this->load->view('beranda', $data);
@@ -130,7 +137,7 @@ class User extends CI_Controller
 			$this->Edit($id);
 		} else {
 			$data = array(
-				'nama_user' 			=> trim($this->input->post('username')),
+				'nama_user_pegawai' 	=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
 				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
 				'id_role' 				=> $this->input->post('pilihan_role'),
 			);
@@ -143,15 +150,15 @@ class User extends CI_Controller
 	function hapus_user_selected()
 	{
 		$delete_items = $this->input->post('check');
-		if ($delete_items) { 
+		if ($delete_items) {
 			foreach ($delete_items as $item) {
-			    $this->users_model->hapus_data_user($item);
+				$this->users_model->hapus_data_user($item);
 			}
 			$this->session->set_flashdata('success_hapus', 'User berhasil dihapus');
-			redirect('User/View'); 
-		  } else {
+			redirect('User/View');
+		} else {
 			$this->session->set_flashdata('gagal_hapus', 'User gagal dihapus');
 			redirect('User/View');
-		  }
+		}
 	}
 }
