@@ -258,7 +258,7 @@ class Capel extends CI_Controller {
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('filetug')){			
 				$data_plg = array(
-					'status_capel' 			=> $this->input->post('status_capel'),
+					'id_status_capel' 			=> $this->input->post('status_capel'),
 					'tgl_bayar_plgn' 		=> $this->input->post('tgl_bayar_plgn'),
 				);				
 				//update into database
