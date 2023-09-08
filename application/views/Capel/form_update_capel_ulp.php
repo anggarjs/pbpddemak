@@ -185,8 +185,8 @@
 										<label><b>Update Progress Pelanggan :</b></label>
 										<?php
 											if(set_value('status_capel')!='') $set_select = set_value('status_capel');
-											else $set_select = 3;				
-											echo form_dropdown('status_capel',$status_capel,$set_select,'class="form-select" disabled');
+											else $set_select = $id_status_capel;			
+											echo form_dropdown('status_capel',$status_capel,$set_select,'class="form-select" ');
 										?>										
 									</div>
 									<?php echo form_error('status_capel'); ?>

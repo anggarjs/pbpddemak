@@ -194,7 +194,7 @@ class Input extends CI_Controller {
 		redirect('Input');
 	}
 	
-	function Simpan_Upload($ulp,$nama_pelanggan,$dayabaru){
+	function Simpan_Upload($ulp,$dayabaru){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
