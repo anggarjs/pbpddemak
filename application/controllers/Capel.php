@@ -249,25 +249,29 @@ class Capel extends CI_Controller {
 		}
 		else{
 			//upload PDF TUG
-			$new_name 				= 'TUG_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.PDF';
-			$config['file_name'] 	= $new_name;
+			$new_name 					= 'TUG_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.PDF';
+			$config['file_name'] 		= $new_name;
 			
-			$config['upload_path']	= './uploads/'.$this->input->post('id_ulp').'/';
-			$config['allowed_types'] 	= 'PDF';
+			$config['upload_path']		= './uploads/'.$this->input->post('id_ulp').'/';
+			$config['allowed_types'] 	= 'pdf';
 			$config['max_size'] 		= 8192;
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('filetug')){			
 				$data_plg = array(
+					'status_capel' 			=> $this->input->post('status_capel'),
 					'tgl_bayar_plgn' 		=> $this->input->post('tgl_bayar_plgn'),
-				);
-				
+				);				
 				//update into database
-			/* 			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));			
+				$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));			
 				
-				redirect('Capel/view_capel_ulp'); */				
+				redirect('Capel/view_capel_ulp');				
 			}
-			else
-				$this->upload->display_errors();
+/* 			else{
+				$data['nama_user'] 			= $_SESSION['username'];
+                $data['error'] = array('error' => $this->upload->display_errors());
+				$data['content'] 			= $this->load->view('view_kosongan',$data,true);
+				$this->load->view('beranda',$data);
+			} */
 			
 		}
 	}//end of function

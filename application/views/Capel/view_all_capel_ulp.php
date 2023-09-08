@@ -38,7 +38,7 @@
       											<th>Daya Capel</th>
 												<th>BP</th>
 												<th>RAB</th>
-      											<th>Status Material</th>						
+      											<th>Status Permohonan</th>						
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -57,7 +57,7 @@
 													<td><?= number_format($data->daya_baru); ?></td>
 													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= number_format($data->biaya_investasi); ?></td>
-													<td><?= $data->status_material; ?></td>			
+													<td><?= $data->status_capel; ?></td>			
       											</tr>
       										<?php endforeach; ?>
       									</tbody>

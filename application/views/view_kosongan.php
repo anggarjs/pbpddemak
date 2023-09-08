@@ -25,7 +25,7 @@
 							Form Penambahan Data User
 							</h4>
 						</div>
-						
+						<?php var_dump($error);?>
 
 					</div>
 				</div><!-- end <div class="col-12"> -->

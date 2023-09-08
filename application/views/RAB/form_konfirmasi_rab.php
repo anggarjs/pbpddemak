@@ -181,7 +181,7 @@
 								px-4
 								waves-effect waves-light"
 								
-								onclick="location.href='<?php echo base_url()?>/Input/Batal_Upload/<?php echo $id_ulp ?>/<?php echo $id_capel ?>';"
+								onclick="location.href='<?php echo base_url()?>Input/Batal_Upload/<?php echo $id_ulp ?>/<?php echo $id_capel ?>';"
 								>
       								Batal
       							</button>							
@@ -192,7 +192,7 @@
 								rounded-pill
 								px-4
 								waves-effect waves-light"
-								onclick="location.href='<?php echo base_url()?>/Input/Simpan_Upload/<?php echo $id_ulp ?>/<?php echo $nama_capel ?>/<?php echo $daya_baru ?>';"
+								onclick="location.href='<?php echo base_url()?>Input/Simpan_Upload/<?php echo $id_ulp ?>/<?php echo $daya_baru ?>';"
 								>
       								Simpan
       							</button>
