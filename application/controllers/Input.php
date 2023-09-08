@@ -20,10 +20,14 @@ class Input extends CI_Controller {
 		$this->load->model('users_model');
 		$this->load->model('material_model');
 		
+		if($this->input->post('filerab'))
+			$this->form_validation->set_rules('filerab', 'File Upload', 'callback_file_check');
+		
 		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
-		$this->form_validation->set_rules('no_surat_ke_up3', 'Nomor Surat', 'required');
-		$this->form_validation->set_rules('tgl_mohon_plgn', 'Tanggal Permohonan Pelanggan', 'required');
- 		$this->form_validation->set_rules('tgl_ams_up3', 'Tanggal AMS Surat ke UP3', 'required');
+
+		$this->form_validation->set_rules('nomor_persetujuan', 'Nomor Surat', 'required');
+		$this->form_validation->set_rules('tgl_persetujuan', 'Tanggal Persetujuan Pelanggan', 'required');
+ 		$this->form_validation->set_rules('tgl_surat_diterima', 'Tanggal Surat Diterima', 'required');
 
 		// Setting Error Message
 		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
@@ -82,15 +86,14 @@ class Input extends CI_Controller {
 				
 				$data_plg = array(
 					'id_ulp'				=> $this->input->post('pilihan_ulp'),
-					'id_status_capel'		=> 1,
-					'nomor_surat_ulp_up3'	=> $this->input->post('no_surat_ke_up3'),
+					'tgl_persetujuan'		=> $this->input->post('tgl_persetujuan'),
 					'nama_capel' 			=> trim($nama_pelanggan),
 					'daya_lama' 			=> $dayalama,
 					'daya_baru' 			=> $dayabaru,
 					'biaya_penyambungan' 	=> $biaya_sambung,
 					'biaya_investasi' 		=> $biaya_invest,
-					'tgl_surat_plgn' 		=> $this->input->post('tgl_mohon_plgn'),
-					'tgl_ams_up3' 			=> $this->input->post('tgl_ams_up3'),
+					'tgl_surat_diterima' 	=> $this->input->post('tgl_surat_diterima'),
+					'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
 				);
 				//insert into database
 				$this->capel_model->insert_capel($data_plg);
@@ -160,9 +163,9 @@ class Input extends CI_Controller {
 		$data['daya_baru']				= $data_plg['daya_baru'];
 		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
 		$data['biaya_investasi']		= $data_plg['biaya_investasi'];
-		$data['tgl_surat_plgn']			= $data_plg['tgl_surat_plgn'];
-		$data['tgl_ams_up3']			= $data_plg['tgl_ams_up3'];
-		$data['nomor_surat_ulp_up3']	= $data_plg['nomor_surat_ulp_up3'];
+		$data['tgl_surat_diterima']		= $data_plg['tgl_surat_diterima'];
+		$data['tgl_persetujuan']		= $data_plg['tgl_persetujuan'];
+		$data['nomor_persetujuan']		= $data_plg['nomor_persetujuan'];
 		$data['path_file']				= $file_name;
 		$data['id_capel']				= $id_capel;
 	
@@ -219,5 +222,19 @@ class Input extends CI_Controller {
 			return TRUE;
 	}//end of function
 
-	
+    function file_check($str){
+        $allowed_mime_type_arr 		= array('application/xls','application/Xlsx');
+        $mime 						= get_mime_by_extension($_FILES['file']['name']);
+        if(isset($_FILES['file']['name']) && $_FILES['file']['name']!=""){
+            if(in_array($mime, $allowed_mime_type_arr)){
+                return true;
+            }else{
+                $this->form_validation->set_message('file_check', 'Please select only xls or Xlsx.');
+                return false;
+            }
+        }else{
+            $this->form_validation->set_message('file_check', 'Please choose a file to upload.');
+            return false;
+        }
+	}
 }

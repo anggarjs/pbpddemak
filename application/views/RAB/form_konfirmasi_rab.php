@@ -72,9 +72,9 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>Tgl Surat Permohonan Plgn :</label>
+										<label>Tgl Diterima Surat Pelanggan :</label>
 										<?php 			
-											$date = date_create($tgl_surat_plgn);
+											$date = date_create($tgl_surat_diterima);
 											echo '<b>'.date_format($date,"d-m-Y").'</b>';
 										?>
 									</div>									
@@ -92,9 +92,9 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>Tgl Surat AMS ke UP3 :</label>
+										<label>Tgl Persetujuan :</label>
 										<?php 			
-											$date2 = date_create($tgl_ams_up3);
+											$date2 = date_create($tgl_persetujuan);
 											echo '<b>'.date_format($date2,"d-m-Y").'</b>';
 										?>
 									</div>									
@@ -113,9 +113,9 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>No Surat AMS ke UP3 :</label>
+										<label>No Surat AMS / BA Persetujuan :</label>
 										<?php 			
-											echo '<b>'.$nomor_surat_ulp_up3.'</b>';
+											echo '<b>'.$nomor_persetujuan.'</b>';
 										?>
 									</div>									
 								</div>

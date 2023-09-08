@@ -44,34 +44,34 @@
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label>Nomor Surat AMS ke UP3</label>
+										<label>Nomor Surat AMS / BA Persetujuan</label>
 										<input
 										  type="text"
 										  class="form-control"
-										  value="<?php if(set_value('no_surat_ke_up3')!='') echo set_value('no_surat_ke_up3');?>"
-										  name="no_surat_ke_up3"
+										  value="<?php if(set_value('nomor_persetujuan')!='') echo set_value('nomor_persetujuan');?>"
+										  name="nomor_persetujuan"
 										/>
 									</div>
-									<?php echo form_error('no_surat_ke_up3'); ?>
+									<?php echo form_error('nomor_persetujuan'); ?>
 								</div>							
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label class="control-label">Tgl Surat Permohonan Pelanggan</label>
-										<input type="date" class="form-control" name="tgl_mohon_plgn" 
-										value="<?php if(set_value('tgl_mohon_plgn')!='') echo set_value('tgl_mohon_plgn');?>"/>
+										<label class="control-label">Tgl Diterima Surat Pelanggan</label>
+										<input type="date" class="form-control" name="tgl_surat_diterima" 
+										value="<?php if(set_value('tgl_surat_diterima')!='') echo set_value('tgl_surat_diterima');?>"/>
 									</div>
-									<?php echo form_error('tgl_mohon_plgn'); ?>
+									<?php echo form_error('tgl_surat_diterima'); ?>
 								</div>
 								<!--/span-->
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label class="control-label">Tgl Surat AMS ke UP3</label>
-										<input type="date" class="form-control" name="tgl_ams_up3"
-										value="<?php if(set_value('tgl_ams_up3')!='') echo set_value('tgl_ams_up3');?>"/>
+										<label class="control-label">Tgl Persetujuan Pelanggan</label>
+										<input type="date" class="form-control" name="tgl_persetujuan"
+										value="<?php if(set_value('tgl_persetujuan')!='') echo set_value('tgl_persetujuan');?>"/>
 									</div>
-									<?php echo form_error('tgl_ams_up3'); ?>
+									<?php echo form_error('tgl_persetujuan'); ?>
 								</div>
 								<!--/span-->
 							</div>							

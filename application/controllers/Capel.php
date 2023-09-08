@@ -131,9 +131,9 @@ class Capel extends CI_Controller {
 				$data['daya_baru']				= $row->daya_baru;
 				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
 				$data['biaya_investasi']		= $row->biaya_investasi;
-				$data['tgl_surat_plgn']			= $row->tgl_surat_plgn;
-				$data['tgl_ams_up3']			= $row->tgl_ams_up3;
-				$data['nomor_surat_ulp_up3']	= $row->nomor_surat_ulp_up3;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
 				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
@@ -217,9 +217,9 @@ class Capel extends CI_Controller {
 				$data['daya_baru']				= $row->daya_baru;
 				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
 				$data['biaya_investasi']		= $row->biaya_investasi;
-				$data['tgl_surat_plgn']			= $row->tgl_surat_plgn;
-				$data['tgl_ams_up3']			= $row->tgl_ams_up3;
-				$data['nomor_surat_ulp_up3']	= $row->nomor_surat_ulp_up3;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
 				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
@@ -258,7 +258,7 @@ class Capel extends CI_Controller {
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('filetug')){			
 				$data_plg = array(
-					'id_status_capel' 			=> $this->input->post('status_capel'),
+					'id_status_capel' 		=> $this->input->post('status_capel'),
 					'tgl_bayar_plgn' 		=> $this->input->post('tgl_bayar_plgn'),
 				);				
 				//update into database
