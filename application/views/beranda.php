@@ -207,7 +207,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel [LOGISTIK]</span>
+                    <span class="hide-menu"> Pengecekan Material</span>
                   </a>
                 </li>
 			<?php } else {?>

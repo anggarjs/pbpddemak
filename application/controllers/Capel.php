@@ -192,18 +192,20 @@ class Capel extends CI_Controller {
 			$data_status_tersedia		= $this->input->post('status_tersedia');
 			foreach($data_status_tersedia as $row){
 				if($row){
-					echo $row;
+					/* echo $row; */
 					$data = array(
 						'status_tersedia'		=> 1,
 					);			
 					$this->material_model->update_status_material($data,$row);					
 				}					
-			}			
+			}
+			
+			/* $this->send_email(); */
+			
 			redirect('Capel/view_capel_approved');			
 		}
 	}//end of function
 	
-
 	function Update_progress_capel($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -293,4 +295,66 @@ class Capel extends CI_Controller {
 		else		
 			return TRUE;
 	}//end of function	
+	
+	function send_email(){
+
+		$this->load->library('email');
+
+		$config['protocol']    	= 'smtp';
+		$config['smtp_host']    = 'ssl://smtp.mail.yahoo.com';
+		$config['smtp_port']    = '465';
+		$config['smtp_timeout'] = '7';
+		$config['smtp_user']  	= 'konstruksiup3demak@yahoo.com';  
+		$config['smtp_pass']  	= 'konsup3demak';  
+		$config['charset']    	= 'utf-8';
+		$config['newline']    	= "\r\n";
+		$config['mailtype']		= 'text'; // or html
+		$config['charset']    	= 'iso-8859-1';
+		$config['wordwrap']   	= TRUE;		
+		$config['validation'] 	= TRUE; // bool whether to validate email or not      
+
+		$this->email->initialize($config);
+		$this->email->from('konstruksiup3demak@yahoo.com', 'KONS UP3 Demak');
+		$this->email->to('angga.rajasa@pln.co.id'); 
+		$this->email->subject('Email Test');
+		$this->email->message('Testing the email class.');  
+
+		$this->email->send();
+
+		echo $this->email->print_debugger();
+
+		
+/* 		$config['protocol'] 	= 'smtp';
+		$config['smtp_host'] 	= 'smtp.gmail.com';
+		$config['smtp_port'] 	= 465; 
+		$config['smtp_user']  	= 'konstruksiup3demak@gmail.com';  
+		$config['smtp_pass']  	= 'konsup3demak';  
+		$config['_smtp_auth'] 	= true;
+		$config['smtp_crypto'] 	= 'ssl';
+		$config['mailtype']  	= 'html'; 
+		$config['charset']    	= 'iso-8859-1';
+		$config['wordwrap']   	= TRUE;
+
+
+		$this->load->library('email');
+		$this->email->initialize($config);
+
+
+
+        // Email penerima
+        $this->email->to('rajasa.angga@gmail.com'); // Ganti dengan email tujuan
+
+        // Subject email
+        $this->email->subject('Kirim Email dengan SMTP Gmail CodeIgniter | MasRud.com');
+
+        // Isi email
+        $this->email->message("Ini adalah contoh email yang dikirim menggunakan SMTP Gmail pada CodeIgniter.<br><br> Klik <strong><a href='https://masrud.com/kirim-email-codeigniter/' target='_blank' rel='noopener'>disini</a></strong> untuk melihat tutorialnya.");
+
+        // Tampilkan pesan sukses atau error
+        if ($this->email->send()) {
+            echo 'Sukses! email berhasil dikirim.';
+        } else {
+            echo 'Error! email tidak dapat dikirim.';
+        }  */
+	}
 }
