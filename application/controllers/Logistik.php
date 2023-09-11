@@ -11,7 +11,9 @@ class Logistik extends CI_Controller
     }
     public function materialkurangPBPD()
     {
-        $data['nama_user'] = $_SESSION['username'];
+        $data['nama_user_pegawai'] = $_SESSION['username'];
+        $data['nama_detail_mdu'] = $this->input->get('nama_detail_mdu');
+        $data['search_mdu'] = $this->material_model->search_material_kurang($data['nama_detail_mdu']);
         $data['content'] = $this->load->view('logistik/view_all_logistik', $data, true);
         $this->load->view('beranda', $data);
     }

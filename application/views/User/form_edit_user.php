@@ -30,7 +30,7 @@
       						<div class="card-body">
       							<div class="mb-3">
       								<label>Nama User</label>
-      								<input type="text" class="form-control <?php echo (form_error('username')) ? 'is-invalid' : ''; ?>" value="<?php echo $nama_user_pegawai; ?>" name="username" />
+      								<input type="text" class="form-control <?php echo (form_error('username')) ? 'is-invalid' : ''; ?>" value="<?php echo $nama_user; ?>" name="username" />
       								<div class="form-text" id="basic-addon4">Hapus semua isi nama user jika ingin mengedit</div>
       								<div class="invalid-feedback">
       									<?php if (form_error('username') == true) : ?>
