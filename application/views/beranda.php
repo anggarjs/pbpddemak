@@ -191,26 +191,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <span class="hide-menu">Pengelolaan PBPD</span>
               </a>
               <ul aria-expanded="false" class="collapse first-level">
+			<!-- only admin, admin up3 dan admin ulp akses -->
+			<?php if(($_SESSION['role_user'] == 1) || ($_SESSION['role_user'] == 3) || $_SESSION['role_user'] == 4){ ?>  
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
                     <i class="mdi mdi-content-paste"></i>
                     <span class="hide-menu"> Upload RAB</span>
                   </a>
                 </li>
+			<?php } ?>	
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
                       <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel diajukan</span>
+                    <span class="hide-menu"> Data Capel Disetujui</span>
                   </a>
                 </li>				
-			<?php if($_SESSION['kode_ulp'] == 52550){ ?>
+			<?php if($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3){ ?>
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Pengecekan Material</span>
                   </a>
                 </li>
-			<?php } else {?>
+			<?php } ?>
+			<?php if($_SESSION['role_user'] == 4){ ?>	
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
@@ -218,7 +222,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   </a>
                 </li>
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>Capel/view_capel_sudah_bayar" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Update Status PDL</span>
                   </a>
@@ -226,7 +230,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<?php } ?>
               </ul>
 			</li>
-			
+		
+		<!-- only admin dan admin up3 akses -->
+		<?php if($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3){ ?>
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-border-none"></i>
@@ -242,7 +248,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				
               </ul>			  
 			</li>
-			
+		<?php } ?>	
+		
+		<!-- only admin akses -->
 		<?php if($_SESSION['role_user'] == 1){ ?>	
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
@@ -264,7 +272,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                <i class="mdi mdi-receipt"></i>
+                <span class="hide-menu">Administrator</span>
+              </a>
+              <ul aria-expanded="false" class="collapse first-level">
+                <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
+                    <i class="mdi mdi-border-vertical"></i>
+                    <span class="hide-menu"> Hapus Data Capel</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
+                    <i class="mdi mdi-border-vertical"></i>
+                    <span class="hide-menu"> Rollback Kesiapan Material</span>
+                  </a>
+                </li>
+              </ul>
+            </li>			
 		<?php } ?>	
+		
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>Login/logout" aria-expanded="false">
                 <i class="mdi mdi-directions"></i>
@@ -333,7 +362,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $('#tabel-view-user').DataTable();
     });
     $(document).ready(function() {
-      $('#tabel-view-materialkurang').DataTable();
+      $('#tabel-data-survey').DataTable();
     });
   </script>
   <!-- End DataTables -->

@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan
+      							Data Calon Pelanggan Telah Bayar
       						</h4>
       					</div>
       					<div class="card-body">
@@ -32,12 +32,12 @@
       									<thead>
       										<!-- start row -->
       										<tr>
-												<th>Detail</th>											
+												<th>Update Peremajaan</th>
 												<th>Nama ULP</th>
-												<th>Tgl Disetujui</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>
-												<th>Status Capel</th>
+												<th>BP</th>
+												<th>RAB</th>
       											<th>Status Material</th>						
       										</tr>
       										<!-- end row -->
@@ -47,16 +47,16 @@
       											<tr>
       												<td>
       													<div class="d-flex justify-content-around">
-      														<a href="<?php echo base_url('Capel/Update/') . $data->id_capel; ?>">
+      														<a href="<?php echo base_url('Capel/Update_peremajaan/') . $data->id_capel; ?>">
       															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
       														</a>
       													</div>
       												</td>												
 													<td><?= $data->nama_ulp; ?></td>
-													<td><?= date_format(date_create($data->tgl_persetujuan),"d-m-Y"); ?></td>
 													<td><?= $data->nama_capel; ?></td>
 													<td><?= number_format($data->daya_baru); ?></td>
-													<td><?= $data->status_capel; ?></td>	
+													<td><?= number_format($data->biaya_penyambungan); ?></td>
+													<td><?= number_format($data->biaya_investasi); ?></td>
 													<td><?= $data->status_material; ?></td>			
       											</tr>
       										<?php endforeach; ?>
