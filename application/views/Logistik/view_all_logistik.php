@@ -26,35 +26,44 @@
 						</h4>
 					</div>
 					<div class="card-body">
-						<h6 class="card-subtitle mb-3">
-							<form class="" method="get">
-								<div class="input-group mb-3">
-									<button class="btn btn-outline-secondary" type="submit"><i data-feather="search"></i></button>
-									<input type="search" class="form-control" name="nama_detail_mdu" placeholder="Cari Data" value="<?= html_escape($nama_detail_mdu) ?>" required />
-								</div>
-							</form>
-							<div class="mt-3 overflow-scroll">
-								<table style="width: 100%;" class="table table-bordered table hover no-wrap">
-									<?php if ($search_mdu) : ?>
-										<thead>
+						<form class="" method="get">
+							<div class="input-group mb-3">
+								<button class="btn btn-outline-secondary" type="submit"><i data-feather="search"></i></button>
+								<input type="search" class="form-control" name="nama_detail_mdu" placeholder="Cari Data" value="<?= html_escape($nama_detail_mdu) ?>" required />
+							</div>
+						</form>
+						<div class="mt-3 overflow-scroll">
+							<table style="width: 100%;" class="table table-bordered table hover no-wrap" id="tabel-view-materialkurang">
+								<?php if ($search_mdu) : ?>
+									<thead>
+										<tr>
+											<th>Pengecekan</th>
+											<th>Nama Detail MDU</th>
+											<th>Volume MDU</th>
+											<th>Satuan</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php foreach ($search_mdu as $mdu) : ?>
 											<tr>
-												<th>Nama Detail MDU</th>
-												<th>Satuan</th>
-												<th>Volume MDU</th>
+												<td class="text-info text-center"><a href="<?php echo base_url('Logistik/detailMaterial/' . $mdu->nama_detail_mdu); ?>"><i data-feather="edit"></i></a></td>
+												<td><?php echo html_escape($mdu->nama_detail_mdu); ?></td>
+												<td><?php echo html_escape($mdu->volume_mdu); ?></td>
+												<td><?php echo html_escape($mdu->satuan); ?></td>
 											</tr>
-										</thead>
+										<?php endforeach; ?>
+									</tbody>
+								<?php else : ?>
+									<?php if ($nama_detail_mdu) : ?>
 										<tbody>
-											<?php foreach ($search_mdu as $mdu) : ?>
-												<tr>
-													<td><?php echo html_escape($mdu->nama_detail_mdu); ?></td>
-													<td><?php echo html_escape($mdu->satuan); ?></td>
-													<td><?php echo html_escape($mdu->volume_mdu); ?></td>
-												</tr>
-											<?php endforeach; ?>
+											<tr>
+												<td><strong>Data Tidak Ditemukan</strong></td>
+											</tr>
 										</tbody>
-										<?php endif; ?>
-									</table>
-								</div>
+									<?php endif; ?>
+								<?php endif; ?>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div><!-- end <div class="col-12"> -->
