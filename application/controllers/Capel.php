@@ -200,9 +200,8 @@ class Capel extends CI_Controller {
 				}					
 			}
 			
-			/* $this->send_email(); */
-			
-			redirect('Capel/view_capel_approved');			
+			$this->send_email();			
+			/* redirect('Capel/view_capel_approved');		 */	
 		}
 	}//end of function
 	
@@ -304,8 +303,8 @@ class Capel extends CI_Controller {
 		$config['smtp_host']    = 'ssl://smtp.mail.yahoo.com';
 		$config['smtp_port']    = '465';
 		$config['smtp_timeout'] = '7';
-		$config['smtp_user']  	= 'konstruksiup3demak@yahoo.com';  
-		$config['smtp_pass']  	= 'konsup3demak';  
+		$config['smtp_user']  	= '';  
+		$config['smtp_pass']  	= '';  
 		$config['charset']    	= 'utf-8';
 		$config['newline']    	= "\r\n";
 		$config['mailtype']		= 'text'; // or html
