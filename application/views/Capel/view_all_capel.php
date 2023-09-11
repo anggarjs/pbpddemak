@@ -32,6 +32,7 @@
       									<thead>
       										<!-- start row -->
       										<tr>
+												<th>Detail</th>											
 												<th>Nama ULP</th>
 												<th>Tgl Disetujui</th>
       											<th>Nama Capel</th>
@@ -45,14 +46,20 @@
       									<tbody>
       										<?php foreach ($data_capel->result() as $data) : ?>
       											<tr>
-												
+      												<td>
+      													<div class="d-flex justify-content-around">
+      														<a href="<?php echo base_url('Capel/Update/') . $data->id_capel; ?>">
+      															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
+      														</a>
+      													</div>
+      												</td>												
 													<td><?= $data->nama_ulp; ?></td>
 													<td><?= date_format(date_create($data->tgl_persetujuan),"d-m-Y"); ?></td>
 													<td><?= $data->nama_capel; ?></td>
 													<td><?= $data->daya_baru; ?></td>
 													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= number_format($data->biaya_investasi); ?></td>
-													<td><?= $data->status_capel; ?></td>			
+													<td><?= $data->status_material; ?></td>			
       											</tr>
       										<?php endforeach; ?>
       									</tbody>

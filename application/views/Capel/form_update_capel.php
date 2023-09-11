@@ -27,7 +27,7 @@
 						?>
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
-							Update Persetujuan Capel
+							Data Detail Capel
 							</h4>
 						</div>
 						<div class="card-body">
@@ -77,9 +77,9 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>Tgl Surat Permohonan Plgn :</label>
+										<label>Tgl Diterima Surat Pelanggan :</label>
 										<?php 			
-											$date = date_create($tgl_surat_plgn);
+											$date = date_create($tgl_surat_diterima);
 											echo '<b>'.date_format($date,"d-m-Y").'</b>';
 										?>
 									</div>									
@@ -97,9 +97,9 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>Tgl Surat AMS ke UP3 :</label>
+										<label>Tgl Persetujuan :</label>
 										<?php 			
-											$date2 = date_create($tgl_ams_up3);
+											$date2 = date_create($tgl_persetujuan);
 											echo '<b>'.date_format($date2,"d-m-Y").'</b>';
 										?>
 									</div>									
@@ -118,9 +118,9 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>No Surat AMS ULP ke UP3 :</label>
+										<label>No Surat AMS / BA Persetujuan :</label>
 										<?php 			
-											echo '<b>'.$nomor_surat_ulp_up3.'</b>';
+											echo '<b>'.$nomor_persetujuan.'</b>';
 										?>
 									</div>									
 								</div>
@@ -130,61 +130,7 @@
 										<a href="<?php echo base_url().$path_file; ?>">Download File</a>
 									</div>	
 								</div>	
-							</div>
-							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
-							<!-- ROW #8 -->
-							<div class="row">
-								<div class="col-md-6">	
-									<div class="mb-3">
-										<label><b>Update Progress Pelanggan :</b></label>
-										<?php
-											if(set_value('status_capel')!='') $set_select = set_value('status_capel');
-											else $set_select = $id_status_capel;				
-											echo form_dropdown('status_capel',$status_capel,$set_select,'class="form-select"');
-										?>										
-									</div>
-									<?php echo form_error('status_capel'); ?>
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">	
-										<label>Nomor Surat AMS ke ULP</label>
-										<input
-										  type="text"
-										  class="form-control"
-										  value="<?php 
-										  if(set_value('nomor_surat_up3_ulp')!='') 
-											  echo set_value('nomor_surat_up3_ulp');
-										  else
-											echo $nomor_surat_up3_ulp; ?>"
-										  name="nomor_surat_up3_ulp"
-										/>									
-									</div>
-									<?php echo form_error('nomor_surat_up3_ulp'); ?>
-								</div>	
-							</div>
-
-							<!-- ROW #8 -->
-							<div class="row">
-								<div class="col-md-6">	
-									<div class="mb-3">
-										
-									</div>
-									
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">	
-										<label class="control-label">Tgl Surat AMS Persetujuan ke ULP</label>
-										<input type="date" class="form-control" name="tgl_persetujuan_up3" 
-										value="<?php 
-										if(set_value('tgl_persetujuan_up3')!='') 
-											echo set_value('tgl_persetujuan_up3');
-										else
-											echo $tgl_persetujuan_up3;
-										?>"/>
-									</div>
-									<?php echo form_error('tgl_persetujuan_up3'); ?>
-								</div>	
-							</div>							
+							</div>						
 							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							
@@ -231,19 +177,6 @@
 							</div>
 							
 						</div>
-						<div class="p-3 border-top">
-							<div class="text-end">						
-								<button
-								type="submit"
-								class="
-								btn btn-info
-								rounded-pill
-								px-4
-								waves-effect waves-light
-								">Simpan
-      							</button>
-      						</div>
-      					</div>
       					<?php echo form_close(); ?>
       				</div>
       			</div>

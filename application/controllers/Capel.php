@@ -11,9 +11,12 @@ class Capel extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
-		$this->load->model('capel_model');
-		$data['data_capel'] 		= $this->capel_model->get_all_data_capel();
-		
+		$this->load->model('capel_model');		
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel();
+
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel', $data, true);
 		$this->load->view('beranda', $data);
@@ -31,12 +34,18 @@ class Capel extends CI_Controller {
 		$this->load->view('beranda', $data);
 	}
 
-	function view_capel_ulp(){
+	function view_capel_lgkp_material(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
-		$this->load->model('capel_model');
-		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_ulp();
+/* 		$this->load->model('capel_model');
+		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_lgkp_material_ulp($_SESSION['kode_ulp']); */
+		
+		$this->load->model('capel_model');		
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_lgkp_material_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_lgkp_material();		
 		
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_ulp', $data, true);
@@ -70,9 +79,9 @@ class Capel extends CI_Controller {
 				$data['daya_baru']				= $row->daya_baru;
 				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
 				$data['biaya_investasi']		= $row->biaya_investasi;
-				$data['tgl_surat_plgn']			= $row->tgl_surat_plgn;
-				$data['tgl_ams_up3']			= $row->tgl_ams_up3;
-				$data['nomor_surat_ulp_up3']	= $row->nomor_surat_ulp_up3;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
 				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;

@@ -198,15 +198,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   </a>
                 </li>
                 <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                    <span class="hide-menu"> Data Capel diajukan</span>
+                  </a>
+                </li>				
+			<?php if($_SESSION['kode_ulp'] == 52550){ ?>
+                <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Data Capel [LOGISTIK]</span>
                   </a>
                 </li>
+			<?php } ?>
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Capel/view_capel_ulp" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel [ULP]</span>
+                    <span class="hide-menu"> Data Capel Lgkp Material</span>
                   </a>
                 </li>				
               </ul>

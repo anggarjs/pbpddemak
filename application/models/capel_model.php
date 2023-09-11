@@ -20,13 +20,19 @@ class Capel_model extends CI_Model {
 	}//end of function
 	
 	function get_all_data_capel(){
-		$table_name = "view_capel";
-		
 		$this->db->select("*");
-		$this->db->from($table_name);
+		$this->db->from('view_capel');
 		$query = $this->db->get();
 		return $query;
 	}//end of function
+	
+	function get_all_data_capel_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_ulp',$ulp);
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
 	
 	function get_all_data_capel_approved(){
 		$this->db->select("*");
@@ -36,10 +42,19 @@ class Capel_model extends CI_Model {
 		return $query;
 	}//end of function
 	
-	function get_all_data_capel_ulp(){
+	function get_all_data_capel_lgkp_material(){
 		$this->db->select("*");
 		$this->db->from('view_capel');
 		$this->db->where('id_status_material >','2');
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
+	function get_all_data_capel_lgkp_material_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_material >','2');
+		$this->db->where('id_ulp',$ulp);
 		$query = $this->db->get();
 		return $query;
 	}//end of function		

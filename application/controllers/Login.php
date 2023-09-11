@@ -13,10 +13,11 @@ class Login extends CI_Controller {
 		
 		//setting session
 		$arr_file 			= explode('.', $this->input->post('username'));
-		$name	 			= end($arr_file);		
+
 		$newdata = array(
+			'kode_ulp'		=> $arr_file[0],
 			'username' 		=> $this->input->post('username'),
-			'nama_user' 	=> $name,
+			'nama_user' 	=> end($arr_file),
 		);
 		$this->session->set_userdata($newdata);
 		
