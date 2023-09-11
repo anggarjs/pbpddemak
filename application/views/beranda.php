@@ -139,7 +139,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     pro-pic
                   " href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40" />
-                <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user_pegawai; ?>
+                <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user; ?>
                   <i data-feather="chevron-down" class="feather-sm"></i></span>
               </a>
 
@@ -210,13 +210,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <span class="hide-menu"> Data Capel [LOGISTIK]</span>
                   </a>
                 </li>
-			<?php } ?>
+			<?php } else {?>
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel Lgkp Material</span>
+                    <span class="hide-menu"> Update Status Bayar</span>
+                  </a>
+                </li>
+                <li class="sidebar-item">
+                  <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
+                    <i class="mdi mdi-border-vertical"></i>
+                    <span class="hide-menu"> Update Status PDL</span>
                   </a>
                 </li>				
+			<?php } ?>
               </ul>
 			</li>
 			
@@ -236,6 +243,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </ul>			  
 			</li>
 			
+		<?php if($_SESSION['role_user'] == 1){ ?>	
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-account-multiple"></i>
@@ -256,6 +264,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </li>
               </ul>
             </li>
+		<?php } ?>	
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>Login/logout" aria-expanded="false">
                 <i class="mdi mdi-directions"></i>

@@ -37,9 +37,8 @@
 												<th>Tgl Disetujui</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>
-												<th>BP</th>
-												<th>RAB</th>
-      											<th>Status Permohonan</th>						
+												<th>Status Capel</th>
+      											<th>Status Material</th>						
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -57,8 +56,7 @@
 													<td><?= date_format(date_create($data->tgl_persetujuan),"d-m-Y"); ?></td>
 													<td><?= $data->nama_capel; ?></td>
 													<td><?= $data->daya_baru; ?></td>
-													<td><?= number_format($data->biaya_penyambungan); ?></td>
-													<td><?= number_format($data->biaya_investasi); ?></td>
+													<td><?= $data->status_capel; ?></td>	
 													<td><?= $data->status_material; ?></td>			
       											</tr>
       										<?php endforeach; ?>

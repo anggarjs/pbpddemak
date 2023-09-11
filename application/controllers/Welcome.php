@@ -19,7 +19,14 @@ class Welcome extends CI_Controller {
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 	public function index(){
-		$this->session->sess_destroy(); 
-		$this->load->view('welcome_message');
+		if(!isset($_SESSION['username'])){
+			$this->session->sess_destroy(); 
+			$this->load->view('welcome_message');
+		}
+		else
+			redirect('Input');
+	
+		
+		
 	}
 }

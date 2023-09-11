@@ -236,7 +236,7 @@ class Capel extends CI_Controller {
 				$data['tgl_bayar_plgn']			= $row->tgl_bayar_plgn;
 				$data['status_material']		= $row->status_material;	
 				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	
-				
+				$data['keterangan_material']	= $row->keterangan_material;	
 			}
 			$data['id_capel']					= $id_capel;
 
@@ -273,7 +273,7 @@ class Capel extends CI_Controller {
 				//update into database
 				$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));			
 				
-				redirect('Capel/view_capel_ulp');				
+				redirect('Capel/view_capel_lgkp_material');				
 			}
 /* 			else{
 				$data['nama_user'] 			= $_SESSION['username'];
