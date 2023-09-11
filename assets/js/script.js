@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // sweetalert hapus
+ // sweetalert hapus
 document.addEventListener('DOMContentLoaded', function() {
   // Daftar tombol hapus
-  var deleteButtons = document.querySelectorAll('.hapus-data-surat');
+  var deleteButtons = document.querySelectorAll('.hapus-data-user');
 
   // Tambahkan event listener untuk setiap tombol hapus
   deleteButtons.forEach(function(button) {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Tampilkan SweetAlert konfirmasi
       Swal.fire({
         title: 'Konfirmasi',
-        text: 'Apakah Anda yakin ingin menghapus user?',
+        text: 'Apakah Anda yakin ingin menghapus data ini?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Hapus',

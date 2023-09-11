@@ -42,7 +42,7 @@ class Input extends CI_Controller {
 			}
 			$data['pilihan_ulp'] 	= $pilihan_ulp;	
 			
-			$data['nama_user'] 		= $_SESSION['username'];
+			$data['nama_user_pegawai'] 		= $_SESSION['username'];
 			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
 			$this->load->view('beranda',$data);
 		}

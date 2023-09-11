@@ -14,7 +14,7 @@ class Capel extends CI_Controller {
 		$this->load->model('capel_model');
 		$data['data_capel'] 		= $this->capel_model->get_all_data_capel();
 		
-		$data['nama_user'] 			= $_SESSION['username'];
+		$data['nama_user_pegawai'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel', $data, true);
 		$this->load->view('beranda', $data);
 	}
@@ -26,7 +26,7 @@ class Capel extends CI_Controller {
 		$this->load->model('capel_model');
 		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_approved();
 		
-		$data['nama_user'] 			= $_SESSION['username'];
+		$data['nama_user_pegawai'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_approved', $data, true);
 		$this->load->view('beranda', $data);
 	}
@@ -38,7 +38,7 @@ class Capel extends CI_Controller {
 		$this->load->model('capel_model');
 		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_ulp();
 		
-		$data['nama_user'] 			= $_SESSION['username'];
+		$data['nama_user_pegawai'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_ulp', $data, true);
 		$this->load->view('beranda', $data);
 	}	
@@ -92,7 +92,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
-			$data['nama_user'] 			= $_SESSION['username'];
+			$data['nama_user_pegawai'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel',$data,true);
 			$this->load->view('beranda',$data);
 		}
@@ -154,7 +154,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
-			$data['nama_user'] 			= $_SESSION['username'];
+			$data['nama_user_pegawai'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel_material',$data,true);
 			$this->load->view('beranda',$data);
 		}
@@ -243,7 +243,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
-			$data['nama_user'] 			= $_SESSION['username'];
+			$data['nama_user_pegawai'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel_ulp',$data,true);
 			$this->load->view('beranda',$data);
 		}
@@ -267,7 +267,7 @@ class Capel extends CI_Controller {
 				redirect('Capel/view_capel_ulp');				
 			}
 /* 			else{
-				$data['nama_user'] 			= $_SESSION['username'];
+				$data['nama_user_pegawai'] 			= $_SESSION['username'];
                 $data['error'] = array('error' => $this->upload->display_errors());
 				$data['content'] 			= $this->load->view('view_kosongan',$data,true);
 				$this->load->view('beranda',$data);

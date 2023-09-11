@@ -63,7 +63,7 @@
       											<tr style="vertical-align: middle;">
       												<th>
       													<div class="d-flex justify-content-around">
-      														<button type="submit" class="btn btn-danger hapus-data-surat" name="hapus_user" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+      														<button type="submit" class="btn btn-danger hapus-data-user" name="hapus_user" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
       															<i data-feather="trash"></i>
       														</button>
       														<div class="form-check">
@@ -95,7 +95,7 @@
       															</a>
       														</div>
       													</td>
-      													<td><?php echo $row->nama_user_pegawai; ?></td>
+      													<td><?php echo $row->nama_user; ?></td>
       													<td><?php echo $row->nama_ulp; ?></td>
       													<td><?php echo $row->nama_role; ?></td>
       												<?php endforeach; ?>
