@@ -32,13 +32,13 @@
       									<thead>
       										<!-- start row -->
       										<tr>
-												<th>Pengecekan</th>
+												<th>Update Bayar</th>
 												<th>Nama ULP</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>
 												<th>BP</th>
 												<th>RAB</th>
-      											<th>Status Permohonan</th>						
+      											<th>Status Material</th>						
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -57,7 +57,7 @@
 													<td><?= number_format($data->daya_baru); ?></td>
 													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= number_format($data->biaya_investasi); ?></td>
-													<td><?= $data->status_capel; ?></td>			
+													<td><?= $data->status_material; ?></td>			
       											</tr>
       										<?php endforeach; ?>
       									</tbody>

@@ -140,14 +140,17 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-
+										<label>Status Material :</label>
+										<?php 			
+											echo '<b>'.$status_material.'</b>';
+										?>	
 									</div>									
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">
-										<label>Status Material :</label>
+										<label>Keterangan Material :</label>
 										<?php 			
-											echo '<b>'.$status_material.'</b>';
+											echo '<b>'.$keterangan_material.'</b>';
 										?>									
 									</div>
 								</div>	
@@ -155,17 +158,17 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-
-									</div>									
-								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
 										<label>Tgl Pengecekan Material :</label>
 										<?php 			
 											/* echo '<b>'.$tgl_lengkap_material.'</b>'; */
 											$date2 = date_create($tgl_lengkap_material);
 											echo '<b>'.date_format($date2,"d-m-Y").'</b>';													
-										?>									
+										?>	
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+								
 									</div>	
 								</div>	
 							</div>							

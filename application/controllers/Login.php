@@ -8,19 +8,24 @@ class Login extends CI_Controller {
 	
 	function cek_login(){		
 		$this->load->model('users_model');
-		$users 		= $this->users_model->get_all_untuk_login();
-		$valid 		= false; //kondisi awal parameter login
+		$cek_login			= $this->users_model->cek_login($this->input->post('username'),md5($this->input->post('password')))->num_rows();
+		$cek_login2			= $this->users_model->cek_login($this->input->post('username'),md5($this->input->post('password')));
+		foreach ($cek_login2->result() as $data){
+			$role			= $data->id_role;
+		}
 		
 		//setting session
 		$arr_file 			= explode('.', $this->input->post('username'));
-		$name	 			= end($arr_file);		
+
 		$newdata = array(
+			'kode_ulp'		=> $arr_file[0],
 			'username' 		=> $this->input->post('username'),
-			'nama_user' 	=> $name,
+			'nama_user' 	=> end($arr_file),
+			'role_user' 	=> $role,
 		);
 		$this->session->set_userdata($newdata);
 		
-		$cek_login	= $this->users_model->cek_login($this->input->post('username'),md5($this->input->post('password')))->num_rows();
+		
 		if($cek_login > 0)
 			redirect('Input');
 		else
