@@ -333,7 +333,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       $('#tabel-view-user').DataTable();
     });
     $(document).ready(function() {
-      $('#tabel-data-survey').DataTable();
+      $('#tabel-view-materialkurang').DataTable();
     });
   </script>
   <!-- End DataTables -->
