@@ -47,7 +47,8 @@ class Input extends CI_Controller {
 			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
 			$this->load->view('beranda',$data);
 		}
-		else{		
+		else{
+			
 			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
 			$config['file_name'] 		= $new_name;
@@ -96,6 +97,15 @@ class Input extends CI_Controller {
 					'tgl_surat_diterima' 	=> $this->input->post('tgl_surat_diterima'),
 					'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
 				);
+				
+				$cek_capel_awal				= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->num_rows();
+				if($cek_capel_awal > 0){
+					//delete temporary file
+					$path 					= 'uploads/'.$this->input->post('pilihan_ulp').'/';
+					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');					
+					redirect('Input');
+				}
+				
 				//insert into database
 				$this->capel_model->insert_capel($data_plg);
 				
