@@ -139,7 +139,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     pro-pic
                   " href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40" />
-                <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user; ?>
+                <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user_pegawai; ?>
                   <i data-feather="chevron-down" class="feather-sm"></i></span>
               </a>
 
