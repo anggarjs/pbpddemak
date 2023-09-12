@@ -6,6 +6,12 @@ class Capel extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');	
 	}
+	
+	public function __construct(){
+        parent::__construct();
+        $this->load->model('capel_model');
+        $this->load->model('material_model');
+    }
 
 	function view_capel(){
 		if(!isset($_SESSION['username']))
@@ -307,8 +313,7 @@ class Capel extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
-		$this->load->model('capel_model');
-		$this->load->model('material_model');
+
 			
 		$this->form_validation->set_rules('tgl_peremajaan', 'Tanggal Peremajaan Pelanggan', 'required');
 		
