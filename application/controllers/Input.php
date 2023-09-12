@@ -146,14 +146,53 @@ class Input extends CI_Controller {
 						}
 					}
 				}//end reading volume MDU
+				
+				//get data Tibet				
+				$array_data_tibet	 		= array();
+				$start_data					= 16;
+				$akhir_data					= 30;
+				for ($i = $start_data;$i<=$akhir_data;$i++) {
+					$temp_data_material		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('C'.(string)$i)->getValue();
+					if(strstr($temp_data_material,'=')==true)
+						$data_material 		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('C'.(string)$i)->getOldCalculatedValue();
+					
+					$temp_satuan_material	= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('E'.(string)$i)->getValue();
+					if(strstr($temp_satuan_material,'=')==true)
+						$satuan_material 	= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('E'.(string)$i)->getOldCalculatedValue();
+										
+					$temp_vol_material		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('F'.(string)$i)->getValue();
+					if(strstr($temp_vol_material,'=')==true)
+						$vol_material 		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('F'.(string)$i)->getOldCalculatedValue();
+					
+					//get_id_detail mdu
+					$var_id					= '';
+					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
+					foreach($id_detail_mdu->result() as $row){
+						$var_id				= $row->id_detail_mdu;
+					}					
+
+					if($var_id){
+						if($vol_material){
+							$array_data_tibet[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
+							$data = array(
+								'id_detail_mdu'		=> $var_id,
+								'id_capel'			=> $id_capel,
+								'volume_tibet'		=> $vol_material,
+								/* 'status_tersedia'	=> 1, */
+							);
+							//insert database
+							$this->material_model->insert_kebutuhan_tibet($data);
+						}
+					}
+				}//end reading volume MDU				
 
 				//parsing to konfirmasi upload
-				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel);		
+				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);		
 			}//end if
 		}
 	}
 	
-	function konfirmasi($data_plg,$array_data_material,$file_name,$id_capel){
+	function konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
@@ -172,6 +211,7 @@ class Input extends CI_Controller {
 	
 		$data['data_plg']				= $data_plg;
 		$data['data_material']			= $array_data_material;
+		$data['data_tibet']				= $array_data_tibet;
 	
 
 		$data['nama_user'] 	= $_SESSION['username'];
@@ -194,6 +234,7 @@ class Input extends CI_Controller {
 		
 		//rollback database
 		$this->material_model->hapus_kebutuhan_mdu($id_capel);
+		$this->material_model->hapus_kebutuhan_tibet($id_capel);
 		$this->capel_model->hapus_capel($id_capel);
 		
 		redirect('Input');

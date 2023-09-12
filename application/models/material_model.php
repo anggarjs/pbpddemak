@@ -2,13 +2,15 @@
 class Material_model extends CI_Model
 {
 
-	function insert_kebutuhan_mdu($data)
-	{
+	function insert_kebutuhan_mdu($data){
 		$this->db->insert('data_kebutuhan_mdu', $data);
 	} //end of function	
+	
+	function insert_kebutuhan_tibet($data){
+		$this->db->insert('data_kebutuhan_tibet', $data);
+	} //end of function		
 
-	function cek_id_mdu($nama_mdu)
-	{
+	function cek_id_mdu($nama_mdu){
 		$this->db->select('id_detail_mdu');
 		$this->db->from('data_detail_mdu');
 		$this->db->like('nama_detail_mdu', $nama_mdu);
@@ -16,11 +18,15 @@ class Material_model extends CI_Model
 		return $query;
 	} //end of function	
 
-	function hapus_kebutuhan_mdu($id_capel)
-	{
-		$this->db->where('id_capel', $id_capel);
+	function hapus_kebutuhan_mdu($id_capel){
+		$this->db->where('id_capel2', $id_capel);
 		$this->db->delete('data_kebutuhan_mdu');
 	} //end of function
+	
+	function hapus_kebutuhan_tibet($id_capel){
+		$this->db->where('id_capel2', $id_capel);
+		$this->db->delete('data_kebutuhan_tibet');
+	} //end of function	
 
 	function get_data_material($id_capel)
 	{
