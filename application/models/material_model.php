@@ -58,8 +58,13 @@ class Material_model extends CI_Model
 		$this->db->like('nama_detail_mdu', $keyword);
 		return $this->db->get('view_material_kurang')->result();
 	}
-	public function detail_material_kurang($nama_detail_mdu){
-		$this->db->where('nama_detail_mdu', $nama_detail_mdu);
-		return $this->db->get('view_rincian_plgn_kurang_mdu')->result();
+	public function detail_material_kurang($id_detail_mdu){
+		$this->db->select("*");
+		$this->db->from("view_rincian_plgn_kurang_mdu");
+		$this->db->where("id_detail_mdu", $id_detail_mdu);
+		$query = $this->db->get()->result();
+		return $query;
+		// $this->db->where('nama_detail_mdu', $nama_detail_mdu);
+		// return $this->db->get('view_rincian_plgn_kurang_mdu')->result();
 	}
 }//end of class

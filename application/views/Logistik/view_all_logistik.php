@@ -46,7 +46,7 @@
 									<tbody>
 										<?php foreach ($search_mdu as $mdu) : ?>
 											<tr>
-												<td class="text-info text-center"><a href="<?php echo base_url('Logistik/detailMaterial'); ?>"><i data-feather="edit"></i></a></td>
+												<td class="text-info text-center"><a href="<?php echo base_url('Logistik/detailMaterial/' .  $mdu->id_detail_mdu); ?>"><i data-feather="edit"></i></a></td>
 												<td><?php echo html_escape($mdu->nama_detail_mdu); ?></td>
 												<td><?php echo html_escape($mdu->volume); ?></td>
 												<td><?php echo html_escape($mdu->jumlah_pelanggan); ?></td>
