@@ -9,9 +9,8 @@ class Capel extends CI_Controller
 			redirect('Welcome');
 	}
 
-	function view_capel()
-	{
-		if (!isset($_SESSION['username']))
+	function view_capel(){
+		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 
 		$this->load->model('capel_model');
@@ -20,8 +19,7 @@ class Capel extends CI_Controller
 		else
 			$data['data_capel'] 	= $this->capel_model->get_all_data_capel();
 
-		$data['nama_user_pegawai'] 	= $_SESSION['username'];
-		$data['nama_user'] 	= $_SESSION['username'];
+		$data['nama_user_pegawai'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel', $data, true);
 		$this->load->view('beranda', $data);
 	}
@@ -33,9 +31,8 @@ class Capel extends CI_Controller
 
 		$this->load->model('capel_model');
 		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_approved();
-
-		$data['nama_user_pegawai'] 	= $_SESSION['username'];
-		$data['nama_user'] 	= $_SESSION['username'];
+		
+		$data['nama_user_pegawai'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_approved', $data, true);
 		$this->load->view('beranda', $data);
 	}
@@ -52,10 +49,9 @@ class Capel extends CI_Controller
 		if ($_SESSION['kode_ulp'] != '52550')
 			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_lgkp_material_ulp($_SESSION['kode_ulp']);
 		else
-			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_lgkp_material();
-
-		$data['nama_user_pegawai'] 	= $_SESSION['username'];
-		$data['nama_user'] 	= $_SESSION['username'];
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_lgkp_material();		
+		
+		$data['nama_user_pegawai'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_ulp', $data, true);
 		$this->load->view('beranda', $data);
 	}
@@ -128,12 +124,12 @@ class Capel extends CI_Controller
 			$data['status_capel'] 	= $status_capel;
 
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
-
-			$data['nama_user_pegawai'] 	= $_SESSION['username'];
-			$data['nama_user'] 	= $_SESSION['username'];
-			$data['content'] 			= $this->load->view('Capel/form_update_capel', $data, true);
-			$this->load->view('beranda', $data);
-		} else {
+			
+			$data['nama_user_pegawai'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_update_capel',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{	
 			$data_plg = array(
 				'id_status_capel'		=> $this->input->post('status_capel'),
 				'nomor_surat_up3_ulp'	=> $this->input->post('nomor_surat_up3_ulp'),
@@ -191,14 +187,14 @@ class Capel extends CI_Controller
 			$data['status_material'] 	= $status_material;
 
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
-
-			$data['nama_user_pegawai'] 	= $_SESSION['username'];
-			$data['nama_user'] 	= $_SESSION['username'];
-			$data['content'] 			= $this->load->view('Capel/form_update_capel_material', $data, true);
-			$this->load->view('beranda', $data);
-		} else {
-
-			if ($this->input->post('status_material') > 2)
+			
+			$data['nama_user_pegawai'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_update_capel_material',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{
+			
+			if($this->input->post('status_material') > 2)
 				$tgl_lengkap_material	= date("Y-m-d");
 			else
 				$tgl_lengkap_material	= null;
@@ -282,12 +278,12 @@ class Capel extends CI_Controller
 			$data['status_capel'] 	= $status_capel;
 
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
-
-			$data['nama_user_pegawai'] 	= $_SESSION['username'];
-			$data['nama_user'] 	= $_SESSION['username'];
-			$data['content'] 			= $this->load->view('Capel/form_update_capel_ulp', $data, true);
-			$this->load->view('beranda', $data);
-		} else {
+			
+			$data['nama_user_pegawai'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_update_capel_ulp',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{
 			//upload PDF TUG
 			$new_name 					= 'TUG_' . $this->input->post('id_ulp') . '_' . $this->input->post('nama_capel') . '_' . $this->input->post('daya_baru') . 'VA.PDF';
 			$config['file_name'] 		= $new_name;
@@ -306,7 +302,7 @@ class Capel extends CI_Controller
 
 				redirect('Capel/view_capel_lgkp_material');
 			}
-			/* 			else{
+/* 			else{
 				$data['nama_user_pegawai'] 			= $_SESSION['username'];
                 $data['error'] = array('error' => $this->upload->display_errors());
 				$data['content'] 			= $this->load->view('view_kosongan',$data,true);
@@ -319,10 +315,10 @@ class Capel extends CI_Controller
 	{
 		if (!isset($_SESSION['username']))
 			redirect('Welcome');
-
+		
 		$this->load->model('capel_model');
 		$this->load->model('material_model');
-
+			
 		$this->form_validation->set_rules('tgl_peremajaan', 'Tanggal Peremajaan Pelanggan', 'required');
 
 		// Setting Error Message

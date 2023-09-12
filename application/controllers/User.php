@@ -43,7 +43,7 @@ class User extends CI_Controller
 			$data['pilihan_role'] 	= $pilihan_role;
 
 			//redirect to view
-			$data['nama_user_pegawai'] 	= $_SESSION['username'];
+			$data['nama_user'] 	= $_SESSION['username'];
 			$data['nama_user'] 	= $_SESSION['username'];
 			$data['content'] 	= $this->load->view('user/form_tambah_user', $data, true);
 			$this->load->view('beranda', $data);
@@ -77,7 +77,7 @@ class User extends CI_Controller
 		$data['data_users'] = $data_users;
 
 		//redirect to view
-		$data['nama_user_pegawai'] 	= $_SESSION['username'];
+		$data['nama_user'] 	= $_SESSION['username'];
 		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('user/view_all_user', $data, true);
 		$this->load->view('beranda', $data);
@@ -119,7 +119,7 @@ class User extends CI_Controller
 
 		//redirect to view
 		$data['id_user'] = $id_user;
-		$data['nama_user_pegawai'] 	= $_SESSION['username'];
+		$data['nama_user'] 	= $_SESSION['username'];
 		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('user/form_edit_user', $data, true);
 		$this->load->view('beranda', $data);
