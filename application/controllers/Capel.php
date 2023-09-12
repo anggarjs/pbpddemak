@@ -6,6 +6,12 @@ class Capel extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');	
 	}
+	
+	public function __construct(){
+        parent::__construct();
+        $this->load->model('capel_model');
+        $this->load->model('material_model');
+    }
 
 	function view_capel(){
 		if(!isset($_SESSION['username']))
@@ -52,7 +58,24 @@ class Capel extends CI_Controller {
 		$this->load->view('beranda', $data);
 	}	
 	
-
+	function view_capel_sudah_bayar(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+/* 		$this->load->model('capel_model');
+		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_lgkp_material_ulp($_SESSION['kode_ulp']); */
+		
+		$this->load->model('capel_model');		
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_sudah_bayar_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_sudah_bayar();		
+		
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('capel/view_all_capel_sudah_bayar', $data, true);
+		$this->load->view('beranda', $data);
+	}		
+	
 	function Update($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -242,7 +265,7 @@ class Capel extends CI_Controller {
 			$data['id_capel']					= $id_capel;
 
 			$path 								= 'uploads/'.$data['id_ulp'].'/';
-			$data['path_file']					= $path.'RAB_'.$data['id_ulp'].'_'.$data['nama_capel']	.'_'. $data['daya_baru'].'VA.xlsx';;
+			$data['path_file']					= $path.'RAB_'.$data['id_ulp'].'_'.$data['nama_capel']	.'_'. $data['daya_baru'].'VA.xlsx';
 		
  			$status_capel['0'] 		= "- Pilih Status Pelanggan -";
 			$capel 					= $this->capel_model->get_status_capel();
@@ -286,6 +309,71 @@ class Capel extends CI_Controller {
 		}
 	}//end of function
 	
+	function Update_peremajaan($id_capel){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+
+			
+		$this->form_validation->set_rules('tgl_peremajaan', 'Tanggal Peremajaan Pelanggan', 'required');
+		
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
+		if($this->form_validation->run() == FALSE){
+			foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['daya_lama']				= $row->daya_lama;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
+				$data['id_status_capel']		= $row->id_status_capel;
+				$data['id_status_material']		= $row->id_status_material;
+				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
+				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;
+				$data['tgl_bayar_plgn']			= $row->tgl_bayar_plgn;
+				$data['status_material']		= $row->status_material;	
+				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	
+				$data['keterangan_material']	= $row->keterangan_material;	
+				$data['tgl_peremajaan']			= $row->tgl_peremajaan;
+				
+			}
+			$data['id_capel']					= $id_capel;
+
+			$path 								= 'uploads/'.$data['id_ulp'].'/';
+			$data['path_file']					= $path.'RAB_'.$data['id_ulp'].'_'.$data['nama_capel']	.'_'. $data['daya_baru'].'VA.xlsx';
+		
+ 			$status_capel['0'] 		= "- Pilih Status Pelanggan -";
+			$capel 					= $this->capel_model->get_status_capel();
+			foreach($capel->result() as $row){
+				$status_capel[$row->id_status_capel] = $row->status_capel; 
+			}
+			$data['status_capel'] 	= $status_capel;
+			
+			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
+			
+			$data['nama_user'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_update_peremajaan',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{
+			$data_plg = array(
+				'id_status_capel' 		=> $this->input->post('status_capel'),
+				'tgl_peremajaan' 		=> $this->input->post('tgl_peremajaan'),
+			);				
+			//update into database
+			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));			
+			
+			redirect('Capel/view_capel_sudah_bayar');	
+		}
+	}//end of function	
+	
 	function validasi_data_list($str){
 		if ($str == '0'){				
 			$this->form_validation->set_message('validasi_data_list', 'Silakan memilih salah satu pilihan yang ada pada daftar %s terlebih dahulu');
@@ -300,20 +388,20 @@ class Capel extends CI_Controller {
 		$this->load->library('email');
 
 		$config['protocol']    	= 'smtp';
-		$config['smtp_host']    = 'ssl://smtp.mail.yahoo.com';
+		$config['smtp_host']    = 'ssl://smtp.googlemail.com';
 		$config['smtp_port']    = '465';
 		$config['smtp_timeout'] = '7';
-		$config['smtp_user']  	= '';  
-		$config['smtp_pass']  	= '';  
-		$config['charset']    	= 'utf-8';
-		$config['newline']    	= "\r\n";
-		$config['mailtype']		= 'text'; // or html
+		$config['smtp_user']  	= 'konstruksiup3demak@gmail.com';  
+		$config['smtp_pass']  	= 'konsdemak';  
+		$config['charset']   = 'utf-8';
+		$config['mailtype']  = 'html';
+		$config['newline']   = "\r\n"; 
 		$config['charset']    	= 'iso-8859-1';
 		$config['wordwrap']   	= TRUE;		
 		$config['validation'] 	= TRUE; // bool whether to validate email or not      
 
 		$this->email->initialize($config);
-		$this->email->from('konstruksiup3demak@yahoo.com', 'KONS UP3 Demak');
+		$this->email->from('konstruksiup3demak@gmail.com', 'KONS UP3 Demak');
 		$this->email->to('angga.rajasa@pln.co.id'); 
 		$this->email->subject('Email Test');
 		$this->email->message('Testing the email class.');  
@@ -324,15 +412,6 @@ class Capel extends CI_Controller {
 
 		
 /* 		$config['protocol'] 	= 'smtp';
-		$config['smtp_host'] 	= 'smtp.gmail.com';
-		$config['smtp_port'] 	= 465; 
-		$config['smtp_user']  	= 'konstruksiup3demak@gmail.com';  
-		$config['smtp_pass']  	= 'konsup3demak';  
-		$config['_smtp_auth'] 	= true;
-		$config['smtp_crypto'] 	= 'ssl';
-		$config['mailtype']  	= 'html'; 
-		$config['charset']    	= 'iso-8859-1';
-		$config['wordwrap']   	= TRUE;
 
 
 		$this->load->library('email');

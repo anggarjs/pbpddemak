@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan Telah Lengkap Material
+      							Data Calon Pelanggan Telah Lengkap Material dan Belum Bayar
       						</h4>
       					</div>
       					<div class="card-body">

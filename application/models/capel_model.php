@@ -52,14 +52,34 @@ class Capel_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from('view_capel');
 		$this->db->where('id_status_material >','2');
+		$this->db->where('id_status_capel <','3');
 		$query = $this->db->get();
 		return $query;
 	}//end of function	
+	
 	
 	function get_all_data_capel_lgkp_material_ulp($ulp){
 		$this->db->select("*");
 		$this->db->from('view_capel');
 		$this->db->where('id_status_material >','2');
+		$this->db->where('id_status_capel <','3');		
+		$this->db->where('id_ulp',$ulp);
+		$query = $this->db->get();
+		return $query;
+	}//end of function
+	
+	function get_all_data_capel_sudah_bayar(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel <','3');
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
+	function get_all_data_capel_sudah_bayar_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel','3');		
 		$this->db->where('id_ulp',$ulp);
 		$query = $this->db->get();
 		return $query;
