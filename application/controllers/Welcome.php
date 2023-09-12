@@ -23,9 +23,12 @@ class Welcome extends CI_Controller {
 			$this->session->sess_destroy(); 
 			$this->load->view('welcome_message');
 		}
-		else
-			redirect('Input');
-	
+		else{
+			if($_SESSION['role_user'] != 2)
+				redirect('Input');
+			else
+				redirect('Capel/view_capel)');
+		}
 		
 		
 	}
