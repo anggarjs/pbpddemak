@@ -29,7 +29,7 @@
 						<form class="" method="get">
 							<div class="input-group mb-3">
 								<button class="btn btn-outline-secondary" type="submit"><i data-feather="search"></i></button>
-								<input type="search" class="form-control" name="nama_detail_mdu" placeholder="Cari Data" value="<?= html_escape($nama_detail_mdu) ?>" required />
+								<input type="search" class="form-control" name="nama_detail_mdu" placeholder="Cari Data" value="<?= html_escape($nama_detail_mdu_search) ?>" required />
 							</div>
 						</form>
 						<div class="mt-3 overflow-scroll">
@@ -39,8 +39,8 @@
 										<tr>
 											<th>Pengecekan</th>
 											<th>Nama Detail MDU</th>
-											<th>Volume MDU</th>
-											<th>Satuan</th>
+											<th>Volume</th>
+											<th>Jumlah Pelanggan</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -48,13 +48,13 @@
 											<tr>
 												<td class="text-info text-center"><a href="<?php echo base_url('Logistik/detailMaterial/' . $mdu->nama_detail_mdu); ?>"><i data-feather="edit"></i></a></td>
 												<td><?php echo html_escape($mdu->nama_detail_mdu); ?></td>
-												<td><?php echo html_escape($mdu->volume_mdu); ?></td>
-												<td><?php echo html_escape($mdu->satuan); ?></td>
+												<td><?php echo html_escape($mdu->volume); ?></td>
+												<td><?php echo html_escape($mdu->jumlah_pelanggan); ?></td>
 											</tr>
 										<?php endforeach; ?>
 									</tbody>
 								<?php else : ?>
-									<?php if ($nama_detail_mdu) : ?>
+									<?php if ($nama_detail_mdu_search) : ?>
 										<tbody>
 											<tr>
 												<td><strong>Data Tidak Ditemukan</strong></td>

@@ -22,7 +22,7 @@
                         <div class="card">
                               <div class="card-header bg-info">
                                     <h4 class="card-title text-white">
-                                          Data Material Kurang PBPD
+                                          Data Rincian Pelanggan Kurang MDU
                                     </h4>
                               </div>
                               <div class="card-body">
@@ -36,11 +36,13 @@
                                                       </tr>
                                                 </thead>
                                                 <tbody>
+                                                      <?php foreach($material_kurang as $material) : ?>
                                                       <tr>
-                                                            <td><?php echo html_escape($nama_detail_mdu); ?></td>
-                                                            <td><?php echo html_escape($volume_mdu); ?></td>
-                                                            <td><?php echo html_escape($satuan); ?></td>
+                                                            <td><?php echo $material->nama_detail_mdu; ?></td>
+                                                            <td><?php echo $material->volume_mdu; ?></td>
+                                                            <td><?php echo $material->satuan; ?></td>
                                                       </tr>
+                                                      <?php endforeach; ?>
                                                 </tbody>
                                           </table>
                                     </div>
