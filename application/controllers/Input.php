@@ -42,7 +42,8 @@ class Input extends CI_Controller {
 			}
 			$data['pilihan_ulp'] 	= $pilihan_ulp;	
 			
-			$data['nama_user'] 		= $_SESSION['username'];
+			$data['nama_user'] 	= $_SESSION['username'];
+			$data['nama_user'] 	= $_SESSION['username'];
 			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
 			$this->load->view('beranda',$data);
 		}
@@ -173,7 +174,8 @@ class Input extends CI_Controller {
 		$data['data_material']			= $array_data_material;
 	
 
-		$data['nama_user'] 				= $_SESSION['username'];
+		$data['nama_user'] 	= $_SESSION['username'];
+		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 				= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
 		$this->load->view('beranda',$data);
 	}

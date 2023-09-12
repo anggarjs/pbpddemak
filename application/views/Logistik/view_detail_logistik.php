@@ -32,15 +32,17 @@
                                                       <tr>
                                                             <th>Nama Detail MDU</th>
                                                             <th>Volume MDU</th>
-                                                            <th>Satuan</th>
+                                                            <th>Nama Capel</th>
                                                       </tr>
                                                 </thead>
                                                 <tbody>
+                                                      <?php foreach($material_kurang as $material) : ?>
                                                       <tr>
-                                                            <td><?php echo html_escape($nama_detail_mdu); ?></td>
-                                                            <td><?php echo html_escape($volume_mdu); ?></td>
-                                                            <td><?php echo html_escape($satuan); ?></td>
+                                                            <td><?php echo html_escape($material->nama_detail_mdu); ?></td>
+                                                            <td><?php echo html_escape($material->volume_mdu); ?></td>
+                                                            <td><?php echo html_escape($material->nama_capel); ?></td>
                                                       </tr>
+                                                      <?php endforeach; ?>
                                                 </tbody>
                                           </table>
                                     </div>

@@ -44,6 +44,7 @@ class User extends CI_Controller
 
 			//redirect to view
 			$data['nama_user'] 	= $_SESSION['username'];
+			$data['nama_user'] 	= $_SESSION['username'];
 			$data['content'] 	= $this->load->view('user/form_tambah_user', $data, true);
 			$this->load->view('beranda', $data);
 		} //end of if
@@ -77,6 +78,7 @@ class User extends CI_Controller
 
 		//redirect to view
 		$data['nama_user'] 	= $_SESSION['username'];
+		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('user/view_all_user', $data, true);
 		$this->load->view('beranda', $data);
 	} //end of function
@@ -96,7 +98,7 @@ class User extends CI_Controller
 		foreach ($this->users_model->pilih_data_user($id_user)->result() as $row) {
 			$data['id_ulp'] = $row->id_ulp;
 			$data['id_role'] = $row->id_role;
-			$data['nama_user_pegawai'] = $row->nama_user;
+			$data['nama_user'] = $row->nama_user;
 			$data['nama_ulp'] = $row->nama_ulp;
 			$data['nama_role'] = $row->nama_role;
 		}
@@ -117,6 +119,7 @@ class User extends CI_Controller
 
 		//redirect to view
 		$data['id_user'] = $id_user;
+		$data['nama_user'] 	= $_SESSION['username'];
 		$data['nama_user'] 	= $_SESSION['username'];
 		$data['content'] 	= $this->load->view('user/form_edit_user', $data, true);
 		$this->load->view('beranda', $data);
