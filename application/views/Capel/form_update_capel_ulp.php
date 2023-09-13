@@ -37,7 +37,7 @@
 						<div class="card-body">
 							<!-- ROW #1 -->
 							<div class="row">
-								<div class="col-md-6">						
+								<div class="col-md-6">
 									<div class="mb-3">
 										<label>Asal Unit Kerja :</label>
 										<?php 			

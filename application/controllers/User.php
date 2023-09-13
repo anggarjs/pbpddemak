@@ -80,8 +80,7 @@ class User extends CI_Controller
 	} //end of function
 
 
-	function validasi_data_list($str)
-	{
+	function validasi_data_list($str){
 		if ($str == '0') {
 			$this->form_validation->set_message('validasi_data_list', 'Silakan memilih salah satu pilihan yang ada pada daftar %s terlebih dahulu');
 			return FALSE;
@@ -89,62 +88,65 @@ class User extends CI_Controller
 			return TRUE;
 	} //end of function
 
-	function Edit($id_user)
-	{
-		foreach ($this->users_model->pilih_data_user($id_user)->result() as $row) {
-			$data['id_ulp'] = $row->id_ulp;
-			$data['id_role'] = $row->id_role;
-			$data['nama_user'] = $row->nama_user;
-			$data['nama_ulp'] = $row->nama_ulp;
-			$data['nama_role'] = $row->nama_role;
-		}
-		$data['id_user'] = $row->id_user;
-		$pilihan_ulp[''] 		= "- Pilih ULP -";
-		$ulp 					= $this->users_model->get_data_ulp();
-		foreach ($ulp->result() as $row) {
-			$pilihan_ulp[$row->id_ulp] = $row->nama_ulp;
-		}
-		$data['pilihan_ulp'] 	= $pilihan_ulp;
+	function Edit($id_user){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');		
+		
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('pilihan_ulp', 'Pilihan ULP', 'required|callback_validasi_data_list');
+		$this->form_validation->set_rules('pilihan_role', 'Pilihan Role User', 'required|callback_validasi_data_list');
 
-		$pilihan_role[''] 		= "- Pilih Role -";
-		$role 					= $this->users_model->get_data_role();
-		foreach ($role->result() as $row) {
-			$pilihan_role[$row->id_role] = $row->nama_role;
-		}
-		$data['pilihan_role'] 	= $pilihan_role;
-
-		//redirect to view
-		$data['id_user'] = $id_user;
-		$data['nama_user'] 	= $_SESSION['username'];
-		$data['content'] 	= $this->load->view('user/form_edit_user', $data, true);
-		$this->load->view('beranda', $data);
-	}
-
-	function proses_edit_user($id)
-	{
-		$this->form_validation->set_rules('username', 'Nama User', 'required', [
-			'required' => '%s Harus diisi'
-		]);
-		$this->form_validation->set_rules('pilihan_ulp', 'Unit Kerja', 'required', [
-			'required' => '%s Harus diisi'
-		]);
-		$this->form_validation->set_rules('pilihan_role', 'Role Kerja', 'required', [
-			'required' => '%s Harus diisi'
-		]);
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
 		if ($this->form_validation->run() == FALSE) {
-			$this->Edit($id);
-		} else {
+			foreach ($this->users_model->pilih_data_user($id_user)->result() as $row) {
+				$data['id_ulp'] 	= $row->id_ulp;
+				$data['id_role'] 	= $row->id_role;
+				$nama_user		 	= $row->nama_user;
+				$data['nama_ulp'] 	= $row->nama_ulp;
+				$data['nama_role'] 	= $row->nama_role;
+			}
+			
+			$arr_file 				= explode('.', $nama_user);
+			$data['nama_user2'] 	= end($arr_file);		
+			
+			$data['id_user'] 		= $row->id_user;
+			$pilihan_ulp[''] 		= "- Pilih ULP -";
+			$ulp 					= $this->users_model->get_data_ulp();
+			foreach ($ulp->result() as $row) {
+				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp;
+			}
+			$data['pilihan_ulp'] 	= $pilihan_ulp;
+
+			$pilihan_role[''] 		= "- Pilih Role -";
+			$role 					= $this->users_model->get_data_role();
+			foreach ($role->result() as $row) {
+				$pilihan_role[$row->id_role] = $row->nama_role;
+			}
+			$data['pilihan_role'] 	= $pilihan_role;
+
+			//redirect to view
+			$data['id_user'] 		= $id_user;
+			$data['nama_user'] 		= $_SESSION['username'];
+			$data['content'] 		= $this->load->view('user/form_edit_user', $data, true);
+			$this->load->view('beranda', $data);
+		}
+		else{
 			$data = array(
-				'nama_user' 	=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
-				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
-				'id_role' 				=> $this->input->post('pilihan_role'),
+				'nama_user' 		=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
+				'id_ulp' 			=> $this->input->post('pilihan_ulp'),
+				'id_role' 			=> $this->input->post('pilihan_role'),
 			);
 
-			$this->users_model->update_user($data, $id);
+			$this->users_model->update_user($data, $this->input->post('id_user'));
 			$this->session->set_flashdata('success_edit', 'User berhasil diedit');
-			redirect('User/View');
+			redirect('User/View');			
 		}
 	}
+	
 	function hapus_user_selected()
 	{
 		$delete_items = $this->input->post('check');

@@ -57,9 +57,32 @@
       									</div>
       								<?php endif; ?>
       								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
-      									<button type="submit" id="delete-row" class="btn btn-primary mb-3 hapus-data-user" name="hapus_user">
-      										<i class="ri-delete-bin-line fs-5 align-middle"></i> Delete
-      									</button>
+										<button
+										type="button"
+										class="								
+										btn btn-info
+										rounded-pill
+										px-4
+										waves-effect waves-light"
+										
+										onclick="location.href='<?php echo base_url()?>User/Tambah/';"
+										>
+											Tambah
+										</button>
+										<button
+										type="submit"
+										class="
+										btn btn-danger
+										rounded-pill
+										px-4
+										waves-effect waves-light"
+										id="delete-row"
+										name="hapus_user"
+										>
+											Hapus
+										</button>
+										<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>		
+										
       									<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
       										<thead>
       											<!-- start row -->

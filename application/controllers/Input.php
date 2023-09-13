@@ -20,8 +20,8 @@ class Input extends CI_Controller {
 		$this->load->model('users_model');
 		$this->load->model('material_model');
 		
-		if($this->input->post('filerab'))
-			$this->form_validation->set_rules('filerab', 'File Upload', 'callback_file_check');
+/* 		if($this->input->post('filerab'))
+			$this->form_validation->set_rules('filerab', 'File Upload', 'callback_file_check'); */
 		
 		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
 
@@ -41,10 +41,9 @@ class Input extends CI_Controller {
 				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
 			}
 			$data['pilihan_ulp'] 	= $pilihan_ulp;	
-			$data['title'] = "Form Upload Hasil Survey";
+		
 			
-			$data['nama_user'] 	= $_SESSION['username'];
-			$data['nama_user'] 	= $_SESSION['username'];
+			$data['nama_user'] 		= $_SESSION['username'];
 			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
 			$this->load->view('beranda',$data);
 		}
