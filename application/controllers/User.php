@@ -15,17 +15,15 @@ class User extends CI_Controller
 
 	function Tambah()
 	{
-		$this->load->model('users_model');
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		/*$this->form_validation->set_rules('pilihan_ulp', 'Klasifikasi Gangguan', 'callback_validasi_data_list');
-		$this->form_validation->set_rules('pilihan_role', 'Zona Wilayah Gangguan', 'callback_validasi_data_list');
-*/
-
-		// Setting Error Message
-		$this->form_validation->set_message('required', 'Silahkan mengisi data %s');
-		// Setting Delimiter
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-
+		$this->form_validation->set_rules('username', 'Nama User', 'required', [
+			'required' => '%s Harus diisi'
+		]);
+		$this->form_validation->set_rules('pilihan_ulp', 'Unit Kerja', 'required', [
+			'required' => '%s Harus diisi'
+		]);
+		$this->form_validation->set_rules('pilihan_role', 'Role Kerja', 'required', [
+			'required' => '%s Harus diisi'
+		]);
 
 		if ($this->form_validation->run() == FALSE) {
 			$pilihan_ulp[''] 		= "- Pilih ULP -";

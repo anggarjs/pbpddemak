@@ -53,15 +53,17 @@
 											</tr>
 										<?php endforeach; ?>
 									</tbody>
-								<?php else : ?>
-									<?php if ($nama_detail_mdu_search) : ?>
-										<tbody>
-											<tr>
-												<td><strong>Data Tidak Ditemukan</strong></td>
-											</tr>
-										</tbody>
-									<?php endif; ?>
+							</table>
+						<?php else : ?>
+							<table style="width: 100%;" class="table table-bordered table hover no-wrap">
+								<?php if ($nama_detail_mdu_search) : ?>
+									<tbody>
+										<tr>
+											<td class="text-danger"><strong><h3 class="mt-2">Data Tidak Ditemukan</h3></strong></td>
+										</tr>
+									</tbody>
 								<?php endif; ?>
+							<?php endif; ?>
 							</table>
 						</div>
 					</div>

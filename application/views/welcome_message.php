@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design"
     />
     <meta name="robots" content="noindex,nofollow" />
-    <title>Dashboard MDU PBPD Demak</title>
+    <title>Login MDU PBPD Demak</title>
     <link
       rel="canonical"
       href="https://www.wrappixel.com/templates/niceadmin/"
@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="<?php echo base_url()?>assets/images/favicon.png"
+      href="<?php echo base_url()?>assets/image_lain/logo_pln.png"
     />
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>dist/css/style.min.css" rel="stylesheet" />

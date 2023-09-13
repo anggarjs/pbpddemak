@@ -41,6 +41,7 @@ class Input extends CI_Controller {
 				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
 			}
 			$data['pilihan_ulp'] 	= $pilihan_ulp;	
+			$data['title'] = "Form Upload Hasil Survey";
 			
 			$data['nama_user'] 	= $_SESSION['username'];
 			$data['nama_user'] 	= $_SESSION['username'];

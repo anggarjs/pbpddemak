@@ -44,7 +44,7 @@
       								<?php
 										if (set_value('pilihan_ulp') != '') $set_select = set_value('pilihan_ulp');
 										else $set_select = $id_ulp;
-										echo form_dropdown('pilihan_ulp', $pilihan_ulp, $set_select, 'class="form-select ' . (form_error('pilihan_ulp') ? 'is-invalid' : '') . '"');
+										echo form_dropdown('pilihan_ulp', $pilihan_ulp, $set_select, 'class="form-control ' . (form_error('pilihan_ulp') ? 'is-invalid' : '') . '"');
 										?>
       								<div class="invalid-feedback">
       									<?php echo form_error('pilihan_ulp'); ?>
@@ -56,7 +56,7 @@
       								<?php
 										if (set_value('pilihan_role') != '') $set_select = set_value('pilihan_role');
 										else $set_select = $id_role;
-										echo form_dropdown('pilihan_role', $pilihan_role, $set_select, 'class="form-select ' . (form_error('pilihan_role') ? 'is-invalid' : '') . '"');
+										echo form_dropdown('pilihan_role', $pilihan_role, $set_select, 'class="form-control ' . (form_error('pilihan_role') ? 'is-invalid' : '') . '"');
 										?>
       								<div class="invalid-feedback">
       									<?php echo form_error('pilihan_role'); ?>
