@@ -64,7 +64,18 @@ class Capel extends CI_Controller {
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_sudah_bayar', $data, true);
 		$this->load->view('beranda', $data);
-	}		
+	}
+	
+	function Hapus_capel(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		$data['data_capel'] 		= $this->capel_model->get_all_capel_awal();
+
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('capel/view_hapus_capel', $data, true);
+		$this->load->view('beranda', $data);
+	}	
 	
 	function Update($id_capel){
 		if(!isset($_SESSION['username']))

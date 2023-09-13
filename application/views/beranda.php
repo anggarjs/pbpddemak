@@ -279,7 +279,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
+                  <a href="<?php echo base_url() ?>Capel/Hapus_capel" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Hapus Data Capel</span>
                   </a>
@@ -339,8 +339,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?php echo base_url() ?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
   <!--Wave Effects -->
   <script src="<?php echo base_url() ?>dist/js/waves.js"></script>
-  <!--Flexigrid -->
-  <script src="<?php echo base_url() ?>dist/js/flexigrid.js"></script>
+
   <!--Menu sidebar -->
   <script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
   <!--Custom JavaScript -->
