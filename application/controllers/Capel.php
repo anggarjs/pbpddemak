@@ -216,8 +216,8 @@ class Capel extends CI_Controller {
 				}					
 			}
 			
-			$this->send_email();			
-			/* redirect('Capel/view_capel_approved');		 */	
+		
+			redirect('Capel/view_capel_approved');			
 		}
 	}//end of function
 	
