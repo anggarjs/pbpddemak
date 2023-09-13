@@ -57,7 +57,7 @@
       									</div>
       								<?php endif; ?>
       								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
-      									<button type="submit" id="delete-row" class="btn btn-primary me-1 mb-3 hapus-data-user" name="hapus_user">
+      									<button type="submit" id="delete-row" class="btn btn-primary mb-3 hapus-data-user" name="hapus_user">
       										<i class="ri-delete-bin-line fs-5 align-middle"></i> Delete
       									</button>
       									<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">

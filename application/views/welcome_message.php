@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="<?php echo base_url()?>assets/image_lain/logo_pln.png"
+      href="<?php echo base_url()?>assets/image_lain/pln.png"
     />
     <!-- Custom CSS -->
     <link href="<?php echo base_url()?>dist/css/style.min.css" rel="stylesheet" />
