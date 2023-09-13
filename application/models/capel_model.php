@@ -92,10 +92,18 @@ class Capel_model extends CI_Model {
 		$query = $this->db->get();
 		return $query;		
 	}//end of function
-
+	
 	function get_status_capel(){
 		$this->db->select('*');
 		$this->db->from('data_status_capel');
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
+
+	function get_all_capel_awal(){
+		$this->db->select('*');
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel <','3');			
 		$query = $this->db->get();
 		return $query;
 	} //end of function

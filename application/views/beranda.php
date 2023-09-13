@@ -311,8 +311,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?php echo base_url() ?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
   <!--Wave Effects -->
   <script src="<?php echo base_url() ?>dist/js/waves.js"></script>
-  <!--Flexigrid -->
-  <script src="<?php echo base_url() ?>dist/js/flexigrid.js"></script>
+
   <!--Menu sidebar -->
   <script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
   <!--Custom JavaScript -->
@@ -322,8 +321,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?php echo base_url() ?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?php echo base_url() ?>dist/js/pages/datatable/custom-datatable.js"></script>
   <script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-basic.init.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/dataTables.bootstrap5.min.js"></script>
   <!-- Feather Icon -->
   <script>
     feather.replace();
