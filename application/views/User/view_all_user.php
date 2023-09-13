@@ -57,17 +57,17 @@
       									</div>
       								<?php endif; ?>
       								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
+      									<button type="submit" id="delete-row" class="btn btn-primary me-1 mb-3 hapus-data-user" name="hapus_user">
+      										<i class="ri-delete-bin-line fs-5 align-middle"></i> Delete
+      									</button>
       									<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
       										<thead>
       											<!-- start row -->
       											<tr style="vertical-align: middle;">
       												<th>
-      													<div class="d-flex justify-content-around">
-      														<button type="submit" class="btn btn-danger hapus-data-user" name="hapus_user" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-      															<i data-feather="trash"></i>
-      														</button>
+      													<div class="d-flex justify-content-center">
       														<div class="form-check">
-      															<input class="form-check-input" type="checkbox" id="checklist-user" style="position: relative; top: 8px; left:6px;">
+      															<input class="form-check-input" type="checkbox" id="checklist-user">
       														</div>
       													</div>
       												</th>
@@ -82,9 +82,9 @@
       											<?php foreach ($data_users->result() as $row) : ?>
       												<tr>
       													<td>
-      														<div class="d-flex justify-content-evenly">
+      														<div class="d-flex justify-content-center">
       															<div class="form-check">
-      																<input class="form-check-input" type="checkbox" value="<?php echo $row->id_user; ?>" id="flexCheckDefault" name="check[]">
+      																<input class="form-check-input" style="position: relative; right: 7px;" type="checkbox" value="<?php echo $row->id_user; ?>" id="flexCheckDefault" name="check[]">
       															</div>
       														</div>
       													</td>

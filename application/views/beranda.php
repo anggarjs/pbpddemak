@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <title>Dashboard MDU PBPD Demak</title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/logo_pln.png" />
+  <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/pln.png" />
   <!-- Feather Icon -->
   <script src="https://unpkg.com/feather-icons"></script>
   <!-- Custom CSS -->
@@ -69,12 +69,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <b class="logo-icon">
                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                 <!-- Dark Logo icon -->
-                <img src="<?php echo base_url('assets/image_lain/logo_pln.png') ?>" alt="Logo PLN" width="35px" height="35px">
+                <img src="<?php echo base_url('assets/image_lain/pln.png') ?>" alt="Logo PLN" width="35px" height="50px">
               </b>
               <!--End Logo icon -->
               <!-- Logo text -->
               <span class="logo-text text-light" style="position: relative; top: 2px;">
-                PPDB Demak
+                PBPD Demak
               </span>
             </a>
             <a class="sidebartoggler d-none d-md-block mt-1" href="javascript:void(0)" data-sidebartype="mini-sidebar">
