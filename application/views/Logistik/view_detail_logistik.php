@@ -30,17 +30,17 @@
                                           <table style="width: 100%;" class="table table-bordered table hover no-wrap" id="tabel-view-materialkurang">
                                                 <thead>
                                                       <tr>
+                                                            <th>Nama Capel</th>
                                                             <th>Nama Detail MDU</th>
                                                             <th>Volume MDU</th>
-                                                            <th>Nama Capel</th>
                                                       </tr>
                                                 </thead>
                                                 <tbody>
                                                       <?php foreach($material_kurang as $material) : ?>
                                                       <tr>
+                                                            <td><?php echo html_escape($material->nama_capel); ?></td>
                                                             <td><?php echo html_escape($material->nama_detail_mdu); ?></td>
                                                             <td><?php echo html_escape($material->volume_mdu); ?></td>
-                                                            <td><?php echo html_escape($material->nama_capel); ?></td>
                                                       </tr>
                                                       <?php endforeach; ?>
                                                 </tbody>
