@@ -48,7 +48,6 @@ class Input extends CI_Controller {
 			$this->load->view('beranda',$data);
 		}
 		else{
-			
 			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
 			$config['file_name'] 		= $new_name;
@@ -59,7 +58,7 @@ class Input extends CI_Controller {
 			$this->load->library('upload', $config);	
 		
 			if ($this->upload->do_upload('filerab')){
-				
+
 				$file_name 			= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
 				$arr_file 			= explode('.', $file_name);
 				$extension 			= end($arr_file);
@@ -100,9 +99,12 @@ class Input extends CI_Controller {
 				
 				$cek_capel_awal				= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->num_rows();
 				if($cek_capel_awal > 0){
+					echo 'ANGGA';
 					//delete temporary file
 					$path 					= 'uploads/'.$this->input->post('pilihan_ulp').'/';
-					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');					
+					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+					$this->session->set_userdata('alert_upload','Data Sudah Pernah Upload');
+					/* echo $_SESSION['alert_upload']; */
 					redirect('Input');
 				}
 				
@@ -197,7 +199,7 @@ class Input extends CI_Controller {
 				}//end reading volume MDU				
 
 				//parsing to konfirmasi upload
-				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);		
+				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);
 			}//end if
 		}
 	}

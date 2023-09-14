@@ -56,30 +56,20 @@
       										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       									</div>
       								<?php endif; ?>
+								
       								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
-										<button
-										type="button"
-										class="								
-										btn btn-info
-										rounded-pill
-										px-4
-										waves-effect waves-light"
-										
-										onclick="location.href='<?php echo base_url()?>User/Tambah/';"
+										<button id="addRow" 
+											class="btn btn-info"
+											onclick="location.href='<?php echo base_url()?>User/Tambah/';"
 										>
-											Tambah
+											<i data-feather="plus" class="feather-sm"></i>&nbsp; Tambah Data
 										</button>
-										<button
-										type="submit"
-										class="
-										btn btn-danger
-										rounded-pill
-										px-4
-										waves-effect waves-light"
-										id="delete-row"
-										name="hapus_user"
+										<button id="addRow" 
+											class="btn btn-danger"
+											type="submit"
+											name="hapus_user"
 										>
-											Hapus
+											<i data-feather="minus" class="feather-sm"></i>&nbsp; Hapus Data
 										</button>
 										<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>		
 										
@@ -87,14 +77,14 @@
       										<thead>
       											<!-- start row -->
       											<tr style="vertical-align: middle;">
-      												<th>
+      												<th width = "5%">
       													<div class="d-flex justify-content-center">
       														<div class="form-check">
       															<input class="form-check-input" type="checkbox" id="checklist-user">
       														</div>
       													</div>
       												</th>
-      												<th>Action</th>
+      												<th width = "5%">Action</th>
       												<th>Nama User</th>
       												<th>Asal Unit Kerja</th>
       												<th>Role User</th>
