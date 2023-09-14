@@ -166,7 +166,7 @@ class Input extends CI_Controller {
 								'volume_mdu'		=> $vol_material,
 							);
 							//insert database
-							/* $this->material_model->insert_kebutuhan_mdu($data); */
+							$this->material_model->insert_kebutuhan_mdu($data);
 						}
 					}
 					// ----- HANDLER NAMA MATERIAL TIDAK ADA DALAM LIST -----
@@ -217,7 +217,7 @@ class Input extends CI_Controller {
 								'volume_tibet'		=> $vol_material,
 							);
 							//insert database
-							/* $this->material_model->insert_kebutuhan_tibet($data); */
+							 $this->material_model->insert_kebutuhan_tibet($data); 
 						}
 					}
 				}//end reading volume Tibet				
