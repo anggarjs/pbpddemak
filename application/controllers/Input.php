@@ -36,7 +36,7 @@ class Input extends CI_Controller {
 		
 		if($this->form_validation->run() == FALSE){
 			$pilihan_ulp[''] 		= "- Pilih ULP -";
-			$ulp 					= $this->users_model->get_data_ulp();
+			$ulp 					= $this->capel_model->get_data_ulp();
 			foreach($ulp->result() as $row){
 				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
 			}
@@ -105,20 +105,18 @@ class Input extends CI_Controller {
 					//delete temporary file
 					$path 					= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-					$this->session->set_userdata('alert_upload','Data Sudah Pernah Upload');
+					$this->session->set_userdata('alert_upload','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Sudah Pernah Upload');
 					redirect('Input');
+					
 				}
 				
 				//cek apakah menggunakan HSS 2022
-				$temp_tahun_hss			= $spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I6')->getValue();
-				if(strstr($temp_tahun_hss,'=')==true)
-					$tahun_hss		 	= $spreadsheet->getSheetByName('HARGA SATUAN')->getCell(I6)->getOldCalculatedValue();
-				
-				if($tahun_hss < 2023){
+				$new_var_tahun_hss		= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue()); 
+				if($new_var_tahun_hss[2] < 2023){					
 					$path 					= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-					$this->session->set_userdata('alert_upload','RAB Menggunakan HSS sebelum tahun 2023');
-					redirect('Input');					
+					$this->session->set_userdata('alert_upload','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Menggunakan HSS sebelum tahun 2023');
+					redirect('Input');
 				}
 				
 				// END OF HANDLER UPLOAD RAB  ------------------------------------------------------------ //
@@ -166,11 +164,23 @@ class Input extends CI_Controller {
 								'id_detail_mdu'		=> $var_id,
 								'id_capel'			=> $id_capel,
 								'volume_mdu'		=> $vol_material,
-								/* 'status_tersedia'	=> 1, */
 							);
 							//insert database
-							$this->material_model->insert_kebutuhan_mdu($data);
+							/* $this->material_model->insert_kebutuhan_mdu($data); */
 						}
+					}
+					// ----- HANDLER NAMA MATERIAL TIDAK ADA DALAM LIST -----
+					else{
+						$path 				= 'uploads/'.$this->input->post('pilihan_ulp').'/';
+						unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+						$this->session->set_userdata('alert_upload','Material '.$data_material.' Pelanggan Atas Nama '.trim($nama_pelanggan).' Tidak ada dalam Database');
+						
+						//rollback database
+						$this->material_model->hapus_kebutuhan_mdu($id_capel);
+						$this->material_model->hapus_kebutuhan_tibet($id_capel);
+						$this->capel_model->hapus_capel($id_capel);
+						
+						redirect('Input');
 					}
 				}//end reading volume MDU
 				
@@ -205,16 +215,15 @@ class Input extends CI_Controller {
 								'id_detail_mdu'		=> $var_id,
 								'id_capel'			=> $id_capel,
 								'volume_tibet'		=> $vol_material,
-								/* 'status_tersedia'	=> 1, */
 							);
 							//insert database
-							$this->material_model->insert_kebutuhan_tibet($data);
+							/* $this->material_model->insert_kebutuhan_tibet($data); */
 						}
 					}
-				}//end reading volume MDU				
+				}//end reading volume Tibet				
 
 				//parsing to konfirmasi upload
-				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);
+				//$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);
 			}//end if
 		}
 	}
