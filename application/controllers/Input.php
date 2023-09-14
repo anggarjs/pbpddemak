@@ -223,7 +223,7 @@ class Input extends CI_Controller {
 				}//end reading volume Tibet				
 
 				//parsing to konfirmasi upload
-				//$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);
+				$this->konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);
 			}//end if
 		}
 	}
