@@ -97,16 +97,31 @@ class Input extends CI_Controller {
 					'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
 				);
 				
+				// HANDLER UPLOAD RAB ------------------------------------------------------------ //
+				
+				//cek apakah sudah pernah ada capel sebelumnya
 				$cek_capel_awal				= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->num_rows();
 				if($cek_capel_awal > 0){
-					echo 'ANGGA';
 					//delete temporary file
 					$path 					= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
 					$this->session->set_userdata('alert_upload','Data Sudah Pernah Upload');
-					/* echo $_SESSION['alert_upload']; */
 					redirect('Input');
 				}
+				
+				//cek apakah menggunakan HSS 2022
+				$temp_tahun_hss			= $spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I6')->getValue();
+				if(strstr($temp_tahun_hss,'=')==true)
+					$tahun_hss		 	= $spreadsheet->getSheetByName('HARGA SATUAN')->getCell(I6)->getOldCalculatedValue();
+				
+				if($tahun_hss < 2023){
+					$path 					= 'uploads/'.$this->input->post('pilihan_ulp').'/';
+					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+					$this->session->set_userdata('alert_upload','RAB Menggunakan HSS sebelum tahun 2023');
+					redirect('Input');					
+				}
+				
+				// END OF HANDLER UPLOAD RAB  ------------------------------------------------------------ //
 				
 				//insert into database
 				$this->capel_model->insert_capel($data_plg);
