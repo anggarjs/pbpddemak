@@ -39,10 +39,7 @@ class Test extends CI_Controller {
 		else{
 			$mail = new PHPMailer(true);
 			 
-			$g_smtp_oauthUserEmail 		= 'konstruksiup3demak@gmail.com';
-			$g_smtp_oauthClientId 		= '356379914807-r9qkoa5qbn380e5j90hlanohk02gjuuk.apps.googleusercontent.com';
-			$g_smtp_oauthClientSecret 	= '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';
-			$g_smtp_oauthRefreshToken 	= '1//0ghZKMBggoNuPCgYIARAAGBASNgF-L9IrknZsbsbtfJd_Voi9VYVDCB16CpJ01Qd6rxGs7inQLhJZFvmWdSLbaLR3rptzJ3KKjA';			 
+	 
 			
 			try {
 				$mail->isSMTP();
