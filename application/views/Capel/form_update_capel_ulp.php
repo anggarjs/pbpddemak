@@ -222,8 +222,8 @@
 									</div>	
 								</div>	
 							</div>						
-							<div class="table-responsive overflow-scroll">
-								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
+							<div class="table-responsive">
+								<table id="tabel-update-capelulp" class="table table-striped table-bordered text-nowrap" style="width: 100%;">
 									<thead>
 									
 										<tr>
