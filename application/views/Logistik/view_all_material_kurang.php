@@ -28,11 +28,8 @@
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
 							<div class="table-responsive">
-<<<<<<< HEAD
-								<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
-=======
 								<table id="tabel-view-materialkurang" class="table table-striped table-bordered text-nowrap" style="width: 100%;">
->>>>>>> c0e80dae9cf0a77cc20c6422a83c56b06175339c
+
 									<thead>
 										<!-- start row -->
 										<tr>

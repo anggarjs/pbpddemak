@@ -27,7 +27,6 @@
       					</div>
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
-<<<<<<< HEAD
       							<div class="table-responsive">
       								<?php if ($this->session->flashdata('success_insert')) : ?>
       									<div class="alert alert-success alert-dismissible fade show" role="alert">
