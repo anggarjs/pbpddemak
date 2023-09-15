@@ -28,11 +28,11 @@
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
       							<div class="table-responsive">
-      								<table id="zero_config" class="table table-striped table-bordered text-nowrap">
+      								<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
       									<thead>
       										<!-- start row -->
       										<tr>
-												<th>Update Bayar</th>
+												<th width = "5%">Update</th>
 												<th>Nama ULP</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>

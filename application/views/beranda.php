@@ -262,6 +262,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       <span class="hide-menu"> Rollback Kesiapan Material</span>
                     </a>
                   </li>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Test/Test_email" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Test Email</span>
+                    </a>
+                  </li>				 			  
                 </ul>
               </li>
             <?php } ?>
