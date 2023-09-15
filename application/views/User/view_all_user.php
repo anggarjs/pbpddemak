@@ -27,7 +27,7 @@
       					</div>
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
-      							<div class="mt-3 overflow-scroll">
+      							<div class="table-responsive">
       								<?php if ($this->session->flashdata('success_insert')) : ?>
       									<div class="alert alert-success alert-dismissible fade show" role="alert">
       										<i data-feather="check"></i>
@@ -56,45 +56,75 @@
       										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       									</div>
       								<?php endif; ?>
+								
       								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
-										<button
-										type="button"
-										class="								
-										btn btn-info
-										rounded-pill
-										px-4
-										waves-effect waves-light"
-										
-										onclick="location.href='<?php echo base_url()?>User/Tambah/';"
+										<button id="addRow" 
+											class="btn btn-info"
+											onclick="location.href='<?php echo base_url()?>User/Tambah/';"
 										>
-											Tambah
+											<i data-feather="plus" class="feather-sm"></i>&nbsp; Tambah Data
 										</button>
-										<button
-										type="submit"
-										class="
-										btn btn-danger
-										rounded-pill
-										px-4
-										waves-effect waves-light"
-										id="delete-row"
-										name="hapus_user"
+										<button id="addRow" 
+											class="btn btn-danger"
+											type="submit"
+											name="hapus_user"
 										>
-											Hapus
+											<i data-feather="minus" class="feather-sm"></i>&nbsp; Hapus Data
 										</button>
 										<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>		
 										
+=======
+      							<?php if ($this->session->flashdata('success_insert')) : ?>
+      								<div class="alert alert-success alert-dismissible fade show" role="alert">
+      									<i data-feather="check"></i>
+      									<strong><?php echo $this->session->flashdata('success_insert'); ?></strong>
+      									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      								</div>
+      							<?php endif; ?>
+      							<?php if ($this->session->flashdata('success_edit')) : ?>
+      								<div class="alert alert-success alert-dismissible fade show" role="alert">
+      									<i data-feather="check"></i>
+      									<strong><?php echo $this->session->flashdata('success_edit'); ?></strong>
+      									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      								</div>
+      							<?php endif; ?>
+      							<?php if ($this->session->flashdata('success_hapus')) : ?>
+      								<div class="alert alert-success alert-dismissible fade show" role="alert">
+      									<i data-feather="check"></i>
+      									<strong><?php echo $this->session->flashdata('success_hapus'); ?></strong>
+      									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      								</div>
+      							<?php endif; ?>
+      							<?php if ($this->session->flashdata('gagal_hapus')) : ?>
+      								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      									<i data-feather="alert-triangle"></i>
+      									<strong><?php echo $this->session->flashdata('gagal_hapus'); ?></strong>
+      									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      								</div>
+      							<?php endif; ?>
+
+      							<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
+      								<a href="<?php echo base_url() ?>User/Tambah/" id="addRow" class="btn btn-info">
+      									<i data-feather="plus" class="feather-sm"></i>&nbsp; Tambah Data
+      								</a>
+      								<button id="addRow" class="btn btn-danger" type="submit" name="hapus_user">
+      									<i data-feather="minus" class="feather-sm"></i>&nbsp; Hapus Data
+      								</button>
+      								<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
+      								<div class="mt-3 overflow-scroll table-responsive">
+>>>>>>> c0e80dae9cf0a77cc20c6422a83c56b06175339c
       									<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
       										<thead>
       											<!-- start row -->
       											<tr style="vertical-align: middle;">
-      												<th>
+      												<th width="5%">
       													<div class="d-flex justify-content-center">
       														<div class="form-check">
       															<input class="form-check-input" type="checkbox" id="checklist-user">
       														</div>
       													</div>
       												</th>
-      												<th>Action</th>
+      												<th width="5%">Action</th>
       												<th>Nama User</th>
       												<th>Asal Unit Kerja</th>
       												<th>Role User</th>
@@ -126,27 +156,27 @@
       												</tr>
       										</tbody>
       									</table>
-      								</form>
-      							</div>
+      							</form>
       					</div>
       				</div>
-      			</div><!-- end <div class="col-12"> -->
-      		</div>
-      		<!-- End Row -->
+      			</div>
+      		</div><!-- end <div class="col-12"> -->
       	</div>
-      	<!-- ============================================================== -->
-      	<!-- End Container fluid  -->
-      	<!-- ============================================================== -->
+      	<!-- End Row -->
+      </div>
+      <!-- ============================================================== -->
+      <!-- End Container fluid  -->
+      <!-- ============================================================== -->
 
-      	<!-- ============================================================== -->
-      	<!-- footer -->
-      	<!-- ============================================================== -->
-      	<footer class="footer text-center">
+      <!-- ============================================================== -->
+      <!-- footer -->
+      <!-- ============================================================== -->
+      <footer class="footer text-center">
 
-      	</footer>
-      	<!-- ============================================================== -->
-      	<!-- End footer -->
-      	<!-- ============================================================== -->
+      </footer>
+      <!-- ============================================================== -->
+      <!-- End footer -->
+      <!-- ============================================================== -->
       </div>
       <script>
       	// Membuat checklist

@@ -28,17 +28,18 @@
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
       							<div class="table-responsive">
-      								<table id="zero_config" class="table table-striped table-bordered text-nowrap">
+      								<table id="tabel-view-allcapel" style="width: 100%;" class="table table-striped table-bordered text-nowrap">
+
       									<thead>
       										<!-- start row -->
       										<tr>
-												<th>Detail</th>											
-												<th>Nama ULP</th>
-												<th>Tgl Disetujui</th>
+      											<th>Detail</th>
+      											<th>Nama ULP</th>
+      											<th>Tgl Disetujui</th>
       											<th>Nama Capel</th>
       											<th>Daya Capel</th>
-												<th>Status Capel</th>
-      											<th>Status Material</th>						
+      											<th>Status Capel</th>
+      											<th>Status Material</th>
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -51,13 +52,13 @@
       															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
       														</a>
       													</div>
-      												</td>												
-													<td><?= $data->nama_ulp; ?></td>
-													<td><?= date_format(date_create($data->tgl_persetujuan),"d-m-Y"); ?></td>
-													<td><?= $data->nama_capel; ?></td>
-													<td><?= number_format($data->daya_baru); ?></td>
-													<td><?= $data->status_capel; ?></td>	
-													<td><?= $data->status_material; ?></td>			
+      												</td>
+      												<td><?= $data->nama_ulp; ?></td>
+      												<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
+      												<td><?= $data->nama_capel; ?></td>
+      												<td><?= number_format($data->daya_baru); ?></td>
+      												<td><?= $data->status_capel; ?></td>
+      												<td><?= $data->status_material; ?></td>
       											</tr>
       										<?php endforeach; ?>
       									</tbody>

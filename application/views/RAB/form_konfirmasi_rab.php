@@ -140,7 +140,7 @@
 									</div>	
 								</div>	
 							</div>
-							<div class="table-responsive">
+							<div class="table-responsive overflow-scroll">
 								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
 									<thead>
 									<!-- start row -->

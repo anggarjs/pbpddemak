@@ -28,7 +28,7 @@
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
       							<div class="table-responsive">
-      								<table id="zero_config" class="table table-striped table-bordered text-nowrap">
+      								<table id="tabel-view-allcapelapproved" style="width: 100%;" class="table table-striped table-bordered text-nowrap">
       									<thead>
       										<!-- start row -->
       										<tr>

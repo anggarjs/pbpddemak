@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, nice admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, " />
   <meta name="description" content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Dashboard MDU PBPD Demak</title>
+  <title><?= html_escape($title); ?></title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/pln.png" />
@@ -243,7 +243,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>Logistik/materialkurangPBPD" class="sidebar-link">
+                    <a href="<?php echo base_url() ?>Logistik/view_material_kurang" class="sidebar-link">
                       <i class="mdi mdi-arrange-bring-forward"></i>
                       <span class="hide-menu"> Material Kurang PBPD</span>
                     </a>
@@ -293,6 +293,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       <span class="hide-menu"> Rollback Kesiapan Material</span>
                     </a>
                   </li>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Test/Test_email" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Test Email</span>
+                    </a>
+                  </li>				 			  
                 </ul>
               </li>
             <?php } ?>
@@ -360,12 +366,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </script>
   <!-- Script DataTable -->
   <script>
-    $(document).ready(function() {
-      $('#tabel-view-user').DataTable();
-    });
-    $(document).ready(function() {
-      $('#tabel-view-materialkurang').DataTable();
-    });
+    var name_table = ['#tabel-view-user', '#tabel-view-materialkurang', '#tabel-view-detail_logistik', '#tabel-view-allcapel', '#tabel-view-allcapelapproved', '#tabel-view-allcapelulp', '#tabel-view-allcapelsudahbayar', '#tabel-update-capelmaterial', '#tabel-update-capelulp', '#tabel-update-capel', '#tabel-update-peremajaan'];
+    for (let x = 0; x < name_table.length; x++) {
+      $(document).ready(function() {
+        $(name_table[x]).DataTable({
+          scrollX: true
+        });
+      })
+    }
   </script>
   <!-- End DataTables -->
 </body>

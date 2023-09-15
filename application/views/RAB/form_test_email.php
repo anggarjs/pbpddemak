@@ -1,0 +1,114 @@
+      <!-- Page wrapper  -->
+      <!-- ============================================================== -->
+      <div class="page-wrapper">
+      	<!-- ============================================================== -->
+      	<!-- Bread crumb and right sidebar toggle -->
+      	<!-- ============================================================== -->
+      	<div class="page-breadcrumb">
+
+      	</div>
+      	<!-- ============================================================== -->
+      	<!-- End Bread crumb and right sidebar toggle -->
+      	<!-- ============================================================== -->
+      	<!-- ============================================================== -->
+      	<!-- Container fluid  -->
+      	<!-- ============================================================== -->
+      	<div class="container-fluid">
+      		<!-- -------------------------------------------------------------- -->
+      		<!-- Start Page Content -->
+      		<!-- -------------------------------------------------------------- -->
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<?php 
+							$attributes 	= array('class' => 'form-horizontal');
+							echo form_open_multipart('Test/Test_email',$attributes);
+						?>					
+						<div class="card-header bg-info">
+							<h4 class="card-title text-white">
+							Form Upload Hasil Survei
+							</h4>
+						</div>
+						<div class="card-body">
+							<div class="row pt-3">
+								<?php if (isset($_SESSION['alert_upload'])) { ?>
+								<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<i data-feather="alert-triangle"></i>
+									<strong><?php echo $_SESSION['alert_upload']; ?></strong>
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+								<?php 
+									$this->session->unset_userdata('alert_upload');
+								} ?>
+							</div>		
+							<div class="row pt-3">
+								<div class="col-md-6">						
+									<div class="mb-3">
+
+									</div>
+									<?php echo form_error('pilihan_ulp'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Nomor Surat AMS / BA Persetujuan</label>
+										<input
+										  type="text"
+										  class="form-control"
+										  value="<?php if(set_value('nomor_persetujuan')!='') echo set_value('nomor_persetujuan');?>"
+										  name="nomor_persetujuan"
+										/>
+									</div>
+									<?php echo form_error('nomor_persetujuan'); ?>
+								</div>							
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>
+									
+								</div>
+								<!--/span-->
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>
+									
+								</div>
+								<!--/span-->
+							</div>							
+ 							<!-- <div class="mb-3">
+								<label>Upload File Surat Permohonan Pelanggan</label>
+								<input type="file" class="form-control" name="filerab" />
+							</div> -->					
+						</div>
+						<div class="p-3 border-top">
+							<div class="text-end">
+								<button
+								type="submit"
+								class="
+								btn btn-info
+								rounded-pill
+								px-4
+								waves-effect waves-light
+								">Upload
+      							</button>
+      						</div>
+      					</div>
+      					<?php echo form_close(); ?>
+      				</div>
+      			</div>
+      		</div>
+      		<!-- Row -->
+      	</div>
+      	<!-- ============================================================== -->
+      	<!-- End Container fluid  -->
+      	<!-- ============================================================== -->
+
+      	<!-- ============================================================== -->
+      	<!-- footer -->
+      	<!-- ============================================================== -->
+      	<footer class="footer text-center">
+      	</footer>
+      	<!-- ============================================================== -->
+      	<!-- End footer -->
+      	<!-- ============================================================== -->
+      </div>

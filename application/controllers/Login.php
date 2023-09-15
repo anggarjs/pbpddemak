@@ -14,19 +14,16 @@ class Login extends CI_Controller {
 			$role			= $data->id_role;
 		}
 		
-		//setting session
-		$arr_file 			= explode('.', $this->input->post('username'));
-
-		$newdata = array(
-			'kode_ulp'		=> $arr_file[0],
-			'username' 		=> $this->input->post('username'),
-			'nama_user' 	=> end($arr_file),
-			'role_user' 	=> $role,
-		);
-		$this->session->set_userdata($newdata);
-		
-		
 		if($cek_login > 0){
+			//setting session
+			$arr_file 			= explode('.', $this->input->post('username'));
+			$newdata = array(
+				'kode_ulp'		=> $arr_file[0],
+				'username' 		=> $this->input->post('username'),
+				'nama_user' 	=> end($arr_file),
+				'role_user' 	=> $role,
+			);
+			$this->session->set_userdata($newdata);
 			if($role != 2)
 				redirect('Input');
 			else

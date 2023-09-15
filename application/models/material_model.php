@@ -28,8 +28,7 @@ class Material_model extends CI_Model
 		$this->db->delete('data_kebutuhan_tibet');
 	} //end of function	
 
-	function get_data_material($id_capel)
-	{
+	function get_data_material($id_capel){
 		$this->db->select('*');
 		$this->db->from('view_kebutuhan_mdu');
 		$this->db->where('id_capel', $id_capel);
@@ -37,16 +36,14 @@ class Material_model extends CI_Model
 		return $query;
 	} //end of function
 
-	function get_status_material()
-	{
+	function get_status_material(){
 		$this->db->select('*');
 		$this->db->from('data_status_material');
 		$query = $this->db->get();
 		return $query;
 	} //end of function	
 
-	function reset_status_material($data, $id_capel)
-	{
+	function reset_status_material($data, $id_capel){
 		$this->db->where('id_capel', $id_capel);
 		$this->db->update('data_kebutuhan_mdu', $data);
 	} //end of function	
@@ -65,12 +62,14 @@ class Material_model extends CI_Model
 		return $this->db->get('view_material_kurang')->result();
 	}
 	public function detail_material_kurang($id_detail_mdu){
-		$this->db->select("*");
-		$this->db->from("view_rincian_plgn_kurang_mdu");
-		$this->db->where("id_detail_mdu", $id_detail_mdu);
-		$query = $this->db->get()->result();
-		return $query;
-		// $this->db->where('nama_detail_mdu', $nama_detail_mdu);
-		// return $this->db->get('view_rincian_plgn_kurang_mdu')->result();
+		$this->db->where('id_detail_mdu', $id_detail_mdu);
+		return $this->db->get('view_rincian_plgn_kurang_mdu')->result();
 	}
+	
+	function get_material_kurang(){
+		$this->db->select("*");
+		$this->db->from('view_material_kurang');
+		$query = $this->db->get();			
+		return $query;
+	}//end of function	
 }//end of class
