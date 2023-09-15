@@ -187,6 +187,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
+			$data['title'] = 'Update Progres Capel';
 			$data['nama_user'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel_material',$data,true);
 			$this->load->view('beranda',$data);
