@@ -29,7 +29,7 @@
 						<form class="" method="get">
 							<div class="input-group mb-3">
 								<button class="btn btn-outline-secondary" type="submit"><i data-feather="search"></i></button>
-								<input type="search" class="form-control" name="nama_detail_mdu" placeholder="Cari Data" value="<?= html_escape($nama_detail_mdu) ?>" required />
+								<input type="search" class="form-control" name="nama_detail_mdu" placeholder="Cari Data" value="<?= html_escape($nama_detail_mdu_search) ?>" required />
 							</div>
 						</form>
 						<div class="mt-3 overflow-scroll">
@@ -53,15 +53,17 @@
 											</tr>
 										<?php endforeach; ?>
 									</tbody>
-								<?php else : ?>
-									<?php if ($nama_detail_mdu) : ?>
-										<tbody>
-											<tr>
-												<td><strong>Data Tidak Ditemukan</strong></td>
-											</tr>
-										</tbody>
-									<?php endif; ?>
+							</table>
+						<?php else : ?>
+							<table style="width: 100%;" class="table table-bordered table hover no-wrap">
+								<?php if ($nama_detail_mdu_search) : ?>
+									<tbody>
+										<tr>
+											<td class="text-danger"><strong><h3 class="mt-2">Data Tidak Ditemukan</h3></strong></td>
+										</tr>
+									</tbody>
 								<?php endif; ?>
+							<?php endif; ?>
 							</table>
 						</div>
 					</div>

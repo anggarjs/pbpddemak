@@ -17,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <title>Dashboard MDU PBPD Demak</title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url() ?>assets/images/favicon.png" />
+  <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/pln.png" />
   <!-- Feather Icon -->
   <script src="https://unpkg.com/feather-icons"></script>
   <!-- Custom CSS -->
@@ -69,20 +69,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <b class="logo-icon">
                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                 <!-- Dark Logo icon -->
-                <img src="<?php echo base_url() ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
-                <!-- Light Logo icon -->
-                <img src="<?php echo base_url() ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                <img src="<?php echo base_url('assets/image_lain/pln.png') ?>" alt="Logo PLN" width="35px" height="50px">
               </b>
               <!--End Logo icon -->
               <!-- Logo text -->
-              <span class="logo-text">
-                <!-- dark Logo text -->
-                <img src="<?php echo base_url() ?>assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                <!-- Light Logo text -->
-                <img src="<?php echo base_url() ?>assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
+              <span class="logo-text text-light" style="position: relative; top: 2px;">
+                PBPD Demak
               </span>
             </a>
-            <a class="sidebartoggler d-none d-md-block" href="javascript:void(0)" data-sidebartype="mini-sidebar">
+            <a class="sidebartoggler d-none d-md-block mt-1" href="javascript:void(0)" data-sidebartype="mini-sidebar">
               <i class="mdi mdi-toggle-switch mdi-toggle-switch-off fs-6"></i>
             </a>
           </div>
@@ -131,19 +126,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
-            <li class="nav-item dropdown">
-              <a class="
+            <a class="
                     nav-link
-                    dropdown-toggle
                     waves-effect waves-dark
                     pro-pic
                   " href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40" />
-                <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user; ?>
-                  <i data-feather="chevron-down" class="feather-sm"></i></span>
-              </a>
-
-            </li>
+              <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40" />
+              <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user; ?></span>
+            </a>
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
@@ -154,9 +144,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <!-- ============================================================== -->
     <!-- End Topbar header -->
     <!-- ============================================================== -->
-
-
-
     <!-- ============================================================== -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
     <!-- ============================================================== -->
@@ -172,128 +159,113 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-av-timer"></i>
-                <span class="hide-menu">Dashboard </span>
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a href="#" class="sidebar-link">
-                    <i class="mdi mdi-adjust"></i>
-                    <span class="hide-menu"> Classic </span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            <li class="sidebar-item">
-              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-receipt"></i>
                 <span class="hide-menu">Pengelolaan PBPD</span>
               </a>
               <ul aria-expanded="false" class="collapse first-level">
-			<!-- only admin, admin up3 dan admin ulp akses -->
-			<?php if(($_SESSION['role_user'] == 1) || ($_SESSION['role_user'] == 3) || $_SESSION['role_user'] == 4){ ?>  
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
-                    <i class="mdi mdi-content-paste"></i>
-                    <span class="hide-menu"> Upload RAB</span>
-                  </a>
-                </li>
-			<?php } ?>	
+                <!-- only admin, admin up3 dan admin ulp akses -->
+                <?php if (($_SESSION['role_user'] == 1) || ($_SESSION['role_user'] == 3) || $_SESSION['role_user'] == 4) { ?>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
+                      <i class="mdi mdi-content-paste"></i>
+                      <span class="hide-menu"> Upload RAB</span>
+                    </a>
+                  </li>
+                <?php } ?>
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
-                      <i class="mdi mdi-border-vertical"></i>
+                    <i class="mdi mdi-border-vertical"></i>
                     <span class="hide-menu"> Data Capel Disetujui</span>
                   </a>
-                </li>				
-			<?php if($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3){ ?>
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
-                    <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Pengecekan Material</span>
-                  </a>
                 </li>
-			<?php } ?>
-			<?php if($_SESSION['role_user'] == 4){ ?>	
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
-                    <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Update Status Bayar</span>
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Capel/view_capel_sudah_bayar" class="sidebar-link">
-                    <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Update Status PDL</span>
-                  </a>
-                </li>				
-			<?php } ?>
-              </ul>
-			</li>
-		
-		<!-- only admin dan admin up3 akses -->
-		<?php if($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3){ ?>
-            <li class="sidebar-item">
-              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-border-none"></i>
-                <span class="hide-menu">Logistik</span>
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Logistik/materialkurangPBPD" class="sidebar-link">
-                    <i class="mdi mdi-arrange-bring-forward"></i>
-                    <span class="hide-menu"> Material Kurang PBPD</span>
-                  </a>
-                </li>
-				
-              </ul>			  
-			</li>
-		<?php } ?>	
-		
-		<!-- only admin akses -->
-		<?php if($_SESSION['role_user'] == 1){ ?>	
-            <li class="sidebar-item">
-              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-account-multiple"></i>
-                <span class="hide-menu">Manajemen User</span>
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
-                    <i class="mdi mdi-account-network"></i>
-                    <span class="hide-menu"> Tambah Data</span>
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
-                    <i class="mdi mdi-account-star-variant"></i>
-                    <span class="hide-menu"> Data User</span>
-                  </a>
-                </li>
+                <?php if ($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3) { ?>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Pengecekan Material</span>
+                    </a>
+                  </li>
+                <?php } ?>
+                <?php if ($_SESSION['role_user'] == 4) { ?>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Update Status Bayar</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Capel/view_capel_sudah_bayar" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Update Status PDL</span>
+                    </a>
+                  </li>
+                <?php } ?>
               </ul>
             </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-receipt"></i>
-                <span class="hide-menu">Administrator</span>
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
-                    <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Hapus Data Capel</span>
-                  </a>
-                </li>
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
-                    <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Rollback Kesiapan Material</span>
-                  </a>
-                </li>
-              </ul>
-            </li>			
-		<?php } ?>	
-		
+
+            <!-- only admin dan admin up3 akses -->
+            <?php if ($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3) { ?>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                  <i class="mdi mdi-border-none"></i>
+                  <span class="hide-menu">Logistik</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Logistik/view_material_kurang" class="sidebar-link">
+                      <i class="mdi mdi-arrange-bring-forward"></i>
+                      <span class="hide-menu"> Material Kurang PBPD</span>
+                    </a>
+                  </li>
+
+                </ul>
+              </li>
+            <?php } ?>
+
+            <!-- only admin akses -->
+            <?php if ($_SESSION['role_user'] == 1) { ?>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                  <i class="mdi mdi-account-multiple"></i>
+                  <span class="hide-menu">Manajemen User</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
+                      <i class="mdi mdi-account-network"></i>
+                      <span class="hide-menu"> Tambah Data</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
+                      <i class="mdi mdi-account-star-variant"></i>
+                      <span class="hide-menu"> Data User</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                  <i class="mdi mdi-receipt"></i>
+                  <span class="hide-menu">Administrator</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Hapus Data Capel</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Rollback Kesiapan Material</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            <?php } ?>
+
             <li class="sidebar-item">
               <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() ?>Login/logout" aria-expanded="false">
                 <i class="mdi mdi-directions"></i>
@@ -339,8 +311,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?php echo base_url() ?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
   <!--Wave Effects -->
   <script src="<?php echo base_url() ?>dist/js/waves.js"></script>
-  <!--Flexigrid -->
-  <script src="<?php echo base_url() ?>dist/js/flexigrid.js"></script>
+
   <!--Menu sidebar -->
   <script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
   <!--Custom JavaScript -->
@@ -350,8 +321,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <script src="<?php echo base_url() ?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?php echo base_url() ?>dist/js/pages/datatable/custom-datatable.js"></script>
   <script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-basic.init.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url() ?>dist/js/dataTables.bootstrap5.min.js"></script>
   <!-- Feather Icon -->
   <script>
     feather.replace();

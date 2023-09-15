@@ -17,7 +17,11 @@ $(function () {
 /****************************************
  *       Basic Table                   *
  ****************************************/
-$("#zero_config").DataTable();
+$("#zero_config").DataTable(
+{
+  "pageLength": 25
+}
+);
 
 /****************************************
  *       Default Order Table           *

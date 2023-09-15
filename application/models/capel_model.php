@@ -5,6 +5,14 @@ class Capel_model extends CI_Model {
 		$this->db->insert('data_capel', $data);
 	}//end of function	
 	
+	function get_data_ulp(){
+		$this->db->select('*');
+		$this->db->from('data_ulp');
+		$this->db->where('id_ulp >','52550');		
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
+	
 	function cek_capel($nama_plgn,$daya){		
 		$this->db->select('id_capel');
 		$this->db->from('data_capel');		
@@ -92,10 +100,18 @@ class Capel_model extends CI_Model {
 		$query = $this->db->get();
 		return $query;		
 	}//end of function
-
+	
 	function get_status_capel(){
 		$this->db->select('*');
 		$this->db->from('data_status_capel');
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
+
+	function get_all_capel_awal(){
+		$this->db->select('*');
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel <','3');			
 		$query = $this->db->get();
 		return $query;
 	} //end of function

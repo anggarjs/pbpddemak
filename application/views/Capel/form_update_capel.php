@@ -32,6 +32,7 @@
 						</div>
 						<div class="card-body">
 							<!-- ROW #1 -->
+							<!-- ROW #1 -->
 							<div class="row">
 								<div class="col-md-6">						
 									<div class="mb-3">
@@ -130,6 +131,52 @@
 										<a href="<?php echo base_url().$path_file; ?>">Download File</a>
 									</div>	
 								</div>	
+							</div>
+							
+							<!-- ROW #5 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>Status Material :</label>
+										<?php 			
+											echo '<b>'.$status_material.'</b>';
+										?>	
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Keterangan Material :</label>
+										<?php 			
+											echo '<b>'.$keterangan_material.'</b>';
+										?>									
+									</div>
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label>Tgl Pengecekan Material :</label>
+										<?php
+											if(!is_null($tgl_lengkap_material)){
+												/* echo '<b>'.$tgl_lengkap_material.'</b>'; */
+												$date3 = date_create($tgl_lengkap_material);
+												echo '<b>'.date_format($date3,"d-m-Y").'</b>';
+											}
+										?>	
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Tgl Pembayaran Pelanggan :</label>
+										<?php
+											if(!is_null($tgl_bayar_plgn)){
+												/* echo '<b>'.$tgl_lengkap_material.'</b>'; */
+												$date2 = date_create($tgl_bayar_plgn);
+												echo '<b>'.date_format($date2,"d-m-Y").'</b>';
+											}
+										?>								
+									</div>	
+								</div>	
 							</div>						
 							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
@@ -155,6 +202,7 @@
 											<th>Nama Material</th>
 											<th>Satuan</th>
 											<th>Volume</th>
+											<th>Status Ketersediaan</th>
 										</tr>
 										
 									</thead>
@@ -167,6 +215,11 @@
 											echo '<td>' . $row->nama_detail_mdu . '</td>';
 											echo '<td>' . $row->satuan . '</td>';
 											echo '<td>' . $row->volume_mdu . '</td>';
+											if($row->status_tersedia > 0){
+												echo '<td> <input type="checkbox" disabled class="form-check-input" id="customCheck3" checked name="status_tersedia[]" value="'.$row->id_rincian_mdu.'"/></td>';
+											} else {
+												echo '<td> <input type="checkbox" disabled class="form-check-input" id="customCheck3" name="status_tersedia[]" value="'.$row->id_rincian_mdu.'"/></td>';												
+											}
 											echo '</tr>';
 											$i++;
 										}
