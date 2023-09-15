@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+	//load library of email
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\SMTP;
+	use PHPMailer\PHPMailer\Exception;
+	use PHPMailer\PHPMailer\OAuth;
+	use League\OAuth2\Client\Provider\Google;	
+
 class Capel extends CI_Controller {
 	function index(){
 		if(!isset($_SESSION['username']))
