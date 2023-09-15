@@ -1,210 +1,104 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Aug 22, 2023 at 08:04 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `pbpd_demak`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_capel`
---
-
-CREATE TABLE `data_capel` (
-  `id_capel` int(11) NOT NULL,
-  `id_ulp` int(11) DEFAULT NULL,
-  `nama_capel` varchar(255) DEFAULT NULL,
-  `daya_capel` int(11) DEFAULT NULL,
-  `biaya_penyambungan` int(11) DEFAULT NULL,
-  `biaya_investasi` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_detail_mdu`
---
-
-CREATE TABLE `data_detail_mdu` (
-  `id_detail_mdu` int(11) NOT NULL,
-  `id_master_mdu` int(11) DEFAULT NULL,
-  `nama_detail_mdu` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_kebutuhan_mdu`
---
-
-CREATE TABLE `data_kebutuhan_mdu` (
-  `id_rincian_mdu` int(11) NOT NULL,
-  `id_detail_mdu` int(11) DEFAULT NULL,
-  `id_capel` int(11) DEFAULT NULL,
-  `volume_mdu` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_master_mdu`
---
-
-CREATE TABLE `data_master_mdu` (
-  `id_master_mdu` int(11) NOT NULL,
-  `nama_master_mdu` varbinary(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_ulp`
---
-
-CREATE TABLE `data_ulp` (
-  `id_ulp` int(5) NOT NULL,
-  `nama_ulp` varchar(11) NOT NULL,
-  `ket_ulp` varchar(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `data_ulp`
---
-
-INSERT INTO `data_ulp` (`id_ulp`, `nama_ulp`, `ket_ulp`) VALUES
-(52551, 'Demak', 'DMK'),
-(52552, 'Tegowanu', 'TGW'),
-(52553, 'Purwodadi', 'PWD'),
-(52554, 'Wirosari', 'WRS');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_user`
---
-
-CREATE TABLE `data_user` (
-  `id_user` int(11) NOT NULL,
-  `nama_user` varchar(15) DEFAULT NULL,
-  `pass_user` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `data_user`
---
-
-INSERT INTO `data_user` (`id_user`, `nama_user`, `pass_user`) VALUES
-(1, '52550.ANGGA', 'f390f13c2a08201077a3dad372164f4a'),
-(2, '52550.TEST', 'f390f13c2a08201077a3dad372164f4a');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `data_capel`
---
-ALTER TABLE `data_capel`
-  ADD PRIMARY KEY (`id_capel`),
-  ADD KEY `fk_to_id_ulp` (`id_ulp`);
-
---
--- Indexes for table `data_detail_mdu`
---
-ALTER TABLE `data_detail_mdu`
-  ADD PRIMARY KEY (`id_detail_mdu`),
-  ADD KEY `fk_to_master_mdu` (`id_master_mdu`);
-
---
--- Indexes for table `data_kebutuhan_mdu`
---
-ALTER TABLE `data_kebutuhan_mdu`
-  ADD PRIMARY KEY (`id_rincian_mdu`),
-  ADD KEY `fk_to_detail_mdu` (`id_detail_mdu`),
-  ADD KEY `fk_to_capel` (`id_capel`);
-
---
--- Indexes for table `data_master_mdu`
---
-ALTER TABLE `data_master_mdu`
-  ADD PRIMARY KEY (`id_master_mdu`);
-
---
--- Indexes for table `data_ulp`
---
-ALTER TABLE `data_ulp`
-  ADD PRIMARY KEY (`id_ulp`),
-  ADD KEY `id_ulp` (`id_ulp`);
-
---
--- Indexes for table `data_user`
---
-ALTER TABLE `data_user`
-  ADD PRIMARY KEY (`id_user`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `data_capel`
---
-ALTER TABLE `data_capel`
-  MODIFY `id_capel` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `data_detail_mdu`
---
-ALTER TABLE `data_detail_mdu`
-  MODIFY `id_detail_mdu` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `data_user`
---
-ALTER TABLE `data_user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `data_capel`
---
-ALTER TABLE `data_capel`
-  ADD CONSTRAINT `fk_to_id_ulp` FOREIGN KEY (`id_ulp`) REFERENCES `data_ulp` (`id_ulp`);
-
---
--- Constraints for table `data_detail_mdu`
---
-ALTER TABLE `data_detail_mdu`
-  ADD CONSTRAINT `fk_to_master_mdu` FOREIGN KEY (`id_master_mdu`) REFERENCES `data_master_mdu` (`id_master_mdu`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `data_kebutuhan_mdu`
---
-ALTER TABLE `data_kebutuhan_mdu`
-  ADD CONSTRAINT `fk_to_capel` FOREIGN KEY (`id_capel`) REFERENCES `data_capel` (`id_capel`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_to_detail_mdu` FOREIGN KEY (`id_detail_mdu`) REFERENCES `data_detail_mdu` (`id_detail_mdu`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+Updatecheck<|||>3<|||>1
+DoUsageStatistics<|||>3<|||>1
+UpdatecheckLastrun<|||>1<|||>2023-09-15 18:43:48
+LastUsageStatisticCall<|||>1<|||>2023-08-31 10:50:11
+LastSessions<|||>1<|||>pbpddemak
+LastActiveSession<|||>1<|||>pbpddemak
+ColWidths_connform.ListSessions<|||>1<|||>163,50,50,50,50,50,10
+ColsVisible_connform.ListSessions<|||>1<|||>0,1,4,6
+ColPositions_connform.ListSessions<|||>1<|||>0,1,2,3,4,5,6
+ColSort_connform.ListSessions<|||>1<|||>0,0
+ColWidths_frmTableEditor.listColumns<|||>1<|||>58,100,154,90,60,65,50,117,130,140,100,100
+ColsVisible_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
+ColPositions_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
+ColSort_frmTableEditor.listColumns<|||>1<|||>-1,0
+ColWidths_frmTableEditor.treeIndexes<|||>1<|||>191,100,80,120
+ColsVisible_frmTableEditor.treeIndexes<|||>1<|||>0,1,2,3
+ColPositions_frmTableEditor.treeIndexes<|||>1<|||>0,1,2,3
+ColSort_frmTableEditor.treeIndexes<|||>1<|||>-1,0
+ColWidths_frmTableEditor.listForeignKeys<|||>1<|||>76,80,100,80,80,80
+ColsVisible_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColPositions_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColSort_frmTableEditor.listForeignKeys<|||>1<|||>-1,0
+ColWidths_frmTableEditor.listCheckConstraints<|||>1<|||>200,296
+ColsVisible_frmTableEditor.listCheckConstraints<|||>1<|||>0,1
+ColPositions_frmTableEditor.listCheckConstraints<|||>1<|||>0,1
+ColSort_frmTableEditor.listCheckConstraints<|||>1<|||>-1,0
+MainWinLeft<|||>3<|||>1920
+MainWinTop<|||>3<|||>65
+ColWidths_MainForm.ListDatabases<|||>1<|||>150,80,50,50,50,50,50,50,50,50,120
+ColsVisible_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
+ColPositions_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
+ColSort_MainForm.ListDatabases<|||>1<|||>0,0
+ColWidths_MainForm.ListVariables<|||>1<|||>160,200,428
+ColsVisible_MainForm.ListVariables<|||>1<|||>0,1,2
+ColPositions_MainForm.ListVariables<|||>1<|||>0,1,2
+ColSort_MainForm.ListVariables<|||>1<|||>0,0
+ColWidths_MainForm.ListStatus<|||>1<|||>160,428,100,100
+ColsVisible_MainForm.ListStatus<|||>1<|||>0,1,2,3
+ColPositions_MainForm.ListStatus<|||>1<|||>0,1,2,3
+ColSort_MainForm.ListStatus<|||>1<|||>0,0
+ColWidths_MainForm.ListProcesses<|||>1<|||>70,80,80,80,80,50,50,690
+ColsVisible_MainForm.ListProcesses<|||>1<|||>0,1,2,3,4,5,6,7
+ColPositions_MainForm.ListProcesses<|||>1<|||>0,1,2,3,4,5,6,7
+ColSort_MainForm.ListProcesses<|||>1<|||>0,1
+ColWidths_MainForm.ListCommandStats<|||>1<|||>120,100,100,100,368
+ColsVisible_MainForm.ListCommandStats<|||>1<|||>0,1,2,3,4
+ColPositions_MainForm.ListCommandStats<|||>1<|||>0,1,2,3,4
+ColSort_MainForm.ListCommandStats<|||>1<|||>1,1
+ColWidths_MainForm.ListTables<|||>1<|||>120,70,70,120,120,70,100,50,70,70,70,70,70,90,120,70,70,70,50
+ColsVisible_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,18
+ColPositions_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
+ColSort_MainForm.ListTables<|||>1<|||>0,0
+MainWinMaximized<|||>3<|||>1
+MainWinOnMonitor<|||>3<|||>0
+FindDialogSearchHistory<|||>1<|||>upd<{{{><}}}>
+querymemoheight<|||>3<|||>156
+queryhelperswidth<|||>3<|||>312
+dbtreewidth<|||>3<|||>423
+DataPreviewHeight<|||>3<|||>157
+sqloutheight<|||>3<|||>125
+Servers\pbpddemak\SessionCreated<|||>1<|||>2023-08-31 10:50:15
+Servers\pbpddemak\Host<|||>1<|||>10.4.60.72
+Servers\pbpddemak\WindowsAuth<|||>3<|||>0
+Servers\pbpddemak\CleartextPluginEnabled<|||>3<|||>0
+Servers\pbpddemak\User<|||>1<|||>pbpddemak
+Servers\pbpddemak\Password<|||>1<|||>7264726666676F636D2
+Servers\pbpddemak\LoginPrompt<|||>3<|||>0
+Servers\pbpddemak\Port<|||>1<|||>3306
+Servers\pbpddemak\NetType<|||>3<|||>0
+Servers\pbpddemak\Compressed<|||>3<|||>0
+Servers\pbpddemak\LocalTimeZone<|||>3<|||>0
+Servers\pbpddemak\QueryTimeout<|||>3<|||>30
+Servers\pbpddemak\KeepAlive<|||>3<|||>20
+Servers\pbpddemak\FullTableStatus<|||>3<|||>1
+Servers\pbpddemak\Databases<|||>1<|||>
+Servers\pbpddemak\Library<|||>1<|||>libmariadb.dll
+Servers\pbpddemak\Comment<|||>1<|||>
+Servers\pbpddemak\StartupScriptFilename<|||>1<|||>
+Servers\pbpddemak\TreeBackground<|||>3<|||>536870911
+Servers\pbpddemak\SSHtunnelActive<|||>3<|||>0
+Servers\pbpddemak\SshExecutable<|||>1<|||>plink.exe
+Servers\pbpddemak\SSHtunnelHost<|||>1<|||>
+Servers\pbpddemak\SSHtunnelHostPort<|||>3<|||>22
+Servers\pbpddemak\SSHtunnelUser<|||>1<|||>
+Servers\pbpddemak\SSHtunnelPassword<|||>1<|||>3
+Servers\pbpddemak\SSHtunnelTimeout<|||>3<|||>4
+Servers\pbpddemak\SSHtunnelPrivateKey<|||>1<|||>
+Servers\pbpddemak\SSHtunnelPort<|||>3<|||>3307
+Servers\pbpddemak\SSL_Active<|||>3<|||>0
+Servers\pbpddemak\SSL_Key<|||>1<|||>
+Servers\pbpddemak\SSL_Cert<|||>1<|||>
+Servers\pbpddemak\SSL_CA<|||>1<|||>
+Servers\pbpddemak\SSL_Cipher<|||>1<|||>
+Servers\pbpddemak\IgnoreDatabasePattern<|||>1<|||>
+Servers\pbpddemak\LogFileDdl<|||>3<|||>0
+Servers\pbpddemak\LogFileDml<|||>3<|||>0
+Servers\pbpddemak\LogFilePath<|||>1<|||>C:\Users\LENOVO\AppData\Roaming\HeidiSQL\Logs\%session\%db\%y%m%d.sql
+Servers\pbpddemak\RefusedCount<|||>3<|||>1
+Servers\pbpddemak\ServerVersionFull<|||>1<|||>10.4.27-MariaDB - mariadb.org binary distribution
+Servers\pbpddemak\ConnectCount<|||>3<|||>21
+Servers\pbpddemak\ServerVersion<|||>3<|||>100427
+Servers\pbpddemak\LastConnect<|||>1<|||>2023-09-15 18:46:08
+Servers\pbpddemak\lastUsedDB<|||>1<|||>pbpddemak
+Servers\pbpddemak\pbpd_demak|data_user\Sort<|||>1<|||>1_nama_user|

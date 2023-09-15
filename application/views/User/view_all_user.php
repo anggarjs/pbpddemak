@@ -104,9 +104,9 @@
       							<?php endif; ?>
 
       							<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
-      								<button id="addRow" class="btn btn-info" onclick="location.href='<?php echo base_url() ?>User/Tambah/';">
+      								<a href="<?php echo base_url() ?>User/Tambah/" id="addRow" class="btn btn-info">
       									<i data-feather="plus" class="feather-sm"></i>&nbsp; Tambah Data
-      								</button>
+      								</a>
       								<button id="addRow" class="btn btn-danger" type="submit" name="hapus_user">
       									<i data-feather="minus" class="feather-sm"></i>&nbsp; Hapus Data
       								</button>

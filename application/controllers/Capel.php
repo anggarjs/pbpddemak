@@ -29,6 +29,7 @@ class Capel extends CI_Controller {
 		else
 			$data['data_capel'] 	= $this->capel_model->get_all_data_capel();
 
+		$data['title'] = "Data Capel Disetujui";
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel', $data, true);
 		$this->load->view('beranda', $data);
@@ -40,6 +41,7 @@ class Capel extends CI_Controller {
 		
 		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_approved();
 		
+		$data['title'] = 'Pengecekan Material';
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('capel/view_all_capel_approved', $data, true);
 		$this->load->view('beranda', $data);
@@ -132,6 +134,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
+			$data['title'] = "Data Detail Capel";
 			$data['nama_user'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel',$data,true);
 			$this->load->view('beranda',$data);
@@ -191,6 +194,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
+			$data['title'] = 'Update Progres Capel';
 			$data['nama_user'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel_material',$data,true);
 			$this->load->view('beranda',$data);

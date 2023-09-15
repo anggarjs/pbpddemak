@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, nice admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, " />
   <meta name="description" content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Dashboard MDU PBPD Demak</title>
+  <title><?= html_escape($title); ?></title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/pln.png" />
@@ -126,14 +126,45 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
-            <a class="
+            <li class="nav-item dropdown">
+              <a class="
                     nav-link
+                    dropdown-toggle
                     waves-effect waves-dark
                     pro-pic
                   " href="" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40" />
-              <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user; ?></span>
-            </a>
+                <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40" />
+                <span class="ms-1 font-weight-medium d-none d-sm-inline-block"><?php echo $nama_user; ?></span>
+              </a>
+              <div class="
+                    dropdown-menu dropdown-menu-end
+                    user-dd
+                    animated
+                    flipInY
+                  ">
+                <span class="with-arrow">
+                  <span class="bg-primary"></span>
+                </span>
+                <div class="
+                      d-flex
+                      no-block
+                      align-items-center
+                      p-3
+                      bg-primary
+                      text-white
+                      mb-2
+                    ">
+                  <div class="">
+                    <img src="<?php echo base_url() ?>assets/images/users/2.jpg" alt="user" class="rounded-circle" width="60" />
+                  </div>
+                  <div class="ms-2">
+                    <h4 class="mb-0 text-white"><?php echo $nama_user; ?></h4>
+                  </div>
+                </div>
+                <a class="dropdown-item" href="<?php echo base_url() ?>Login/logout"><i data-feather="log-out" class="feather-sm text-danger me-1 ms-1"></i>
+                  Logout</a>
+              </div>
+            </li>
             <!-- ============================================================== -->
             <!-- User profile and search -->
             <!-- ============================================================== -->
@@ -335,7 +366,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </script>
   <!-- Script DataTable -->
   <script>
-    var name_table = ['#tabel-view-user', '#tabel-view-materialkurang', '#tabel-view-detail_logistik', '#tabel-view-allcapel', '#tabel-view-allcapelapproved', '#tabel-view-allcapelulp', '#tabel-view-allcapelsudahbayar', '#tabel-update-capelmaterial', '#tabel-update-capelulp', '#tabel-update-capel', '#tabel-update-capel', '#tabel-update-peremajaan'];
+    var name_table = ['#tabel-view-user', '#tabel-view-materialkurang', '#tabel-view-detail_logistik', '#tabel-view-allcapel', '#tabel-view-allcapelapproved', '#tabel-view-allcapelulp', '#tabel-view-allcapelsudahbayar', '#tabel-update-capelmaterial', '#tabel-update-capelulp', '#tabel-update-capel', '#tabel-update-peremajaan'];
     for (let x = 0; x < name_table.length; x++) {
       $(document).ready(function() {
         $(name_table[x]).DataTable({
