@@ -335,12 +335,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
   </script>
   <!-- Script DataTable -->
   <script>
-    $(document).ready(function() {
-      $('#tabel-view-user').DataTable();
-    });
-    $(document).ready(function() {
-      $('#tabel-view-materialkurang').DataTable();
-    });
+    var name_table = ['#tabel-view-user', '#tabel-view-materialkurang', '#tabel-view-detail_logistik', '#tabel-view-allcapel', '#tabel-view-allcapelapproved', '#tabel-view-allcapelulp', '#tabel-view-allcapelsudahbayar', '#tabel-update-capelmaterial', '#tabel-update-capelulp', '#tabel-update-capel', '#tabel-update-capel', '#tabel-update-peremajaan'];
+    for (let x = 0; x < name_table.length; x++) {
+      $(document).ready(function() {
+        $(name_table[x]).DataTable({
+          scrollX: true
+        });
+      })
+    }
   </script>
   <!-- End DataTables -->
 </body>

@@ -194,7 +194,7 @@
 								</div>	
 							</div>						
 							<div class="table-responsive">
-								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
+								<table id="tabel-update-capel" style="width: 100%;" class="table table-striped table-bordered text-nowrap" >
 									<thead>
 									
 										<tr>

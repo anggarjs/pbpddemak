@@ -223,7 +223,7 @@
 								</div>	
 							</div>						
 							<div class="table-responsive">
-								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
+								<table id="tabel-update-capelulp" class="table table-striped table-bordered text-nowrap" style="width: 100%;">
 									<thead>
 									
 										<tr>
