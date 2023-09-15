@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
@@ -40,3 +42,4 @@ class Logistik extends CI_Controller
         $this->load->view('beranda', $data);		
 	}
 }
+>>>>>>> 40413707fdd3e5cd7721547a9e6c4d17547d19fa

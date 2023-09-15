@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+	//load library of email
+	use PHPMailer\PHPMailer\PHPMailer;
+	use PHPMailer\PHPMailer\SMTP;
+	use PHPMailer\PHPMailer\Exception;
+	use PHPMailer\PHPMailer\OAuth;
+	use League\OAuth2\Client\Provider\Google;	
+
 class Capel extends CI_Controller {
 	function index(){
 		if(!isset($_SESSION['username']))
@@ -11,6 +18,7 @@ class Capel extends CI_Controller {
         parent::__construct();
         $this->load->model('capel_model');
         $this->load->model('material_model');
+		$this->load->model('google_model');
     }
 
 	function view_capel(){
@@ -67,17 +75,6 @@ class Capel extends CI_Controller {
 		$data['content'] 			= $this->load->view('capel/view_all_capel_sudah_bayar', $data, true);
 		$this->load->view('beranda', $data);
 	}
-	
-	function Hapus_capel(){
-		if(!isset($_SESSION['username']))
-			redirect('Welcome');
-
-		$data['data_capel'] 		= $this->capel_model->get_all_capel_awal();
-
-		$data['nama_user'] 			= $_SESSION['username'];
-		$data['content'] 			= $this->load->view('capel/view_hapus_capel', $data, true);
-		$this->load->view('beranda', $data);
-	}	
 	
 	function Update($id_capel){
 		if(!isset($_SESSION['username']))
@@ -381,55 +378,52 @@ class Capel extends CI_Controller {
 	}//end of function	
 	
 	function send_email(){
-
-		$this->load->library('email');
-
-		$config['protocol']    	= 'smtp';
-		$config['smtp_host']    = 'ssl://smtp.googlemail.com';
-		$config['smtp_port']    = '465';
-		$config['smtp_timeout'] = '7';
-		$config['smtp_user']  	= 'konstruksiup3demak@gmail.com';  
-		$config['smtp_pass']  	= 'konsdemak';  
-		$config['charset']   = 'utf-8';
-		$config['mailtype']  = 'html';
-		$config['newline']   = "\r\n"; 
-		$config['charset']    	= 'iso-8859-1';
-		$config['wordwrap']   	= TRUE;		
-		$config['validation'] 	= TRUE; // bool whether to validate email or not      
-
-		$this->email->initialize($config);
-		$this->email->from('konstruksiup3demak@gmail.com', 'KONS UP3 Demak');
-		$this->email->to('angga.rajasa@pln.co.id'); 
-		$this->email->subject('Email Test');
-		$this->email->message('Testing the email class.');  
-
-		$this->email->send();
-
-		echo $this->email->print_debugger();
-
+		$mail = new PHPMailer(true);
 		
-/* 		$config['protocol'] 	= 'smtp';
+		foreach ($this->google_model->get_data_oauth_google()->result() as $row) {
+			$g_smtp_oauthClientId			= $row->client_id_google;
+			$g_smtp_oauthClientSecret		= $row->secret_key_google;
+			$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
+		}
+		 
+		$g_smtp_oauthUserEmail 		= 'konstruksiup3demak@gmail.com';			 
+		
+		$mail->isSMTP();
+		$mail->Host 		= 'smtp.gmail.com'; // host
+		$mail->SMTPAuth 	= true;	
+		$mail->SMTPSecure 	= 'ssl';
+		$mail->Port 		= 465; //smtp port
+		$mail->AuthType 	= 'XOAUTH2';
+		
+		$provider = new Google(
+			[
+			'clientId' 			=> $g_smtp_oauthClientId,
+			'clientSecret' 		=> $g_smtp_oauthClientSecret,
+			]
+		);				
+		$mail->setOAuth(
+			new OAuth(
+				[
+				'provider' 		=> $provider,
+				'clientId' 		=> $g_smtp_oauthClientId,
+				'clientSecret' 	=> $g_smtp_oauthClientSecret,
+				'refreshToken' 	=> $g_smtp_oauthRefreshToken,
+				'userName' 		=> $g_smtp_oauthUserEmail,
+				]
+			)
+		);				
+		
 
+		$mail->setFrom('konstruksiup3demak@yahoo.com', 'Nama Email');
+		$mail->addAddress('angga.rajasa@pln.co.id', 'Nama Email');
 
-		$this->load->library('email');
-		$this->email->initialize($config);
+		$mail->isHTML(true);
+		$mail->Subject = 'TEST EMAIL';
 
-
-
-        // Email penerima
-        $this->email->to('rajasa.angga@gmail.com'); // Ganti dengan email tujuan
-
-        // Subject email
-        $this->email->subject('Kirim Email dengan SMTP Gmail CodeIgniter | MasRud.com');
-
-        // Isi email
-        $this->email->message("Ini adalah contoh email yang dikirim menggunakan SMTP Gmail pada CodeIgniter.<br><br> Klik <strong><a href='https://masrud.com/kirim-email-codeigniter/' target='_blank' rel='noopener'>disini</a></strong> untuk melihat tutorialnya.");
-
-        // Tampilkan pesan sukses atau error
-        if ($this->email->send()) {
-            echo 'Sukses! email berhasil dikirim.';
-        } else {
-            echo 'Error! email tidak dapat dikirim.';
-        }  */
+		$mail->Body    = "TEST";
+		$mail->send();
+		
+		echo 'Sukses Kirim Email';
+		// isi pesan jika telah berhasil terkirim
 	}
 }
