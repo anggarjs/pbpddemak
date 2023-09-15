@@ -27,6 +27,53 @@
       					</div>
       					<div class="card-body">
       						<h6 class="card-subtitle mb-3">
+      							<div class="table-responsive">
+      								<?php if ($this->session->flashdata('success_insert')) : ?>
+      									<div class="alert alert-success alert-dismissible fade show" role="alert">
+      										<i data-feather="check"></i>
+      										<strong><?php echo $this->session->flashdata('success_insert'); ?></strong>
+      										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      									</div>
+      								<?php endif; ?>
+      								<?php if ($this->session->flashdata('success_edit')) : ?>
+      									<div class="alert alert-success alert-dismissible fade show" role="alert">
+      										<i data-feather="check"></i>
+      										<strong><?php echo $this->session->flashdata('success_edit'); ?></strong>
+      										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      									</div>
+      								<?php endif; ?>
+      								<?php if ($this->session->flashdata('success_hapus')) : ?>
+      									<div class="alert alert-success alert-dismissible fade show" role="alert">
+      										<i data-feather="check"></i>
+      										<strong><?php echo $this->session->flashdata('success_hapus'); ?></strong>
+      										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      									</div>
+      								<?php endif; ?>
+      								<?php if ($this->session->flashdata('gagal_hapus')) : ?>
+      									<div class="alert alert-danger alert-dismissible fade show" role="alert">
+      										<i data-feather="alert-triangle"></i>
+      										<strong><?php echo $this->session->flashdata('gagal_hapus'); ?></strong>
+      										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      									</div>
+      								<?php endif; ?>
+								
+      								<form action="<?php echo base_url('User/hapus_user_selected'); ?>" method="post">
+										<button id="addRow" 
+											class="btn btn-info"
+											onclick="location.href='<?php echo base_url()?>User/Tambah/';"
+										>
+											<i data-feather="plus" class="feather-sm"></i>&nbsp; Tambah Data
+										</button>
+										<button id="addRow" 
+											class="btn btn-danger"
+											type="submit"
+											name="hapus_user"
+										>
+											<i data-feather="minus" class="feather-sm"></i>&nbsp; Hapus Data
+										</button>
+										<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>		
+										
+=======
       							<?php if ($this->session->flashdata('success_insert')) : ?>
       								<div class="alert alert-success alert-dismissible fade show" role="alert">
       									<i data-feather="check"></i>
@@ -65,6 +112,7 @@
       								</button>
       								<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
       								<div class="mt-3 overflow-scroll table-responsive">
+>>>>>>> c0e80dae9cf0a77cc20c6422a83c56b06175339c
       									<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
       										<thead>
       											<!-- start row -->

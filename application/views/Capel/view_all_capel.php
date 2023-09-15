@@ -29,6 +29,7 @@
       						<h6 class="card-subtitle mb-3">
       							<div class="table-responsive">
       								<table id="tabel-view-allcapel" style="width: 100%;" class="table table-striped table-bordered text-nowrap">
+
       									<thead>
       										<!-- start row -->
       										<tr>

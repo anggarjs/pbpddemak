@@ -29,6 +29,7 @@
       						<h6 class="card-subtitle mb-3">
 							<div class="table-responsive">
 								<table id="tabel-view-materialkurang" class="table table-striped table-bordered text-nowrap" style="width: 100%;">
+
 									<thead>
 										<!-- start row -->
 										<tr>
