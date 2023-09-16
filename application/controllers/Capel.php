@@ -222,7 +222,11 @@ class Capel extends CI_Controller {
 				}					
 			}
 			
-			/* $this->send_email(); */			
+			if($this->input->post('status_material') > 2){
+				$header		= 'PBPD Cetak Register';
+				//$this->send_email($header); 			
+			}
+			
 			redirect('Capel/view_capel_approved');			
 		}
 	}//end of function
@@ -377,9 +381,10 @@ class Capel extends CI_Controller {
 			return TRUE;
 	}//end of function	
 	
-	function send_email(){
+	function send_email($header){
 		$mail = new PHPMailer(true);
 		
+		// -- setting config email --
 		foreach ($this->google_model->get_data_oauth_google()->result() as $row) {
 			$g_smtp_oauthClientId			= $row->client_id_google;
 			$g_smtp_oauthClientSecret		= $row->secret_key_google;
@@ -413,17 +418,16 @@ class Capel extends CI_Controller {
 			)
 		);				
 		
-
-		$mail->setFrom('konstruksiup3demak@yahoo.com', 'Nama Email');
+		// --- setting isian email
+		$mail->setFrom('konstruksiup3demak@gmail.com', 'Mail Sistem PBPD Demak');
 		$mail->addAddress('angga.rajasa@pln.co.id', 'Nama Email');
 
 		$mail->isHTML(true);
-		$mail->Subject = 'TEST EMAIL';
+		$mail->Subject = $header;
 
 		$mail->Body    = "TEST";
 		$mail->send();
 		
-		echo 'Sukses Kirim Email';
-		// isi pesan jika telah berhasil terkirim
+
 	}
 }

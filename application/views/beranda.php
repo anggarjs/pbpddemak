@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, nice admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, " />
   <meta name="description" content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design" />
   <meta name="robots" content="noindex,nofollow" />
-  <title><?= html_escape($title); ?></title>
+  <title>Dashboard PBPD Demak</title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/pln.png" />
