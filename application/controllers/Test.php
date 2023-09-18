@@ -45,9 +45,11 @@ class Test extends CI_Controller {
 				$g_smtp_oauthClientId			= $row->client_id_google;
 				$g_smtp_oauthClientSecret		= $row->secret_key_google;
 				$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
+				$g_smtp_oauthUserEmail 			= $row->email_google;
+				
 			}
 			 
-			$g_smtp_oauthUserEmail 		= 'konstruksiup3demak@gmail.com';		 
+					 
 			
 			try {
 				$mail->isSMTP();
@@ -76,70 +78,71 @@ class Test extends CI_Controller {
 				);				
 				
 
-				$mail->setFrom('konstruksiup3demak@yahoo.com', 'Nama Email');
+				$mail->setFrom('konstruksiup3demak@gmail.com', 'Mail Sistem PBPD Demak');
 				$mail->addAddress('angga.rajasa@pln.co.id', 'Nama Email');
+				/* $mail->addAddress('rajasa.angga@gmail.com', 'Nama Email'); */
 
 				$mail->isHTML(true);
 				$mail->Subject = 'TEST EMAIL';
 				
-			//setting style dan header content
-			$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
-			<head>
-			<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
-			<meta name=Generator content="Microsoft Word 12 (filtered medium)">
-			<style>
-			<!--
-			 /* Font Definitions */
-			 @font-face
-				{font-family:Wingdings;
-				panose-1:5 0 0 0 0 0 0 0 0 0;}
-			@font-face
-				{font-family:Wingdings;
-				panose-1:5 0 0 0 0 0 0 0 0 0;}
-			@font-face
-				{font-family:Calibri;
-				panose-1:2 15 5 2 2 2 4 3 2 4;}
-			 /* Style Definitions */
-			 p.MsoNormal, li.MsoNormal, div.MsoNormal
-				{margin:0cm;
-				margin-bottom:.0001pt;
-				font-size:11.0pt;
-				font-family:"Calibri","sans-serif";}
-			a:link, span.MsoHyperlink
-				{mso-style-priority:99;
-				color:blue;
-				text-decoration:underline;}
-			a:visited, span.MsoHyperlinkFollowed
-				{mso-style-priority:99;
-				color:purple;
-				text-decoration:underline;}
-			span.EmailStyle17
-				{mso-style-type:personal-compose;
-				font-family:"Calibri","sans-serif";
-				color:windowtext;}
-			.MsoChpDefault
-				{mso-style-type:export-only;}
-			@page Section1
-				{size:612.0pt 792.0pt;
-				margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-			div.Section1
-				{page:Section1;}
-			-->
-			</style>
-			<!--[if gte mso 9]><xml>
-			 <o:shapedefaults v:ext="edit" spidmax="1026" />
-			</xml><![endif]--><!--[if gte mso 9]><xml>
-			 <o:shapelayout v:ext="edit">
-			  <o:idmap v:ext="edit" data="1" />
-			 </o:shapelayout></xml><![endif]-->
-			</head>
+				//setting style dan header content
+				$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
+				<head>
+				<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+				<meta name=Generator content="Microsoft Word 12 (filtered medium)">
+				<style>
+				<!--
+				 /* Font Definitions */
+				 @font-face
+					{font-family:Wingdings;
+					panose-1:5 0 0 0 0 0 0 0 0 0;}
+				@font-face
+					{font-family:Wingdings;
+					panose-1:5 0 0 0 0 0 0 0 0 0;}
+				@font-face
+					{font-family:Calibri;
+					panose-1:2 15 5 2 2 2 4 3 2 4;}
+				 /* Style Definitions */
+				 p.MsoNormal, li.MsoNormal, div.MsoNormal
+					{margin:0cm;
+					margin-bottom:.0001pt;
+					font-size:11.0pt;
+					font-family:"Calibri","sans-serif";}
+				a:link, span.MsoHyperlink
+					{mso-style-priority:99;
+					color:blue;
+					text-decoration:underline;}
+				a:visited, span.MsoHyperlinkFollowed
+					{mso-style-priority:99;
+					color:purple;
+					text-decoration:underline;}
+				span.EmailStyle17
+					{mso-style-type:personal-compose;
+					font-family:"Calibri","sans-serif";
+					color:windowtext;}
+				.MsoChpDefault
+					{mso-style-type:export-only;}
+				@page Section1
+					{size:612.0pt 792.0pt;
+					margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+				div.Section1
+					{page:Section1;}
+				-->
+				</style>
+				<!--[if gte mso 9]><xml>
+				 <o:shapedefaults v:ext="edit" spidmax="1026" />
+				</xml><![endif]--><!--[if gte mso 9]><xml>
+				 <o:shapelayout v:ext="edit">
+				  <o:idmap v:ext="edit" data="1" />
+				 </o:shapelayout></xml><![endif]-->
+				</head>
 
-			<body lang=EN-US link=blue vlink=purple>
+				<body lang=EN-US link=blue vlink=purple>
 
-			<div class=Section1>
+				<div class=Section1>
 
-			<p class=MsoNormal><b><span style=\'color:#FF6600\'>SEMANGAT PAGI</span></b></p>
-			<br>
+				<p class=MsoNormal><b><span style=\'color:#FF6600\'>SEMANGAT PAGI</span></b></p>
+				<br>
 			<p class=MsoNormal>Anda telah menerima dispatch ticket dari pegawai : <br><br><br></p>';				
 
 				$mail->Body    = $msg;

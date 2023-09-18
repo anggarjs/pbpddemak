@@ -223,7 +223,7 @@ class Capel extends CI_Controller {
 			}
 			
 			if($this->input->post('status_material') > 2){
-				$header		= 'PBPD Cetak Register';
+				$header		= 'PBPD Material Lengkap';
 				//$this->send_email($header); 			
 			}
 			
