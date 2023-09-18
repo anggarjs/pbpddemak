@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="auth-box p-4 bg-white rounded">
           <div id="loginform">
             <div class="logo">
-              <h3 class="box-title mb-3">Sign In</h3>
+              <h3 class="box-title mb-3">Log in</h3>
             </div>
             <!-- Form -->
             <div class="row">
