@@ -78,9 +78,9 @@ class Test extends CI_Controller {
 				);				
 				
 
-				$mail->setFrom('konstruksiup3demak@gmail.com', 'Mail Sistem PBPD Demak');
-				$mail->addAddress('angga.rajasa@pln.co.id', 'Nama Email');
-				/* $mail->addAddress('rajasa.angga@gmail.com', 'Nama Email'); */
+				$mail->setFrom($g_smtp_oauthUserEmail, 'Mail Sistem PBPD Demak');
+				/* $mail->addAddress('angga.rajasa@pln.co.id', 'Nama Email'); */
+				$mail->addAddress('rajasa.angga@gmail.com', 'Nama Email');
 
 				$mail->isHTML(true);
 				$mail->Subject = 'TEST EMAIL';
@@ -141,9 +141,9 @@ class Test extends CI_Controller {
 
 				<div class=Section1>
 
-				<p class=MsoNormal><b><span style=\'color:#FF6600\'>SEMANGAT PAGI</span></b></p>
+				<p class=MsoNormal><b><span style=\'color:#FF6600\'>DENGAN HORMAT</span></b></p>
 				<br>
-			<p class=MsoNormal>Anda telah menerima dispatch ticket dari pegawai : <br><br><br></p>';				
+				<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari ULP .... dengan rincian data sebagai berikut :</p>';				
 
 				$mail->Body    = $msg;
 				$mail->send();

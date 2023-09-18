@@ -48,27 +48,39 @@ class Material_model extends CI_Model
 		$this->db->update('data_kebutuhan_mdu', $data);
 	} //end of function	
 
-	function update_status_material($data, $id_rincian_mdu)
-	{
+	function update_status_material($data, $id_rincian_mdu){
 		$this->db->where('id_rincian_mdu', $id_rincian_mdu);
 		$this->db->update('data_kebutuhan_mdu', $data);
 	} //end of function	
-	public function search_material_kurang($keyword)
-	{
+	
+	public function search_material_kurang($keyword){
 		if (!$keyword) {
 			return null;
 		}
 		$this->db->like('nama_detail_mdu', $keyword);
 		return $this->db->get('view_material_kurang')->result();
 	}
-	public function detail_material_kurang($id_detail_mdu){
+	
+	function detail_material_kurang($id_detail_mdu){
 		$this->db->where('id_detail_mdu', $id_detail_mdu);
 		return $this->db->get('view_rincian_plgn_kurang_mdu')->result();
 	}
 	
+	function detail_material_lengkap($id_detail_mdu){
+		$this->db->where('id_detail_mdu', $id_detail_mdu);
+		return $this->db->get('view_rincian_plgn_lengkap_mdu')->result();
+	}	
+	
 	function get_material_kurang(){
 		$this->db->select("*");
 		$this->db->from('view_material_kurang');
+		$query = $this->db->get();			
+		return $query;
+	}//end of function
+	
+	function get_material_lengkap(){
+		$this->db->select("*");
+		$this->db->from('view_material_lengkap');
 		$query = $this->db->get();			
 		return $query;
 	}//end of function	

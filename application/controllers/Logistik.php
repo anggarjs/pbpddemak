@@ -21,19 +21,7 @@ class Logistik extends CI_Controller
         $data['content'] 					= $this->load->view('logistik/view_all_logistik', $data, true);
         $this->load->view('beranda', $data);
     }
-	
-    public function detailMaterial($id_detail_mdu){
-		if(!isset($_SESSION['username']))
-			redirect('Welcome');
-		
-        $data['material_kurang'] 		= $this->material_model->detail_material_kurang($id_detail_mdu);
-        
-        
-		$data['nama_user'] 				= $_SESSION['username'];  
-		$data['content'] 	= $this->load->view('Logistik/view_detail_logistik', $data, true);
-		$this->load->view('beranda', $data);
-    }
-	
+
 	function view_material_kurang(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -45,4 +33,40 @@ class Logistik extends CI_Controller
         $data['content'] 		= $this->load->view('logistik/view_all_material_kurang', $data, true);
         $this->load->view('beranda', $data);		
 	}
+	
+	function view_material_lengkap(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		$data['data_capel'] 	= $this->material_model->get_material_lengkap();
+		
+       
+		$data['nama_user'] 		= $_SESSION['username'];
+        $data['content'] 		= $this->load->view('logistik/view_all_material_lengkap', $data, true);
+        $this->load->view('beranda', $data);		
+	}
+	
+    function detailMaterial_kurang($id_detail_mdu){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+        $data['material_kurang'] 	= $this->material_model->detail_material_kurang($id_detail_mdu);
+        
+        
+		$data['nama_user'] 			= $_SESSION['username'];  
+		$data['content'] 			= $this->load->view('Logistik/view_detail_logistik', $data, true);
+		$this->load->view('beranda', $data);
+    }
+
+    function detailMaterial_lengkap($id_detail_mdu){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+        $data['material_kurang'] 	= $this->material_model->detail_material_lengkap($id_detail_mdu);
+        
+        
+		$data['nama_user'] 			= $_SESSION['username'];  
+		$data['content'] 			= $this->load->view('Logistik/view_detail_plg_lengkap', $data, true);
+		$this->load->view('beranda', $data);
+    }	
 }
