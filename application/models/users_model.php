@@ -50,22 +50,13 @@ class Users_model extends CI_Model
 		return $query;
 	} //end of function	
 
-	// get data capel
-	function get_all_data_capel()
-	{
-		$this->db->select('*');
-		$this->db->from('view_capel');
-		$query = $this->db->get();
-		return $query;
-	} //end of function	
-
 	function update_user($data, $id_user)
 	{
 		$this->db->where('id_user', $id_user);
 		$this->db->update('data_user', $data);
 	} //end of function	
 
-	public function pilih_data_user($id_user)
+	function pilih_data_user($id_user)
 	{
 		$this->db->select("*");
 		$this->db->from("view_user");
@@ -73,9 +64,28 @@ class Users_model extends CI_Model
 		$query = $this->db->get();
 		return $query;
 	}
+	
+	function get_data_user_by_ulp($id_ulp){
+		$this->db->select("*");
+		$this->db->from("view_user");
+		$this->db->where("id_ulp", $id_ulp);
+		$query = $this->db->get();
+		return $query;
+	}	
+	
+	function get_data_user_by_role($id_role){
+		$this->db->select("*");
+		$this->db->from("view_user");
+		$this->db->where("id_role", $id_role);
+		$query = $this->db->get();
+		return $query;
+	}	
+	
 	function hapus_data_user($id_user){
 		$this->db->where('id_user', $id_user);
 		return $this->db->delete('data_user');
 	}
 	// end of function
+	
+	
 }//end of class

@@ -78,12 +78,15 @@ class Test extends CI_Controller {
 				);				
 				
 
-				$mail->setFrom($g_smtp_oauthUserEmail, 'Mail Sistem PBPD Demak');
-				/* $mail->addAddress('angga.rajasa@pln.co.id', 'Nama Email'); */
-				$mail->addAddress('rajasa.angga@gmail.com', 'Nama Email');
+				$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
+				$mail->addAddress('', '');
+				$mail->addAddress('', '');
+				
+$mail->AddCC('person1@domain.example', 'Person One');
+$mail->AddCC('person2@domain.example', 'Person Two');				
 
 				$mail->isHTML(true);
-				$mail->Subject = 'TEST EMAIL';
+				$mail->Subject = 'Permohonan PBPD ULP';
 				
 				//setting style dan header content
 				$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
@@ -141,9 +144,19 @@ class Test extends CI_Controller {
 
 				<div class=Section1>
 
-				<p class=MsoNormal><b><span style=\'color:#FF6600\'>DENGAN HORMAT</span></b></p>
+				<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
 				<br>
-				<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari ULP .... dengan rincian data sebagai berikut :</p>';				
+				<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari ULP .... dengan rincian data sebagai berikut :</p>';			
+
+				//setting footer content
+				$msg	.= '
+				<br>
+				<p class=MsoNormal>Terima kasih<o:p></o:p></p>
+				<p class=MsoNormal><b><span style=\'color:#FF6600\'>Mail System PBPD UP3 Demak</span></b></span></p>
+				<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+				</div>
+				</body>
+				</html>';				
 
 				$mail->Body    = $msg;
 				$mail->send();

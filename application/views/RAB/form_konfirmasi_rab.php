@@ -140,7 +140,7 @@
 									</div>	
 								</div>	
 							</div>
-							<div class="table-responsive overflow-scroll">
+							<div class="table-responsive">
 								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
 									<thead>
 									<!-- start row -->
@@ -234,7 +234,7 @@
 								rounded-pill
 								px-4
 								waves-effect waves-light"
-								onclick="location.href='<?php echo base_url()?>Input/Simpan_Upload/<?php echo $id_ulp ?>/<?php echo $daya_baru ?>';"
+								onclick="location.href='<?php echo base_url()?>Input/Simpan_Upload/<?php echo $id_ulp ?>/<?php echo $daya_baru ?>/<?php echo $id_capel ?>';"
 								>
       								Simpan
       							</button>

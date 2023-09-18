@@ -195,7 +195,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               </a>
               <ul aria-expanded="false" class="collapse first-level">
                 <!-- only admin, admin up3 dan admin ulp akses -->
-                <?php if (($_SESSION['role_user'] == 1) || ($_SESSION['role_user'] == 3) || $_SESSION['role_user'] == 4) { ?>
+                <?php if (($_SESSION['role_user'] == 1) || ($_SESSION['role_user'] == 5) || $_SESSION['role_user'] == 4) { ?>
                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
                       <i class="mdi mdi-content-paste"></i>
