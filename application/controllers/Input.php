@@ -376,7 +376,7 @@ class Input extends CI_Controller {
 		}		
 		
 		$mail->isHTML(true);
-		$mail->Subject = 'TEST TEST EMAIL Permohonan Cek Material PBPD '.$nama_ulp;
+		$mail->Subject = 'Permohonan Cek Material PBPD '.$nama_ulp;
 		
 		//setting style dan header content
 		$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
