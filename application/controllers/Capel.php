@@ -453,6 +453,9 @@ class Capel extends CI_Controller {
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
 			$mail->AddCC($row->email_user, '');
 		}
+		foreach ($this->users_model->get_data_user_by_role('5')->result() as $row) {
+			$mail->AddCC($row->email_user, '');
+		}		
 		
 		$mail->isHTML(true);
 		$mail->Subject = 'Status Lengkap Material PBPD '.$nama_ulp;
