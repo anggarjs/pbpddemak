@@ -356,11 +356,7 @@ class Input extends CI_Controller {
 		
 
 		$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
-/* 		
-		$mail->addAddress('', '');
-		$mail->addAddress('', '');
-		
- */		
+
 		//setting to email
 		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
 			$mail->addAddress($row->email_user, '');
@@ -436,7 +432,7 @@ class Input extends CI_Controller {
 
 		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
 		<br>
-		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br><br></p>';
+		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
 		
 		//set content
 		$msg	.='	

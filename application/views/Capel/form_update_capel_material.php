@@ -177,7 +177,7 @@
 								</div>	
 							</div>						
 							<div class="table-responsive">
-								<table id="tabel-update-capelmaterial" class="table table-striped table-bordered text-nowrap" style="width: 100%;">
+								<table id="zero_config" class="table table-striped table-bordered text-nowrap">
 									<thead>
 									
 										<tr>
