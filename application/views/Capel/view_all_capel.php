@@ -36,10 +36,10 @@
       											<th>Detail</th>
       											<th>Nama ULP</th>
       											<th>Tgl Disetujui</th>
-      											<th>Nama Capel</th>
-      											<th>Daya Capel</th>
       											<th>Status Capel</th>
       											<th>Status Material</th>
+      											<th>Nama Capel</th>
+      																						
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -55,10 +55,11 @@
       												</td>
       												<td><?= $data->nama_ulp; ?></td>
       												<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
-      												<td><?= $data->nama_capel; ?></td>
-      												<td><?= number_format($data->daya_baru); ?></td>
       												<td><?= $data->status_capel; ?></td>
-      												<td><?= $data->status_material; ?></td>
+      												<td><?= $data->status_material; ?></td>													
+      												<td><?= $data->nama_capel; ?></td>
+      												
+
       											</tr>
       										<?php endforeach; ?>
       									</tbody>
