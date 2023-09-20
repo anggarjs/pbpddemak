@@ -62,21 +62,29 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="mb-3">
+										<label>Email :</label>
+										<input type="text" class="form-control" name="email_user" 
+										value="<?php 
+										if(set_value('email_user')!='') 
+											echo set_value('email_user');
+										else
+											echo $email_user;
+										?>"/>
+									</div>
+									<?php echo form_error('email_user'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
 										<label>Asal Unit Kerja :</label>
 										<?php
 											if(set_value('pilihan_ulp')!='') $set_select = set_value('pilihan_ulp');
 											else $set_select = $id_ulp;			
 											echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select" ');
-										?>										
+										?>				
 									</div>
 									<?php echo form_error('pilihan_ulp'); ?>
 								</div>
-								<div class="col-md-6">
-									<div class="mb-3">
-									</div>									
-								</div>							
-							</div>								
-
+							</div>
 						</div>
 						<div class="p-3 border-top">
 							<div class="text-end">

@@ -30,43 +30,55 @@
       						</h4>
       					</div>
       					<div class="card-body">
-      						<div class="mb-3">
-      							<label>Nama User</label>
-      							<input type="text" class="form-control <?php echo (form_error('username')) ? 'is-invalid' : ''; ?>" name="username" />
-      							<div class="invalid-feedback">
-      								<?php if (form_error('username') == true) : ?>
-      									<?= form_error('username'); ?>
-      								<?php endif; ?>
-      							</div>
-      						</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Username :</label>
+										<input type="text" class="form-control" name="username" 
+										value="<?php 
+										if(set_value('username')!='') 
+											echo set_value('username');
+										?>"/>
+									</div>
+									<?php echo form_error('username'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Role :</label>
+										<?php
+											if(set_value('pilihan_role')!='') $set_select = set_value('pilihan_role');
+											else $set_select = '';	
+											echo form_dropdown('pilihan_role',$pilihan_role,$set_select,'class="form-select" ');
+										?>
+									</div>
+									<?php echo form_error('pilihan_role'); ?>
+								</div>								
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Email :</label>
+										<input type="text" class="form-control" name="email_user" 
+										value="<?php 
+										if(set_value('email_user')!='') 
+											echo set_value('email_user');
+										?>"/>
+									</div>
+									<?php echo form_error('email_user'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Asal Unit Kerja :</label>
+										<?php
+											if(set_value('pilihan_ulp')!='') $set_select = set_value('pilihan_ulp');
+											else $set_select = '';	
+											echo form_dropdown('pilihan_ulp',$pilihan_ulp,$set_select,'class="form-select" ');
+										?>
+									</div>
+									<?php echo form_error('pilihan_ulp'); ?>
+								</div>								
+							</div>
 
-      						<div class="mb-3">
-      							<label>Asal Unit Kerja</label>
-      							<?php
-									if (set_value('pilihan_ulp') != '') $set_select = set_value('pilihan_ulp');
-									else $set_select = '';
-									echo form_dropdown('pilihan_ulp', $pilihan_ulp, $set_select, 'class="form-control ' . (form_error('pilihan_ulp') ? 'is-invalid' : '') . '"');
-									?>
-      							<div class="invalid-feedback">
-      								<?php if (form_error('pilihan_ulp') == true) : ?>
-      									<?= form_error('pilihan_ulp'); ?>
-      								<?php endif; ?>
-      							</div>
-      						</div>
-
-      						<div class="mb-3">
-      							<label>Role Kerja</label>
-      							<?php
-									if (set_value('pilihan_role') != '') $set_select = set_value('pilihan_role');
-									else $set_select = '';
-									echo form_dropdown('pilihan_role', $pilihan_role, $set_select, 'class="form-control ' . (form_error('pilihan_role') ? 'is-invalid' : '') . '"');
-									?>
-      							<div class="invalid-feedback">
-      								<?php if (form_error('pilihan_role') == true) : ?>
-      									<?= form_error('pilihan_role'); ?>
-      								<?php endif; ?>
-      							</div>
-      						</div>
 
       					</div>
       					<div class="p-3 border-top">

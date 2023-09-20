@@ -13,17 +13,19 @@ class User extends CI_Controller
 	{
 	} //end index
 
-	function Tambah()
-	{
-		$this->form_validation->set_rules('username', 'Nama User', 'required', [
-			'required' => '%s Harus diisi'
-		]);
-		$this->form_validation->set_rules('pilihan_ulp', 'Unit Kerja', 'required', [
-			'required' => '%s Harus diisi'
-		]);
-		$this->form_validation->set_rules('pilihan_role', 'Role Kerja', 'required', [
-			'required' => '%s Harus diisi'
-		]);
+	function Tambah(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');		
+		
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('email_user', 'Email User', 'required');
+		$this->form_validation->set_rules('pilihan_ulp', 'Pilihan ULP', 'required|callback_validasi_data_list');
+		$this->form_validation->set_rules('pilihan_role', 'Pilihan Role User', 'required|callback_validasi_data_list');
+
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
 
 		if ($this->form_validation->run() == FALSE) {
 			$pilihan_ulp[''] 		= "- Pilih ULP -";
@@ -41,7 +43,7 @@ class User extends CI_Controller
 			$data['pilihan_role'] 	= $pilihan_role;
 
 			//redirect to view
-			$data['title'] = "Tambah Data User";
+
 			$data['nama_user'] 	= $_SESSION['username'];
 			$data['content'] 	= $this->load->view('user/form_tambah_user', $data, true);
 			$this->load->view('beranda', $data);
@@ -49,8 +51,9 @@ class User extends CI_Controller
 
 		else {
 			$data = array(
-				'nama_user' 	=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
+				'nama_user' 			=> $this->input->post('pilihan_ulp') . '.' . trim($this->input->post('username')),
 				'pass_user' 			=> md5('pbpddemak'),
+				'email_user' 			=> $this->input->post('email_user'),
 				'id_ulp' 				=> $this->input->post('pilihan_ulp'),
 				'id_role' 				=> $this->input->post('pilihan_role'),
 			);
@@ -110,12 +113,14 @@ class User extends CI_Controller
 				$nama_user		 	= $row->nama_user;
 				$data['nama_ulp'] 	= $row->nama_ulp;
 				$data['nama_role'] 	= $row->nama_role;
+				$data['id_user'] 	= $row->id_user;
+				$data['email_user'] = $row->email_user;
 			}
 			
 			$arr_file 				= explode('.', $nama_user);
 			$data['nama_user2'] 	= end($arr_file);		
 			
-			$data['id_user'] 		= $row->id_user;
+			
 			$pilihan_ulp[''] 		= "- Pilih ULP -";
 			$ulp 					= $this->users_model->get_data_ulp();
 			foreach ($ulp->result() as $row) {
@@ -131,8 +136,6 @@ class User extends CI_Controller
 			$data['pilihan_role'] 	= $pilihan_role;
 
 			//redirect to view
-			$data['title'] = "Edit Data User";
-			$data['id_user'] 		= $id_user;
 			$data['nama_user'] 		= $_SESSION['username'];
 			$data['content'] 		= $this->load->view('user/form_edit_user', $data, true);
 			$this->load->view('beranda', $data);
