@@ -188,6 +188,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <i class="mdi mdi-dots-horizontal"></i>
               <span class="hide-menu">Menu Sidebar</span>
             </li>
+			<li class="sidebar-item">
+				<a
+				class="sidebar-link has-arrow waves-effect waves-dark"
+				href="javascript:void(0)"
+				aria-expanded="false"
+				>
+				<i class="mdi mdi-av-timer"></i>
+				<span class="hide-menu">Dashboard </span>
+				</a>
+				<ul aria-expanded="false" class="collapse first-level">
+					<li class="sidebar-item">
+					<a href="<?php echo base_url() ?>Admin/DashboardUP3" class="sidebar-link">
+					  <i class="mdi mdi-adjust"></i>
+					  <span class="hide-menu"> UP3 </span>
+					</a>
+					</li>
+					<li class="sidebar-item">
+					<a href="index2.html" class="sidebar-link">
+					  <i class="mdi mdi-adjust"></i>
+					  <span class="hide-menu"> ULP </span>
+					</a>
+					</li>
+					<li class="sidebar-item">
+					</li>
+				</ul>
+			</li>			
             <li class="sidebar-item">
               <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
                 <i class="mdi mdi-receipt"></i>
