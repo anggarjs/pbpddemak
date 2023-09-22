@@ -293,7 +293,7 @@ class Capel extends CI_Controller {
 			
 			//update into database
 			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));		
-			/* redirect('Capel/view_capel_lgkp_material'); */			
+			redirect('Capel/view_capel_lgkp_material');			
 		}
 	}//end of function
 	

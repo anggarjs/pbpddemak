@@ -107,6 +107,7 @@ class Input extends CI_Controller {
 					'biaya_investasi' 		=> $biaya_invest,
 					'tgl_surat_diterima' 	=> $this->input->post('tgl_surat_diterima'),
 					'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
+					'tgl_entry_aplikasi' 	=> date("Y-m-d"),
 				);
 				
 				// HANDLER UPLOAD RAB ------------------------------------------------------------ //
@@ -301,7 +302,7 @@ class Input extends CI_Controller {
 		rename($file_name,$path_new_file);
 		
 		//sending email
-		$this->send_email($id_capel,$ulp); 			
+		$this->send_email($id_capel,$ulp);
 					
 		redirect('Capel/View_capel');
 	}

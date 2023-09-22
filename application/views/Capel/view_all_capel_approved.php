@@ -32,7 +32,7 @@
       									<thead>
       										<!-- start row -->
       										<tr>
-												<th>Pengecekan</th>
+												<th width="5%">Update</th>
 												<th>Nama ULP</th>
 												<th>Tgl Disetujui</th>
 												<th>Status Material</th>	

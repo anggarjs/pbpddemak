@@ -33,7 +33,7 @@
       									<thead>
       										<!-- start row -->
       										<tr>
-      											<th>Detail</th>
+      											<th width="5%">Detail</th>
       											<th>Nama ULP</th>
       											<th>Tgl Disetujui</th>
       											<th>Status Capel</th>
