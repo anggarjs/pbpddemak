@@ -26,12 +26,15 @@
       						</h4>
       					</div>
       					<div class="card-body">
-							<button id="addRow" class="btn btn-danger" type="submit" name="hapus_user">
+      					<?php
+							$attributes 	= array('class' => 'form-horizontal');
+							echo form_open('Admin/hapus_capel_selected', $attributes);
+						?>
+							<button id="addRow" class="btn btn-danger" type="submit" name="hapus_capel">
 								<i data-feather="minus" class="feather-sm"></i> Hapus Data
 							</button>
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
 							<div class="table-responsive">
-								
 								<table style="width: 100%" id="tabel-view-allcapel" class="no-wrap table-bordered table-hover table">
 									<thead>
 										<!-- start row -->
@@ -74,6 +77,7 @@
 									</tbody>
 								</table>
 							</div>
+						<?php echo form_close(); ?>	
       					</div>
       				</div>
       			</div><!-- end <div class="col-12"> -->

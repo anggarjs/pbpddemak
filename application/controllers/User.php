@@ -153,8 +153,7 @@ class User extends CI_Controller
 		}
 	}
 	
-	function hapus_user_selected()
-	{
+	function hapus_user_selected(){
 		$delete_items = $this->input->post('check');
 		if ($delete_items) {
 			foreach ($delete_items as $item) {

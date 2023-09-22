@@ -33,5 +33,16 @@ class Admin extends CI_Controller {
 		$this->load->view('beranda', $data);
 	}
 	
+	function hapus_capel_selected(){
+		$delete_items = $this->input->post('check');
+		if ($delete_items) {
+			foreach ($delete_items as $item) {
+				/* echo $item.'<br>'; */
+				$this->capel_model->hapus_capel($item);
+			}			
+			redirect('Admin/view_capel_hapus');
+		} 
+	}	
+	
 
 }

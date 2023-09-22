@@ -445,9 +445,11 @@ class Input extends CI_Controller {
 		<p class=MsoNormal><b>Biaya Penyambungan :</b><br>
 		'.number_format($biaya_penyambungan).'<br></p><br>		
 		<p class=MsoNormal><b>Biaya Investasi :</b><br>
-		'.number_format($biaya_investasi).'<br></p><br>			
+		'.number_format($biaya_investasi).'<br></p><br>
+		<p class=MsoNormal><b>Username Input : </b><br>
+		'.$_SESSION['username'].'<br></p><br>			
 
-		<p class=MsoNormal>Silahkan dapat upadate ketersediaan material dengan mengakses Dashboard PBPD pada alamat '.base_url().'<br></p><br>			
+		<p class=MsoNormal>Silahkan dapat update ketersediaan material dengan mengakses Dashboard PBPD pada alamat '.base_url().'<br></p><br>			
 		';
 		
 		//setting footer content

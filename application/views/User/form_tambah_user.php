@@ -23,7 +23,7 @@
       					<?php
 							$attributes 	= array('class' => 'form-horizontal');
 							echo form_open('User/Tambah', $attributes);
-							?>
+						?>
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
       							Form Penambahan Data User
