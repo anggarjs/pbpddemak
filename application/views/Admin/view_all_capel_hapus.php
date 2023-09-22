@@ -22,45 +22,58 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan Telah Disetujui
+      							Data Calon Pelanggan
       						</h4>
       					</div>
       					<div class="card-body">
-      						<h6 class="card-subtitle mb-3">
-      							<div class="table-responsive">
-      								<table id="tabel-view-allcapelapproved" style="width: 100%;" class="table table-striped table-bordered text-nowrap">
-      									<thead>
-      										<!-- start row -->
-      										<tr>
-												<th>Pengecekan</th>
-												<th>Nama ULP</th>
-												<th>Tgl Disetujui</th>
-												<th>Status Material</th>	
-      											<th>Nama Capel</th>
-      																
-      										</tr>
-      										<!-- end row -->
-      									</thead>
-      									<tbody>
-      										<?php foreach ($data_capel->result() as $data) : ?>
-      											<tr>
-      												<td>
-      													<div class="d-flex justify-content-around">
-      														<a href="<?php echo base_url('Capel/Update_material/') . $data->id_capel; ?>">
-      															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
-      														</a>
-      													</div>
-      												</td>												
-													<td><?= $data->nama_ulp; ?></td>
-													<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
-													<td><?= $data->status_material; ?></td>
-													<td><?= $data->nama_capel; ?></td>
-																
-      											</tr>
-      										<?php endforeach; ?>
-      									</tbody>
-      								</table>
-      							</div>
+							<button id="addRow" class="btn btn-danger" type="submit" name="hapus_user">
+								<i data-feather="minus" class="feather-sm"></i> Hapus Data
+							</button>
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
+							<div class="table-responsive">
+								
+								<table style="width: 100%" id="tabel-view-allcapel" class="no-wrap table-bordered table-hover table">
+									<thead>
+										<!-- start row -->
+										<tr>
+											<th width="5%">
+												<div class="d-flex justify-content-center">
+													<div class="form-check">
+														<input class="form-check-input" type="checkbox" id="checklist-user">
+													</div>
+												</div>
+											</th>
+											<th>Nama ULP</th>
+											<th>Tgl Disetujui</th>
+											<th>Status Capel</th>
+											<th>Status Material</th>
+											<th>Nama Capel</th>
+																						
+										</tr>
+										<!-- end row -->
+									</thead>
+									<tbody>
+										<?php foreach ($data_capel->result() as $data) : ?>
+											<tr>
+												<td>
+													<div class="d-flex justify-content-center">
+														<div class="form-check">
+															<input class="form-check-input" style="position: relative; right: 7px;" type="checkbox" value="<?php echo $data->id_capel; ?>" id="flexCheckDefault" name="check[]">
+														</div>
+													</div>
+												</td>
+												<td><?= $data->nama_ulp; ?></td>
+												<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
+												<td><?= $data->status_capel; ?></td>
+												<td><?= $data->status_material; ?></td>													
+												<td><?= $data->nama_capel; ?></td>
+												
+
+											</tr>
+										<?php endforeach; ?>
+									</tbody>
+								</table>
+							</div>
       					</div>
       				</div>
       			</div><!-- end <div class="col-12"> -->

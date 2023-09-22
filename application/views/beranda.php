@@ -288,7 +288,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
+                    <a href="<?php echo base_url() ?>Admin/view_capel_hapus" class="sidebar-link">
                       <i class="mdi mdi-border-vertical"></i>
                       <span class="hide-menu"> Hapus Data Capel</span>
                     </a>
