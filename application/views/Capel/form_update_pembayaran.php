@@ -189,7 +189,7 @@
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">	
-										<label class="control-label">Tgl Pembayaran Pelanggan</label>
+										<label class="control-label"><b>Tgl Pembayaran Pelanggan</b></label>
 										<input type="date" class="form-control" name="tgl_bayar_plgn" 
 										value="<?php 
 										if(set_value('tgl_bayar_plgn')!='') 
@@ -197,17 +197,38 @@
 										else
 											echo $tgl_bayar_plgn;
 										?>"/>
+										
 									</div>
 									<?php echo form_error('tgl_bayar_plgn'); ?>
 								</div>	
 							</div>
 
-							<div class="row">								
-								<div class="mb-3">
-									<label>Upload File Permohonan Material <b>(Scan PDF TUG)</b></label>
-									<input type="file" class="form-control" name="filetug" />	
-								</div>									
-							</div>							
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>No Reservasi AGO :</b></label>
+										<input
+										  type="text"
+										  class="form-control"
+										  value="<?php if(set_value('no_reservasi_ago')!='') echo set_value('no_reservasi_ago');?>"
+										  name="no_reservasi_ago"
+										/>										
+									</div>
+									<?php echo form_error('no_reservasi_ago'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">	
+										<label class="control-label"><b>Tgl Reservasi AGO</b></label>
+										<input type="date" class="form-control" name="tgl_reservasi_ago" 
+										value="<?php 
+										if(set_value('tgl_reservasi_ago')!='') 
+											echo set_value('tgl_reservasi_ago');
+										else
+											echo $tgl_reservasi_ago;
+										?>"/>
+									</div>
+									<?php echo form_error('tgl_reservasi_ago'); ?>
+								</div						
 							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							<!-- ROW #7 -->

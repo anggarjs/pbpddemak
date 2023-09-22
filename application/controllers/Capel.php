@@ -259,9 +259,11 @@ class Capel extends CI_Controller {
 				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
 				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;
 				$data['tgl_bayar_plgn']			= $row->tgl_bayar_plgn;
-				$data['status_material']		= $row->status_material;	
+				$data['status_material']		= $row->status_material;
 				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	
-				$data['keterangan_material']	= $row->keterangan_material;	
+				$data['keterangan_material']	= $row->keterangan_material;
+				$data['no_reservasi_ago']		= $row->no_reservasi_ago;	
+				$data['tgl_reservasi_ago']		= $row->tgl_reservasi_ago;
 			}
 			$data['id_capel']					= $id_capel;
 
@@ -278,35 +280,20 @@ class Capel extends CI_Controller {
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
 			$data['nama_user'] 			= $_SESSION['username'];
-			$data['content'] 			= $this->load->view('Capel/form_update_capel_ulp',$data,true);
+			$data['content'] 			= $this->load->view('Capel/form_update_pembayaran',$data,true);
 			$this->load->view('beranda',$data);
 		}
 		else{
-			//upload PDF TUG
-			$new_name 					= 'TUG_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.PDF';
-			$config['file_name'] 		= $new_name;
+			$data_plg = array(
+				'id_status_capel' 		=> $this->input->post('status_capel'),
+				'tgl_bayar_plgn' 		=> $this->input->post('tgl_bayar_plgn'),
+				'no_reservasi_ago' 		=> $this->input->post('no_reservasi_ago'),
+				'tgl_reservasi_ago' 	=> $this->input->post('tgl_reservasi_ago'),				
+			);	
 			
-			$config['upload_path']		= './uploads/'.$this->input->post('id_ulp').'/';
-			$config['allowed_types'] 	= 'pdf';
-			$config['max_size'] 		= 8192;
-			$this->load->library('upload', $config);
-			if ($this->upload->do_upload('filetug')){			
-				$data_plg = array(
-					'id_status_capel' 		=> $this->input->post('status_capel'),
-					'tgl_bayar_plgn' 		=> $this->input->post('tgl_bayar_plgn'),
-				);				
-				//update into database
-				$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));			
-				
-				redirect('Capel/view_capel_lgkp_material');				
-			}
-/* 			else{
-				$data['nama_user'] 			= $_SESSION['username'];
-                $data['error'] = array('error' => $this->upload->display_errors());
-				$data['content'] 			= $this->load->view('view_kosongan',$data,true);
-				$this->load->view('beranda',$data);
-			} */
-			
+			//update into database
+			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));		
+			/* redirect('Capel/view_capel_lgkp_material'); */			
 		}
 	}//end of function
 	
