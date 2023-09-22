@@ -408,7 +408,7 @@ class Capel extends CI_Controller {
 			$tgl_lengkap_material			= $row->tgl_lengkap_material;		
 		}
 		
-		$new_date		= date('Y-m-d', strtotime($tgl_lengkap_material .' +7 day'));
+		$new_date		= date('Y-m-d', strtotime($tgl_lengkap_material .' +14 day'));
 		$new_date2		= date_format(date_create($new_date),"d-m-Y");
 		/* echo $new_date2; */
 		
@@ -534,9 +534,11 @@ class Capel extends CI_Controller {
 		<p class=MsoNormal><b>Status Material : </b><br>
 		'.$status_material.'<br></p><br>		
 		<p class=MsoNormal><b>Keterangan Material : </b><br>
-		'.$keterangan_material.'<br></p><br>				
+		'.$keterangan_material.'<br></p><br>
+		<p class=MsoNormal><b>Username Updater : </b><br>
+		'.$_SESSION['username'].'<br></p><br>			
 
-		<p class=MsoNormal>Umur kelengkapan material adalah 7 hari sejak email berikut dikirimkan atau berakhir pada : '.$new_date2.' </p>
+		<p class=MsoNormal>Umur kelengkapan material adalah 14 hari sejak email berikut dikirimkan atau berakhir pada : '.$new_date2.' </p>
 		<p class=MsoNormal>Mohon pelanggan membayar sebelum berakhir umur material</p><br>	
 		';
 		
