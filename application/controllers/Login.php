@@ -24,10 +24,10 @@ class Login extends CI_Controller {
 				'role_user' 	=> $role,
 			);
 			$this->session->set_userdata($newdata);
-			if($role != 2)
+			if($role > 2)
 				redirect('Input');
 			else
-				redirect('Capel/view_capel');
+				redirect('Admin/DashboardUP3');
 		}
 		else
 			redirect('Welcome');

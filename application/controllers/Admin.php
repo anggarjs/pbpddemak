@@ -38,11 +38,40 @@ class Admin extends CI_Controller {
 			redirect('Welcome');
 		
 		$data['total_plgn']			= $this->capel_model->get_all_capel()->num_rows();
-		$data['biaya_penyambungan']	= $this->capel_model->get_total('sum(biaya_penyambungan) as biaya_penyambungan')->row()->biaya_penyambungan/1000000;
-		$data['biaya_investasi']	= $this->capel_model->get_total('sum(biaya_investasi) as biaya_investasi')->row()->biaya_investasi/1000000;
+		$data['biaya_penyambungan']	= $this->capel_model->get_total('sum(biaya_penyambungan) as biaya_penyambungan')->row()->biaya_penyambungan/1000000000;
+		$data['biaya_investasi']	= $this->capel_model->get_total('sum(biaya_investasi) as biaya_investasi')->row()->biaya_investasi/1000000000;
 		$data['daya_lama']			= $this->capel_model->get_total('sum(daya_lama) as daya_lama')->row()->daya_lama/1000000;
 		$data['daya_baru']			= $this->capel_model->get_total('sum(daya_baru) as daya_baru')->row()->daya_baru/1000000;		
 		$data['delta_daya']			= $data['daya_baru']-$data['daya_lama'];
+		
+		$data['blm_pengecekan']		= $this->capel_model->get_total_cpl_status_material('1')->num_rows();
+		$data['blm_lengkap']		= $this->capel_model->get_total_cpl_status_material('2')->num_rows();
+		$data['lengkap']			= $this->capel_model->get_total_status_lengkap()->num_rows();
+		
+		$data['persetujuan']		= $this->capel_model->get_total_cpl_status_plgn('2')->num_rows();
+		$data['pembayaran']			= $this->capel_model->get_total_cpl_status_plgn('3')->num_rows();		
+		$data['peremajaan']			= $this->capel_model->get_total_cpl_status_plgn('4')->num_rows();
+		
+		$status_capel 				= $this->capel_model->get_status_capel();
+		$data['js_script_label']	= 'labels: [';
+		$data['js_script_series']	= 'series: [';
+		
+		foreach($status_capel->result() as $row){
+			$data['js_script_label']	.= '"'.$row->status_capel.'",';
+			
+			$total_plgn 				= $this->capel_model->get_all_status_capel($row->status_capel)->num_rows();
+			$data['js_script_series'] 	.= $total_plgn.',';
+		}
+		
+		$data['js_script_series']	= substr_replace($data['js_script_series'] ,"",-1);
+		$data['js_script_series']  	.= '],';
+		
+		$data['js_script_label']	= substr_replace($data['js_script_label'] ,"",-1);
+		$data['js_script_label']  	.= '],';
+		
+		$data['js_script']			= $data['js_script_series'].$data['js_script_label'];
+
+ 
 
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('Admin/Dashboard_UP3', $data, true);

@@ -361,37 +361,42 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <!-- ============================================================== -->
 
   <div class="chat-windows"></div>
-  <!-- ============================================================== -->
-  <!-- My Javascript -->
-  <script src="<?php echo base_url() ?>assets/js/script.js"></script>
-  <!-- SweetAlert CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- All Jquery -->
-  <!-- ============================================================== -->
-  <script src="<?php echo base_url() ?>dist/libs/jquery/dist/jquery.min.js"></script>
-  <!-- Bootstrap tether Core JavaScript -->
-  <script src="<?php echo base_url() ?>dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- apps -->
-  <script src="<?php echo base_url() ?>dist/js/app.min.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/app.init.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/app-style-switcher.js"></script>
-  <!-- slimscrollbar scrollbar JavaScript -->
-  <script src="<?php echo base_url() ?>dist/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js"></script>
-  <script src="<?php echo base_url() ?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
-  <!--Wave Effects -->
-  <script src="<?php echo base_url() ?>dist/js/waves.js"></script>
+		<!-- ============================================================== -->
+		<!-- My Javascript -->
+		<script src="<?php echo base_url() ?>assets/js/script.js"></script>
+		<!-- SweetAlert CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<!-- All Jquery -->
+		<!-- ============================================================== -->
+		<script src="<?php echo base_url() ?>dist/libs/jquery/dist/jquery.min.js"></script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="<?php echo base_url() ?>dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- apps -->
+		<script src="<?php echo base_url() ?>dist/js/app.min.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/app.init.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/app-style-switcher.js"></script>
+		<!-- slimscrollbar scrollbar JavaScript -->
+		<script src="<?php echo base_url() ?>dist/libs/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js"></script>
+		<script src="<?php echo base_url() ?>dist/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+		<!--Wave Effects -->
+		<script src="<?php echo base_url() ?>dist/js/waves.js"></script>
 
-  <!--Menu sidebar -->
-  <script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
-  <!--Custom JavaScript -->
-  <script src="<?php echo base_url() ?>dist/js/feather.min.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/custom.min.js"></script>
-  <!--This page plugins -->
-  <script src="<?php echo base_url() ?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/pages/datatable/custom-datatable.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-basic.init.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/jquery.dataTables.min.js"></script>
-  <script src="<?php echo base_url() ?>dist/js/dataTables.bootstrap5.min.js"></script>
+		<!--Menu sidebar -->
+		<script src="<?php echo base_url() ?>dist/js/sidebarmenu.js"></script>
+		<!--Custom JavaScript -->
+		<script src="<?php echo base_url() ?>dist/js/feather.min.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/custom.min.js"></script>
+		<!--This page plugins -->
+		<script src="<?php echo base_url() ?>dist/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/pages/datatable/custom-datatable.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-basic.init.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/jquery.dataTables.min.js"></script>
+		<script src="<?php echo base_url() ?>dist/js/dataTables.bootstrap5.min.js"></script>
+  
+	<!--This page JavaScript -->
+	<script src="<?php echo base_url() ?>dist/libs/apexcharts/dist/apexcharts.min.js"></script>
+	<script src="<?php echo base_url() ?>dist/js/pages/dashboards/dashboard2.js"></script>
+	<!-- <script src="<?php echo base_url() ?>dist/js/pages/dashboards/dashboard3.js"></script>	-->
   <!-- Feather Icon -->
   <script>
     feather.replace();

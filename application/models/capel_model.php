@@ -139,7 +139,40 @@ class Capel_model extends CI_Model {
 		$this->db->from('view_capel');
 		$query = $this->db->get();
 		return $query;
+	}//end of function
+
+	function get_total_cpl_status_material($var){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_material', $var);		
+		$query = $this->db->get();
+		return $query;
+	}//end of function
+	
+	function get_total_status_lengkap(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_material >2');		
+		$query = $this->db->get();
+		return $query;
+	}//end of function
+	
+	function get_total_cpl_status_plgn($var){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel', $var);		
+		$query = $this->db->get();
+		return $query;
+	}//end of function
+	
+	function get_all_status_capel($var){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->like('status_capel',$var);	
+		$query = $this->db->get();
+		return $query;
 	}//end of function		
+	
 		
 }//end of class
 ?>
