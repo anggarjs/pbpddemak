@@ -83,5 +83,11 @@ class Material_model extends CI_Model
 		$this->db->from('view_material_lengkap');
 		$query = $this->db->get();			
 		return $query;
-	}//end of function	
+	}//end of function
+	
+	function rollback_material($data, $id_capel){	
+		$this->db->where('id_capel', $id_capel);
+		$this->db->update('data_kebutuhan_mdu', $data);
+	}//end of function
+	
 }//end of class

@@ -56,6 +56,16 @@ class Capel_model extends CI_Model {
 		return $query;
 	}//end of function
 	
+	function get_all_data_capel_lengkap(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_material >','2');
+		$this->db->order_by('id_status_material', 'ASC');
+		$this->db->order_by('tgl_persetujuan', 'ASC');
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
 	function get_all_data_capel_lgkp_material(){
 		$this->db->select("*");
 		$this->db->from('view_capel');

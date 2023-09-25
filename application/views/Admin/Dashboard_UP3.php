@@ -26,12 +26,12 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="row align-items-center">
-								<div class="col-5">
+								<div class="col-7">
 									<i class="ri-emotion-line fs-6 text-info"></i>
 									<p class="fs-4 mb-1">Capel</p>
 								</div>
-								<div class="col-7">
-									<h2 class="fw-light text-end mb-0"><?php echo $total_plgn ?> Capel</h2>
+								<div class="col-5">
+									<h2 class="fw-light text-end mb-0"><?php echo $total_plgn ?></h2>
 								</div>
 							</div>
 						</div>
@@ -72,11 +72,11 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="row align-items-center">
-								<div class="col-5">
+								<div class="col-4">
 									<i class="ri-bar-chart-fill fs-6 text-danger"></i>
 									<p class="fs-4 mb-1">Daya</p>
 								</div>
-								<div class="col-7">
+								<div class="col-8">
 									<h2 class="fw-light text-end mb-0"><?php echo number_format($delta_daya,2) ?> MVA</h2>
 								</div>
 							</div>

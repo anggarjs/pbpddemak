@@ -269,6 +269,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Logistik/View_plgn_lengkap" class="sidebar-link">
+                      <i class="mdi mdi-arrange-bring-forward"></i>
+                      <span class="hide-menu"> Rekap Pelanggan Lengkap</span>
+                    </a>
+                  </li>				
+                  <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Logistik/view_material_lengkap" class="sidebar-link">
                       <i class="mdi mdi-arrange-bring-forward"></i>
                       <span class="hide-menu"> Rekap Material Lengkap</span>
@@ -319,12 +325,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       <span class="hide-menu"> Hapus Data Capel</span>
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>User/View" class="sidebar-link">
-                      <i class="mdi mdi-border-vertical"></i>
-                      <span class="hide-menu"> Rollback Kesiapan Material</span>
-                    </a>
-                  </li>
+
                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Test/Test_email" class="sidebar-link">
                       <i class="mdi mdi-border-vertical"></i>
