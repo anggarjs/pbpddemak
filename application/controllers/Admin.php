@@ -57,8 +57,7 @@ class Admin extends CI_Controller {
 		$data['js_script_series']	= 'series: [';
 		
 		foreach($status_capel->result() as $row){
-			$data['js_script_label']	.= '"'.$row->status_capel.'",';
-			
+			$data['js_script_label']	.= '"'.$row->status_capel.'",';		
 			$total_plgn 				= $this->capel_model->get_all_status_capel($row->status_capel)->num_rows();
 			$data['js_script_series'] 	.= $total_plgn.',';
 		}
@@ -68,10 +67,37 @@ class Admin extends CI_Controller {
 		
 		$data['js_script_label']	= substr_replace($data['js_script_label'] ,"",-1);
 		$data['js_script_label']  	.= '],';
-		
 		$data['js_script']			= $data['js_script_series'].$data['js_script_label'];
-
- 
+		
+	
+		$data['js_series_plgn']		= 'series: [';
+		foreach($this->capel_model->get_status_capel_non_peremajaan()->result() as $row){
+			$data['js_series_plgn']  		.= '{';
+			$data['js_series_plgn']	.= "name:'".$row->status_capel."',data: [";		
+			foreach($this->capel_model->get_data_ulp()->result() as $row2){
+				foreach($this->capel_model->get_status_capel_by_status_capel_dan_ulp($row->status_capel,$row2->id_ulp)->result() as $row3){
+					$total_daya		= $row3->total_daya_baru-$row3->total_daya_lama;
+					$total_daya		= $total_daya/1000;
+					$data['js_series_plgn']		.= $total_daya.',';	
+				}
+				
+			}
+			$data['js_series_plgn']			= substr_replace($data['js_series_plgn'] ,"",-1);
+			$data['js_series_plgn']  		.= ']},';
+		}
+ 		
+		$data['js_series_plgn']  	.= '],';
+		
+	
+		$data['js_nama_ulp']		= 'categories: [';
+		foreach($this->capel_model->get_data_ulp()->result() as $row){
+			$data['js_nama_ulp']	.= '"'.$row->nama_ulp.'",';
+		}
+ 		$data['js_nama_ulp']		= substr_replace($data['js_nama_ulp'] ,"",-1);
+		$data['js_nama_ulp']  		.= '],';
+		
+		
+		
 
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('Admin/Dashboard_UP3', $data, true);

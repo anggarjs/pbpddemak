@@ -78,15 +78,13 @@ class Test extends CI_Controller {
 				);				
 				
 
-				$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
-				$mail->addAddress('', '');
-				$mail->addAddress('', '');
-				
-$mail->AddCC('person1@domain.example', 'Person One');
-$mail->AddCC('person2@domain.example', 'Person Two');				
+				$mail->setFrom($g_smtp_oauthUserEmail, '');
+				$mail->addAddress($this->input->post('nomor_persetujuan'), '');
+				$mail->AddCC('rajasa.angga@gmail.com', '');
+		
 
-				$mail->isHTML(true);
-				$mail->Subject = 'Permohonan PBPD ULP';
+				/* $mail->isHTML(true); */
+				$mail->Subject = $this->input->post('nomor_persetujuan');
 				
 				//setting style dan header content
 				$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
@@ -156,11 +154,14 @@ $mail->AddCC('person2@domain.example', 'Person Two');
 				<p class=MsoNormal><o:p>&nbsp;</o:p></p>
 				</div>
 				</body>
-				</html>';				
+				</html>';
 
-				$mail->Body    = $msg;
+				$teks_email		= $this->input->post('nomor_persetujuan');
+
+				$mail->Body    	= $teks_email;
 				$mail->send();
 				
+				echo $msg;
 				echo 'Sukses Kirim Email';
 				// isi pesan jika telah berhasil terkirim
 			} catch (Exception $e) {

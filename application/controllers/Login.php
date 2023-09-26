@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 			);
 			$this->session->set_userdata($newdata);
 			if($role > 2)
-				redirect('Input');
+				redirect('Admin/DashboardUP3');
 			else
 				redirect('Admin/DashboardUP3');
 		}

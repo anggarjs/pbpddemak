@@ -17,7 +17,7 @@ class Users_model extends CI_Model
 		$query = $this->db->get();
 		return $query;
 	} //end of function
-
+	
 	function get_data_role()
 	{
 		$this->db->select('*');

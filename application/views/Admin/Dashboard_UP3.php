@@ -121,46 +121,11 @@
 						<div class="card-body">
 							<div class="d-flex align-items-center">
 								<div>
-									<h4 class="card-title">Yearly Comparison</h4>
-								</div>
-								<div class="ms-auto">
-								<div class="">
-									<select class="form-select">
-									<option value="0" selected="">2021</option>
-									<option value="1">2015</option>
-									<option value="2">2016</option>
-									<option value="3">2017</option>
-									</select>
-								</div>
+									<h4 class="card-title">Potensi Pelanggan Belum Peremajaan</h4>
 								</div>
 							</div>
 						<div id="yearly-comparison" class="mt-4"></div>
-						<ul class="list-inline mt-4 text-center fs-2">
-							<li class="list-inline-item text-muted">
-								<i
-								class="
-								ri-checkbox-blank-circle-fill
-								fs-3
-								align-middle
-								text-info
-								me-1
-								"
-								></i>
-								This Year
-							</li>
-							<li class="list-inline-item text-muted">
-								<i
-								class="
-								ri-checkbox-blank-circle-fill
-								fs-3
-								align-middle
-								text-light
-								me-1
-								"
-								></i>
-								Last Year
-							</li>
-							</ul>
+
 						</div>
 					</div>
 				</div>
@@ -251,6 +216,51 @@ $(function () {
     campaign_status
   );
   chart_pie_donut.render();
+
+	var options = {
+ <?php echo $js_series_plgn ?>
+
+	  chart: {
+	  type: 'bar',
+	  height: 350
+	},
+	plotOptions: {
+	  bar: {
+		horizontal: false,
+		columnWidth: '55%',
+		endingShape: 'rounded'
+	  },
+	},
+	dataLabels: {
+	  enabled: false
+	},
+	stroke: {
+	  show: true,
+	  width: 2,
+	  colors: ['transparent']
+	},
+	xaxis: {
+	  <?php echo $js_nama_ulp ?>
+	},
+	yaxis: {
+	  title: {
+		text: '(kVA)'
+	  }
+	},
+	fill: {
+	  opacity: 1
+	},
+	tooltip: {
+	  y: {
+		formatter: function (val) {
+		  return "Daya : " + val + " kVA"
+		}
+	  }
+	}
+	};
+
+	var chart = new ApexCharts(document.querySelector("#yearly-comparison"), options);
+	chart.render();
 
 });
 

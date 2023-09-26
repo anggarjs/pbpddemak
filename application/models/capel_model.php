@@ -181,8 +181,24 @@ class Capel_model extends CI_Model {
 		$this->db->like('status_capel',$var);	
 		$query = $this->db->get();
 		return $query;
-	}//end of function		
+	}//end of function
 	
-		
+	function get_status_capel_non_peremajaan(){
+		$this->db->select('*');
+		$this->db->from('data_status_capel');
+		$this->db->where('id_status_capel <','4');
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
+	
+	function get_status_capel_by_status_capel_dan_ulp($status_capel,$ulp){
+		$this->db->select('sum(daya_lama) as total_daya_lama,sum(daya_baru) as total_daya_baru');
+		$this->db->from('view_capel');
+		$this->db->like('status_capel',$status_capel);
+		$this->db->like('id_ulp',$ulp);	
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
+	
 }//end of class
 ?>
