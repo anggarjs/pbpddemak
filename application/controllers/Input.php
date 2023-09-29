@@ -366,6 +366,7 @@ class Input extends CI_Controller {
 		//setting CC email
 		foreach ($this->users_model->get_data_user_by_ulp($ulp)->result() as $row) {
 			$mail->AddCC($row->email_user, '');
+			$mail->addAddress($row->email_user2, '');
 		}
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
 			echo $row->email_user.'<br>';

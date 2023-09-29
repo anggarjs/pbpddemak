@@ -430,6 +430,7 @@ class Capel extends CI_Controller {
 		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {	
 			/* echo $row->email_user.' TO <br>'; */
 			$mail->addAddress($row->email_user, '');
+			$mail->addAddress($row->email_user2, '');
 		}		
 		
 		//setting CC email
