@@ -32,9 +32,9 @@ class Input extends CI_Controller {
 			redirect('Welcome');
 		
 		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
-
-		$this->form_validation->set_rules('nomor_persetujuan', 'Nomor Surat', 'required');
-		$this->form_validation->set_rules('tgl_persetujuan', 'Tanggal Persetujuan Pelanggan', 'required');
+		$this->form_validation->set_rules('srt_nama_capel', 'Nama Calon Pelanggan', 'required');
+		$this->form_validation->set_rules('srt_no_ams_capel', 'Nomor Surat AMS Surat Plgn', 'required');
+		$this->form_validation->set_rules('srt_daya_awal_capel', 'Daya Awal Capel', 'required');
  		$this->form_validation->set_rules('tgl_surat_diterima', 'Tanggal Surat Diterima', 'required');
 
 		// Setting Error Message
@@ -49,23 +49,41 @@ class Input extends CI_Controller {
 				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
 			}
 			$data['pilihan_ulp'] 	= $pilihan_ulp;
-			
-			$pilihan_ulp[''] 		= "- Pilih Daya -";
-			$ulp 					= $this->capel_model->get_data_ulp();
-			foreach($ulp->result() as $row){
-				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
-			}
-			$data['pilihan_ulp'] 	= $pilihan_ulp;				
-		
 
 			$data['nama_user'] 		= $_SESSION['username'];
 			$data['content'] 		= $this->load->view('RAB/form_upload_surat',$data,true);
 			$this->load->view('beranda',$data);
 		}
 		else{
-
+			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
+			$new_name 					= 'SRT_PLGN_an_'.$this->input->post('srt_nama_capel').'_'.$this->input->post('srt_daya_awal_capel').'VA';
+			$config['file_name'] 		= $new_name;
+			
+			$config['upload_path']		= './uploads/'.$this->input->post('pilihan_ulp').'/';
+			$config['allowed_types'] 	= 'pdf';
+			$config['max_size'] 		= 16384;
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('filesurat')){
+				echo 'AAAA';
+				
+				$data_plg = array(
+					'id_ulp'				=> $this->input->post('pilihan_ulp'),
+					'tgl_persetujuan'		=> $this->input->post('tgl_persetujuan'),
+					'nama_capel' 			=> trim($nama_pelanggan),
+					'daya_lama' 			=> $dayalama,
+					'daya_baru' 			=> $dayabaru,
+					'biaya_penyambungan' 	=> $biaya_sambung,
+					'biaya_investasi' 		=> $biaya_invest,
+					'tgl_surat_diterima' 	=> $this->input->post('tgl_surat_diterima'),
+					'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
+					'tgl_entry_aplikasi' 	=> date("Y-m-d"),
+				);
+				
+				//insert into database
+				$this->capel_model->insert_capel($data_plg);				
+			}
 		}
-	}	
+	}
 
 	
 	function upload_rab(){

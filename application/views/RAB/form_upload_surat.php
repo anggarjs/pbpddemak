@@ -22,7 +22,7 @@
 					<div class="card">
 						<?php 
 							$attributes 	= array('class' => 'form-horizontal');
-							echo form_open_multipart('',$attributes);
+							echo form_open_multipart('Input/upload_surat',$attributes);
 						?>					
 						<div class="card-header bg-info">
 							<h4 class="card-title text-white">
@@ -46,10 +46,10 @@
 								<div class="col-md-6">
 									<div class="mb-3">
 										<label class="control-label">Nama Calon Pelanggan</label>
-										<input type="text" class="form-control" name="tgl_surat_diterima" 
-										value="<?php if(set_value('tgl_surat_diterima')!='') echo set_value('tgl_surat_diterima');?>"/>
+										<input type="text" class="form-control" name="srt_nama_capel" 
+										value="<?php if(set_value('srt_nama_capel')!='') echo set_value('srt_nama_capel');?>"/>
 									</div>									
-
+									<?php echo form_error('srt_nama_capel'); ?>
 								</div>							
 							</div>
 							<div class="row">
@@ -60,17 +60,18 @@
 										<input
 										  type="text"
 										  class="form-control"
-										  value="<?php if(set_value('nomor_surat_')!='') echo set_value('nomor_persetujuan');?>"
-										  name="nomor_persetujuan"
+										  value="<?php if(set_value('srt_no_ams_capel')!='') echo set_value('srt_no_ams_capel');?>"
+										  name="srt_no_ams_capel"
 										/>
-									</div>									
+									</div>
+									<?php echo form_error('srt_no_ams_capel'); ?>
 								</div>
 								<!--/span-->
 								<div class="col-md-6">
 									<div class="mb-3">
 										<label class="control-label">Alamat Calon Pelanggan</label>
-										<input type="text" class="form-control" name="tgl_surat_diterima" 
-										value="<?php if(set_value('tgl_surat_diterima')!='') echo set_value('tgl_surat_diterima');?>"/>
+										<input type="text" class="form-control" name="srt_alamat_capel" 
+										value="<?php if(set_value('srt_alamat_capel')!='') echo set_value('srt_alamat_capel');?>"/>
 									</div>		
 								</div>
 								<!--/span-->
@@ -89,9 +90,10 @@
 								<div class="col-md-6">
 									<div class="mb-3">
 										<label class="control-label">Daya Calon Pelanggan</label>
-										<input type="text" class="form-control" name="daya_capel_surat"  id="daya_capel_surat"
-										/>
+										<input type="text" class="form-control" name="srt_daya_awal_capel"  id="srt_daya_awal_capel"
+										value="<?php if(set_value('srt_daya_awal_capel')!='') echo set_value('srt_daya_awal_capel');?>"/>
 									</div>
+									<?php echo form_error('srt_daya_awal_capel'); ?>
 								</div>
 								<!--/span-->
 							</div>		
@@ -99,10 +101,10 @@
 							<div class="row">								
 								<div class="mb-3">
 									<label>Upload File Surat Permohonan Pelanggan</label>
-									<input type="file" class="form-control" name="filerab" />	
+									<input type="file" class="form-control" name="filesurat" />	
 								</div>									
 							</div>
-							<?php echo form_error('filerab'); ?>
+							<?php echo form_error('filesurat'); ?>
 							
 							
 						</div>
