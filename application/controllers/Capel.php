@@ -167,8 +167,6 @@ class Capel extends CI_Controller {
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
-				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
-				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;
 				$data['keterangan_material']	= $row->keterangan_material;
 			}
 			$data['id_capel']					= $id_capel;
@@ -256,8 +254,6 @@ class Capel extends CI_Controller {
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
-				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
-				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;
 				$data['tgl_bayar_plgn']			= $row->tgl_bayar_plgn;
 				$data['status_material']		= $row->status_material;
 				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	
@@ -321,8 +317,6 @@ class Capel extends CI_Controller {
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['id_status_capel']		= $row->id_status_capel;
 				$data['id_status_material']		= $row->id_status_material;
-				$data['nomor_surat_up3_ulp']	= $row->nomor_surat_up3_ulp;
-				$data['tgl_persetujuan_up3']	= $row->tgl_persetujuan_up3;
 				$data['tgl_bayar_plgn']			= $row->tgl_bayar_plgn;
 				$data['status_material']		= $row->status_material;	
 				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	

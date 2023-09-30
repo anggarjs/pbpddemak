@@ -201,13 +201,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<li class="sidebar-item">
 					<a href="<?php echo base_url() ?>Admin/DashboardUP3" class="sidebar-link">
 					  <i class="mdi mdi-adjust"></i>
-					  <span class="hide-menu"> UP3 </span>
+					  <span class="hide-menu"> Pelanggan </span>
 					</a>
 					</li>
 					<li class="sidebar-item">
 					<a href="index2.html" class="sidebar-link">
 					  <i class="mdi mdi-adjust"></i>
-					  <span class="hide-menu"> ULP </span>
+					  <span class="hide-menu"> Material </span>
 					</a>
 					</li>
 					<li class="sidebar-item">
@@ -220,15 +220,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <span class="hide-menu">Pengelolaan PBPD</span>
               </a>
               <ul aria-expanded="false" class="collapse first-level">
-                <!-- only admin, admin up3 dan admin ulp akses -->
-                <?php if (($_SESSION['role_user'] == 1) || ($_SESSION['role_user'] == 5) || $_SESSION['role_user'] == 4) { ?>
+
+                    <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Input/upload_surat" class="sidebar-link">
+                      <i class="mdi mdi-content-paste"></i>
+                      <span class="hide-menu"> Upload Surat Plgn</span>
+                    </a>
+                  </li>             
                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
                       <i class="mdi mdi-content-paste"></i>
                       <span class="hide-menu"> Upload RAB</span>
                     </a>
                   </li>
-                <?php } ?>
+  
                 <li class="sidebar-item">
                   <a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
                     <i class="mdi mdi-border-vertical"></i>

@@ -25,7 +25,47 @@ class Input extends CI_Controller {
         $this->load->model('material_model');
 		$this->load->model('google_model');
 		$this->load->model('users_model');
-    }	
+    }
+	
+	function upload_surat(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		$this->form_validation->set_rules('pilihan_ulp', 'Asal Unit Kerja', 'required|callback_validasi_data_list');
+
+		$this->form_validation->set_rules('nomor_persetujuan', 'Nomor Surat', 'required');
+		$this->form_validation->set_rules('tgl_persetujuan', 'Tanggal Persetujuan Pelanggan', 'required');
+ 		$this->form_validation->set_rules('tgl_surat_diterima', 'Tanggal Surat Diterima', 'required');
+
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
+		if($this->form_validation->run() == FALSE){
+			$pilihan_ulp[''] 		= "- Pilih ULP -";
+			$ulp 					= $this->capel_model->get_data_ulp();
+			foreach($ulp->result() as $row){
+				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
+			}
+			$data['pilihan_ulp'] 	= $pilihan_ulp;
+			
+			$pilihan_ulp[''] 		= "- Pilih Daya -";
+			$ulp 					= $this->capel_model->get_data_ulp();
+			foreach($ulp->result() as $row){
+				$pilihan_ulp[$row->id_ulp] = $row->nama_ulp; 
+			}
+			$data['pilihan_ulp'] 	= $pilihan_ulp;				
+		
+
+			$data['nama_user'] 		= $_SESSION['username'];
+			$data['content'] 		= $this->load->view('RAB/form_upload_surat',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{
+
+		}
+	}	
 
 	
 	function upload_rab(){
@@ -366,7 +406,7 @@ class Input extends CI_Controller {
 		//setting CC email
 		foreach ($this->users_model->get_data_user_by_ulp($ulp)->result() as $row) {
 			$mail->AddCC($row->email_user, '');
-			$mail->addAddress($row->email_user2, '');
+			$mail->AddCC($row->email_user2, '');
 		}
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
 			echo $row->email_user.'<br>';
