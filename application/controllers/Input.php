@@ -114,7 +114,8 @@ class Input extends CI_Controller {
 		
 
 			$data['nama_user'] 		= $_SESSION['username'];
-			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
+			//$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
+			$data['content']		= '';
 			$this->load->view('beranda',$data);
 		}
 		else{
