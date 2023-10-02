@@ -80,12 +80,11 @@ class Input extends CI_Controller {
 				$this->capel_model->insert_capel($data_plg);
 				
 				$this->send_email_plgn_bermohon($this->input->post('srt_nama_capel'),$this->input->post('pilihan_ulp'));
-				//redirect('Capel/view_capel_bermohon');
+				redirect('Capel/view_capel_bermohon');
 			}
 		}
 	}
 
-	
 	function upload_rab(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');		
@@ -114,8 +113,8 @@ class Input extends CI_Controller {
 		
 
 			$data['nama_user'] 		= $_SESSION['username'];
-			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
-			/* $data['content']		= ''; */
+			/* $data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true); */
+			$data['content']		= '';
 			$this->load->view('beranda',$data);
 		}
 		else{
@@ -383,7 +382,8 @@ class Input extends CI_Controller {
 		foreach ($this->capel_model->get_data_capel_bermohon($nama_capel,$ulp)->result() as $row) {
 			$nama_capel						= $row->srt_nama_capel;
 			$alamat_capel					= $row->srt_alamat_capel;	
-			$daya_bermohon					= $row->srt_daya_awal_capel;			
+			$daya_bermohon					= $row->srt_daya_awal_capel;
+			$nama_ulp						= $row->nama_ulp;
 		}
 
 		// setting sending email via gmail
@@ -491,23 +491,21 @@ class Input extends CI_Controller {
 
 		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
 		<br>
-		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
+		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan Surat Pelanggan dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
 		
 		//set content
 		$msg	.='	
 		
-		<p class=MsoNormal><b>Nama Pelanggan : </b><br>
+		<p class=MsoNormal><b>Nama Calon Pelanggan : </b><br>
 		'.$nama_capel.'<br></p><br>		
-		<p class=MsoNormal><b>Daya Pelanggan :</b><br>
-		'.number_format($daya_baru).' VA <br></p><br>
-		<p class=MsoNormal><b>Biaya Penyambungan :</b><br>
-		'.number_format($biaya_penyambungan).'<br></p><br>		
-		<p class=MsoNormal><b>Biaya Investasi :</b><br>
-		'.number_format($biaya_investasi).'<br></p><br>
+		<p class=MsoNormal><b>Daya Calon Pelanggan :</b><br>
+		'.number_format($daya_bermohon).' VA <br></p><br>
+		<p class=MsoNormal><b>Alamat Calon Pelanggan : </b><br>
+		'.$alamat_capel.'<br></p><br>		
 		<p class=MsoNormal><b>Username Input : </b><br>
 		'.$_SESSION['username'].'<br></p><br>			
 
-		<p class=MsoNormal>Silahkan dapat update ketersediaan material dengan mengakses Dashboard PBPD pada alamat '.base_url().'<br></p><br>			
+				
 		';
 		
 		//setting footer content
