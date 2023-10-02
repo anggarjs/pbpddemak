@@ -21,6 +21,20 @@ class Capel extends CI_Controller {
 		$this->load->model('google_model');
 		$this->load->model('users_model');
     }
+	
+	function view_capel_bermohon(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel();
+
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('capel/view_all_capel', $data, true);
+		$this->load->view('beranda', $data);
+	}	
 
 	function view_capel(){
 		if(!isset($_SESSION['username']))
@@ -226,7 +240,7 @@ class Capel extends CI_Controller {
 				$this->send_email($header,$this->input->post('id_capel')); 			
 			}
 			
-			redirect('Capel/view_capel_approved');			
+			//redirect('Capel/view_capel_approved');			
 		}
 	}//end of function
 	
@@ -422,21 +436,23 @@ class Capel extends CI_Controller {
 
 		//setting to email
 		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {	
-			/* echo $row->email_user.' TO <br>'; */
-			$mail->addAddress($row->email_user, '');
-			$mail->addAddress($row->email_user2, '');
+			//$mail->addAddress($row->email_user, '');
+			//$mail->addAddress($row->email_user2, '');
 		}		
 		
 		//setting CC email
 		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
 			/* echo $row->email_user.' CC <br>'; */
-			$mail->AddCC($row->email_user, '');
+			//$mail->AddCC($row->email_user, '');
 		}
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
-			$mail->AddCC($row->email_user, '');
+			//$mail->AddCC($row->email_user, '');
+			$mail->addAddress($row->email_user, '');
+			echo $row->email_user.'<br>';
 		}
 		foreach ($this->users_model->get_data_user_by_role('5')->result() as $row) {
-			$mail->AddCC($row->email_user, '');
+			//$mail->AddCC($row->email_user, '');
+			
 		}		
 		
 		$mail->isHTML(true);
@@ -534,7 +550,7 @@ class Capel extends CI_Controller {
 		</body>
 		</html>';
 		
-	/* 	echo $msg; */
+		echo $msg;
 
 		$mail->Body    = $msg;
 		$mail->send();

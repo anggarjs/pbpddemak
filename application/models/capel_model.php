@@ -200,5 +200,16 @@ class Capel_model extends CI_Model {
 		return $query;
 	} //end of function	
 	
+	function get_data_capel_bermohon($nama_capel,$ulp){
+		$this->db->select('srt_nama_capel,srt_alamat_capel,srt_daya_awal_capel');
+		$this->db->from('view_capel');
+		$this->db->like('srt_nama_capel',$nama_capel);
+		$this->db->like('id_ulp',$ulp);	
+		$query = $this->db->get();
+		return $query;
+	} //end of function		
+	
+
+	
 }//end of class
 ?>

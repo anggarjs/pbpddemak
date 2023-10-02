@@ -64,23 +64,23 @@ class Input extends CI_Controller {
 			$config['max_size'] 		= 16384;
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('filesurat')){
-				echo 'AAAA';
+				/* echo 'AAAA'; */
 				
 				$data_plg = array(
-					'id_ulp'				=> $this->input->post('pilihan_ulp'),
-					'tgl_persetujuan'		=> $this->input->post('tgl_persetujuan'),
-					'nama_capel' 			=> trim($nama_pelanggan),
-					'daya_lama' 			=> $dayalama,
-					'daya_baru' 			=> $dayabaru,
-					'biaya_penyambungan' 	=> $biaya_sambung,
-					'biaya_investasi' 		=> $biaya_invest,
-					'tgl_surat_diterima' 	=> $this->input->post('tgl_surat_diterima'),
-					'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
-					'tgl_entry_aplikasi' 	=> date("Y-m-d"),
+					'id_ulp'					=> $this->input->post('pilihan_ulp'),
+					'srt_nama_capel' 			=> $this->input->post('srt_nama_capel'),
+					'srt_alamat_capel' 			=> $this->input->post('srt_alamat_capel'),
+					'tgl_surat_diterima' 		=> $this->input->post('tgl_surat_diterima'),
+					'srt_no_ams_capel' 			=> $this->input->post('pilihan_ulp'),
+					'srt_daya_awal_capel' 		=> $this->input->post('srt_daya_awal_capel'),
+					'srt_tgl_entry_di_aplikasi' => date("Y-m-d"),
 				);
 				
 				//insert into database
-				$this->capel_model->insert_capel($data_plg);				
+				$this->capel_model->insert_capel($data_plg);
+				
+				$this->send_email_plgn_bermohon($this->input->post('srt_nama_capel'),$this->input->post('pilihan_ulp'));
+				//redirect('Capel/view_capel_bermohon');
 			}
 		}
 	}
@@ -114,8 +114,8 @@ class Input extends CI_Controller {
 		
 
 			$data['nama_user'] 		= $_SESSION['username'];
-			//$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
-			$data['content']		= '';
+			$data['content'] 		= $this->load->view('RAB/form_upload_rab',$data,true);
+			/* $data['content']		= ''; */
 			$this->load->view('beranda',$data);
 		}
 		else{
@@ -366,6 +366,164 @@ class Input extends CI_Controller {
 		redirect('Capel/View_capel');
 	}
 	
+	function send_email_plgn_bermohon($nama_capel,$ulp){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		$mail = new PHPMailer(true);
+		 
+		// -- setting config email --
+		foreach ($this->google_model->get_data_oauth_google()->result() as $row) {
+			$g_smtp_oauthClientId			= $row->client_id_google;
+			$g_smtp_oauthClientSecret		= $row->secret_key_google;
+			$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
+			$g_smtp_oauthUserEmail 			= $row->email_google;			
+		}
+		
+		foreach ($this->capel_model->get_data_capel_bermohon($nama_capel,$ulp)->result() as $row) {
+			$nama_capel						= $row->srt_nama_capel;
+			$alamat_capel					= $row->srt_alamat_capel;	
+			$daya_bermohon					= $row->srt_daya_awal_capel;			
+		}
+
+		// setting sending email via gmail
+		$mail->isSMTP();
+		$mail->Host 		= 'smtp.gmail.com'; // host
+		$mail->SMTPAuth 	= true;	
+		$mail->SMTPSecure 	= 'ssl';
+		$mail->Port 		= 465; //smtp port
+		$mail->AuthType 	= 'XOAUTH2';
+		
+		$provider = new Google(
+			[
+			'clientId' 			=> $g_smtp_oauthClientId,
+			'clientSecret' 		=> $g_smtp_oauthClientSecret,
+			]
+		);				
+		$mail->setOAuth(
+			new OAuth(
+				[
+				'provider' 		=> $provider,
+				'clientId' 		=> $g_smtp_oauthClientId,
+				'clientSecret' 	=> $g_smtp_oauthClientSecret,
+				'refreshToken' 	=> $g_smtp_oauthRefreshToken,
+				'userName' 		=> $g_smtp_oauthUserEmail,
+				]
+			)
+		);				
+		
+
+		$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
+
+		//setting to email
+		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
+			$mail->addAddress($row->email_user, '');
+		}
+		
+		//setting CC email
+		foreach ($this->users_model->get_data_user_by_ulp($ulp)->result() as $row) {
+			$mail->AddCC($row->email_user, '');
+			$mail->AddCC($row->email_user2, '');
+		}
+		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
+			echo $row->email_user.'<br>';
+			$mail->AddCC($row->email_user, '');
+		}		
+		
+		$mail->isHTML(true);
+		$mail->Subject = 'Info Pelanggan Bermohon '.$nama_ulp;
+		
+		//setting style dan header content
+		$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
+		<head>
+		<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+		<meta name=Generator content="Microsoft Word 12 (filtered medium)">
+		<style>
+		<!--
+		 /* Font Definitions */
+		 @font-face
+			{font-family:Wingdings;
+			panose-1:5 0 0 0 0 0 0 0 0 0;}
+		@font-face
+			{font-family:Wingdings;
+			panose-1:5 0 0 0 0 0 0 0 0 0;}
+		@font-face
+			{font-family:Calibri;
+			panose-1:2 15 5 2 2 2 4 3 2 4;}
+		 /* Style Definitions */
+		 p.MsoNormal, li.MsoNormal, div.MsoNormal
+			{margin:0cm;
+			margin-bottom:.0001pt;
+			font-size:11.0pt;
+			font-family:"Calibri","sans-serif";}
+		a:link, span.MsoHyperlink
+			{mso-style-priority:99;
+			color:blue;
+			text-decoration:underline;}
+		a:visited, span.MsoHyperlinkFollowed
+			{mso-style-priority:99;
+			color:purple;
+			text-decoration:underline;}
+		span.EmailStyle17
+			{mso-style-type:personal-compose;
+			font-family:"Calibri","sans-serif";
+			color:windowtext;}
+		.MsoChpDefault
+			{mso-style-type:export-only;}
+		@page Section1
+			{size:612.0pt 792.0pt;
+			margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+		div.Section1
+			{page:Section1;}
+		-->
+		</style>
+		<!--[if gte mso 9]><xml>
+		 <o:shapedefaults v:ext="edit" spidmax="1026" />
+		</xml><![endif]--><!--[if gte mso 9]><xml>
+		 <o:shapelayout v:ext="edit">
+		  <o:idmap v:ext="edit" data="1" />
+		 </o:shapelayout></xml><![endif]-->
+		</head>
+
+		<body lang=EN-US link=blue vlink=purple>
+
+		<div class=Section1>
+
+		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
+		<br>
+		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
+		
+		//set content
+		$msg	.='	
+		
+		<p class=MsoNormal><b>Nama Pelanggan : </b><br>
+		'.$nama_capel.'<br></p><br>		
+		<p class=MsoNormal><b>Daya Pelanggan :</b><br>
+		'.number_format($daya_baru).' VA <br></p><br>
+		<p class=MsoNormal><b>Biaya Penyambungan :</b><br>
+		'.number_format($biaya_penyambungan).'<br></p><br>		
+		<p class=MsoNormal><b>Biaya Investasi :</b><br>
+		'.number_format($biaya_investasi).'<br></p><br>
+		<p class=MsoNormal><b>Username Input : </b><br>
+		'.$_SESSION['username'].'<br></p><br>			
+
+		<p class=MsoNormal>Silahkan dapat update ketersediaan material dengan mengakses Dashboard PBPD pada alamat '.base_url().'<br></p><br>			
+		';
+		
+		//setting footer content
+		$msg	.= '
+		<br>
+		<p class=MsoNormal>Terima kasih</p>
+		<p class=MsoNormal><b>Mail System PBPD UP3 Demak</b></p>
+		
+		</div>
+		</body>
+		</html>';				
+
+		$mail->Body    = $msg;
+		$mail->send();	
+	}	
+	
 	function send_email($id_capel,$ulp){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -523,10 +681,7 @@ class Input extends CI_Controller {
 		</html>';				
 
 		$mail->Body    = $msg;
-		$mail->send();
-		
-		/* echo 'Sukses Kirim Email'; */
-		// isi pesan jika telah berhasil terkirim		
+		$mail->send();	
 	}
 	
 	function validasi_data_list($str){
