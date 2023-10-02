@@ -199,71 +199,74 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</a>
 				<ul aria-expanded="false" class="collapse first-level">
 					<li class="sidebar-item">
-					<a href="<?php echo base_url() ?>Admin/DashboardUP3" class="sidebar-link">
-					  <i class="mdi mdi-adjust"></i>
-					  <span class="hide-menu"> Pelanggan </span>
-					</a>
+						<a href="<?php echo base_url() ?>Admin/DashboardUP3" class="sidebar-link">
+							<i class="mdi mdi-adjust"></i>
+							<span class="hide-menu"> Pelanggan </span>
+						</a>
 					</li>
 					<li class="sidebar-item">
-					<a href="index2.html" class="sidebar-link">
-					  <i class="mdi mdi-adjust"></i>
-					  <span class="hide-menu"> Material </span>
-					</a>
-					</li>
-					<li class="sidebar-item">
+						<a href="index2.html" class="sidebar-link">
+							<i class="mdi mdi-adjust"></i>
+							<span class="hide-menu"> Material </span>
+						</a>
 					</li>
 				</ul>
 			</li>			
-            <li class="sidebar-item">
-              <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
-                <i class="mdi mdi-receipt"></i>
-                <span class="hide-menu">Pengelolaan PBPD</span>
-              </a>
-              <ul aria-expanded="false" class="collapse first-level">
-				
-                   <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>Input/upload_surat" class="sidebar-link">
-                      <i class="mdi mdi-content-paste"></i>
-                      <span class="hide-menu"> Upload Surat Plgn</span>
-                    </a>
-                  </li>
-				
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
-                      <i class="mdi mdi-content-paste"></i>
-                      <span class="hide-menu"> Upload RAB</span>
-                    </a>
-                  </li>
-  
-                <li class="sidebar-item">
-                  <a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
-                    <i class="mdi mdi-border-vertical"></i>
-                    <span class="hide-menu"> Data Capel Disetujui</span>
-                  </a>
-                </li>
+			<li class="sidebar-item">
+				<a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+				<i class="mdi mdi-receipt"></i>
+				<span class="hide-menu">Pengelolaan PBPD</span>
+				</a>
+				<ul aria-expanded="false" class="collapse first-level">
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Input/upload_surat" class="sidebar-link">
+							<i class="mdi mdi-content-paste"></i>
+							<span class="hide-menu"> Upload Surat Plgn</span>
+						</a>
+					</li>
+					<!--
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
+							<i class="mdi mdi-content-paste"></i>
+							<span class="hide-menu"> Upload RAB</span>
+						</a>
+					</li>
+					-->
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_capel_bermohon" class="sidebar-link">
+							<i class="mdi mdi-border-vertical"></i>
+							<span class="hide-menu"> Data Permohonan</span>
+						</a>
+					</li>					
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
+							<i class="mdi mdi-border-vertical"></i>
+							<span class="hide-menu"> Data Capel Disetujui</span>
+						</a>
+					</li>
                 <?php if ($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 3) { ?>
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
-                      <i class="mdi mdi-border-vertical"></i>
-                      <span class="hide-menu"> Pengecekan Material</span>
-                    </a>
-                  </li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
+							<i class="mdi mdi-border-vertical"></i>
+							<span class="hide-menu"> Pengecekan Material</span>
+						</a>
+					</li>
                 <?php } ?>
                 <?php if ($_SESSION['role_user'] == 4) { ?>
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
-                      <i class="mdi mdi-border-vertical"></i>
-                      <span class="hide-menu"> Update Status Bayar</span>
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a href="<?php echo base_url() ?>Capel/view_capel_sudah_bayar" class="sidebar-link">
-                      <i class="mdi mdi-border-vertical"></i>
-                      <span class="hide-menu"> Update Status PDL</span>
-                    </a>
-                  </li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_capel_lgkp_material" class="sidebar-link">
+							<i class="mdi mdi-border-vertical"></i>
+							<span class="hide-menu"> Update Status Bayar</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_capel_sudah_bayar" class="sidebar-link">
+							<i class="mdi mdi-border-vertical"></i>
+							<span class="hide-menu"> Update Status PDL</span>
+						</a>
+					</li>
                 <?php } ?>
-              </ul>
+				</ul>
             </li>
 
             <!-- only admin dan admin up3 akses -->

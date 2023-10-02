@@ -228,7 +228,8 @@
 										?>"/>
 									</div>
 									<?php echo form_error('tgl_reservasi_ago'); ?>
-								</div						
+								</div>
+							</div>
 							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							<!-- ROW #7 -->
@@ -274,8 +275,7 @@
 									</tbody>
 
 								</table>
-							</div>
-							
+							</div>	
 						</div>
 						<div class="p-3 border-top">
 							<div class="text-end">						

@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan Yang Sudah Disetujui
+      							Data Surat Permohonan Pelanggan
       						</h4>
       					</div>
       					<div class="card-body">
@@ -35,10 +35,11 @@
       										<tr>
       											<th width="5%">Detail</th>
       											<th>Nama ULP</th>
-      											<th>Tgl Disetujui</th>
-      											<th>Status Capel</th>
-      											<th>Status Material</th>
+      											<th>Tgl AMS Surat Diterima</th>
+												<th>Status Capel</th>
       											<th>Nama Capel</th>
+      											<th>Alamat Capel</th>
+      											<th>Daya Capel</th>
       																						
       										</tr>
       										<!-- end row -->
@@ -48,16 +49,17 @@
       											<tr>
       												<td>
       													<div class="d-flex justify-content-around">
-      														<a href="<?php echo base_url('Capel/Update/') . $data->id_capel; ?>">
+      														<a href="<?php echo base_url('Capel/Update_permohonan/') . $data->id_capel; ?>">
       															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
       														</a>
       													</div>
       												</td>
       												<td><?= $data->nama_ulp; ?></td>
-      												<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
-      												<td><?= $data->status_capel; ?></td>
-      												<td><?= $data->status_material; ?></td>													
-      												<td><?= $data->nama_capel; ?></td>
+      												<td><?= date_format(date_create($data->srt_tgl_entry_di_aplikasi), "d-m-Y"); ?></td>
+													<td><?= $data->status_capel; ?></td>
+      												<td><?= $data->srt_nama_capel; ?></td>
+      												<td><?= $data->srt_alamat_capel; ?></td>													
+      												<td><?= $data->srt_daya_awal_capel; ?></td>
       												
 
       											</tr>

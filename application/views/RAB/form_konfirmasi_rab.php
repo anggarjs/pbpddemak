@@ -93,10 +93,7 @@
 								<div class="col-md-6">	
 									<div class="mb-3">
 										<label>Tgl Persetujuan :</label>
-										<?php 			
-											$date2 = date_create($tgl_persetujuan);
-											echo '<b>'.date_format($date2,"d-m-Y").'</b>';
-										?>
+
 									</div>									
 								</div>
 								<div class="col-md-6">
@@ -114,9 +111,7 @@
 								<div class="col-md-6">	
 									<div class="mb-3">
 										<label>No Surat AMS / BA Persetujuan :</label>
-										<?php 			
-											echo '<b>'.$nomor_persetujuan.'</b>';
-										?>
+
 									</div>									
 								</div>
 								<div class="col-md-6">

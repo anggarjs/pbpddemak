@@ -30,7 +30,8 @@ class Capel_model extends CI_Model {
 	function get_all_data_capel(){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->where('id_status_capel <','4');		
+		$this->db->where('id_status_capel <','4');
+		$this->db->where('id_status_capel >','1');	
 		$this->db->order_by('tgl_persetujuan', 'ASC');	
 		$query = $this->db->get();			
 		return $query;
@@ -40,7 +41,8 @@ class Capel_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from('view_capel');
 		$this->db->where('id_ulp',$ulp);
-		$this->db->where('id_status_capel <','4');		
+		$this->db->where('id_status_capel <','4');
+		$this->db->where('id_status_capel >','1');
 		$this->db->order_by('tgl_persetujuan', 'ASC');			
 		$query = $this->db->get();
 		return $query;
@@ -49,6 +51,7 @@ class Capel_model extends CI_Model {
 	function get_all_data_capel_approved(){
 		$this->db->select("*");
 		$this->db->from('view_capel');
+		$this->db->where('id_status_capel >','1');
 		$this->db->where('id_status_material <','3');
 		$this->db->order_by('id_status_material', 'ASC');
 		$this->db->order_by('tgl_persetujuan', 'ASC');
@@ -209,7 +212,33 @@ class Capel_model extends CI_Model {
 		return $query;
 	} //end of function		
 	
-
+	function cek_capel_bermohon($nama_plgn,$daya){		
+		$this->db->select('id_capel');
+		$this->db->from('data_capel');		
+		$this->db->like('srt_nama_capel',$nama_plgn);
+		$this->db->where('srt_daya_awal_capel',$daya);
+		$query = $this->db->get();
+		return $query;		
+	}//end of function
+	
+	function get_all_data_capel_bermohon(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel <','1');		
+		$this->db->order_by('tgl_persetujuan', 'ASC');	
+		$query = $this->db->get();			
+		return $query;
+	}//end of function
+	
+	function get_all_data_capel_bermohon_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_ulp',$ulp);
+		$this->db->where('id_status_capel <','1');		
+		$this->db->order_by('tgl_persetujuan', 'ASC');			
+		$query = $this->db->get();
+		return $query;
+	}//end of function		
 	
 }//end of class
 ?>

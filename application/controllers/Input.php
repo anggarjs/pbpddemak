@@ -55,6 +55,13 @@ class Input extends CI_Controller {
 			$this->load->view('beranda',$data);
 		}
 		else{
+			//cek apakah sudah pernah ada capel sebelumnya
+			$cek_capel_awal				= $this->capel_model->cek_capel_bermohon(trim($this->input->post('srt_nama_capel')),$this->input->post('srt_daya_awal_capel'))->num_rows();
+			if($cek_capel_awal > 0){
+				$this->session->set_userdata('alert_upload','Data Surat Pelanggan Atas Nama '.trim($this->input->post('srt_nama_capel')).' Sudah Pernah Upload');
+				redirect('Input/upload_surat');					
+			}				
+			
 			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 			$new_name 					= 'SRT_PLGN_an_'.$this->input->post('srt_nama_capel').'_'.$this->input->post('srt_daya_awal_capel').'VA';
 			$config['file_name'] 		= $new_name;
@@ -64,22 +71,22 @@ class Input extends CI_Controller {
 			$config['max_size'] 		= 16384;
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('filesurat')){
-				/* echo 'AAAA'; */
-				
+
 				$data_plg = array(
 					'id_ulp'					=> $this->input->post('pilihan_ulp'),
 					'srt_nama_capel' 			=> $this->input->post('srt_nama_capel'),
 					'srt_alamat_capel' 			=> $this->input->post('srt_alamat_capel'),
 					'tgl_surat_diterima' 		=> $this->input->post('tgl_surat_diterima'),
-					'srt_no_ams_capel' 			=> $this->input->post('pilihan_ulp'),
+					'srt_no_ams_capel' 			=> $this->input->post('srt_no_ams_capel'),
 					'srt_daya_awal_capel' 		=> $this->input->post('srt_daya_awal_capel'),
 					'srt_tgl_entry_di_aplikasi' => date("Y-m-d"),
+					'id_status_capel' 			=> 0,
 				);
 				
 				//insert into database
 				$this->capel_model->insert_capel($data_plg);
 				
-				$this->send_email_plgn_bermohon($this->input->post('srt_nama_capel'),$this->input->post('pilihan_ulp'));
+				//$this->send_email_plgn_bermohon($this->input->post('srt_nama_capel'),$this->input->post('pilihan_ulp'));
 				redirect('Capel/view_capel_bermohon');
 			}
 		}
@@ -118,6 +125,7 @@ class Input extends CI_Controller {
 			$this->load->view('beranda',$data);
 		}
 		else{
+			
 			$path 						= 'uploads/'.$this->input->post('pilihan_ulp').'/';
 			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
 			$config['file_name'] 		= $new_name;
@@ -298,7 +306,7 @@ class Input extends CI_Controller {
 			}//end if
 		}
 	}
-	
+		
 	function konfirmasi($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');

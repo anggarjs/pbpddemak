@@ -30,7 +30,17 @@
 							</h4>
 						</div>
 						<div class="card-body">
-	
+							<div class="row pt-3">
+								<?php if (isset($_SESSION['alert_upload'])) { ?>
+								<div class="alert alert-success alert-dismissible fade show" role="alert">
+									<i data-feather="alert-triangle"></i>
+									<strong><?php echo $_SESSION['alert_upload']; ?></strong>
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+								<?php 
+									$this->session->unset_userdata('alert_upload');
+								} ?>
+							</div>		
 							<div class="row pt-3">
 								<div class="col-md-6">						
 									<div class="mb-3">
