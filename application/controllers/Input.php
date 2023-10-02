@@ -361,7 +361,7 @@ class Input extends CI_Controller {
 		rename($file_name,$path_new_file);
 		
 		//sending email
-		$this->send_email($id_capel,$ulp);
+		//$this->send_email($id_capel,$ulp);
 					
 		redirect('Capel/View_capel');
 	}
