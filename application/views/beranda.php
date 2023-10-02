@@ -220,13 +220,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <span class="hide-menu">Pengelolaan PBPD</span>
               </a>
               <ul aria-expanded="false" class="collapse first-level">
-
-                    <li class="sidebar-item">
+				<!--
+                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Input/upload_surat" class="sidebar-link">
                       <i class="mdi mdi-content-paste"></i>
                       <span class="hide-menu"> Upload Surat Plgn</span>
                     </a>
-                  </li>             
+                  </li>
+				-->
                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
                       <i class="mdi mdi-content-paste"></i>
