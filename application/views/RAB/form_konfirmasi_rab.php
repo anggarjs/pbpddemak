@@ -92,8 +92,11 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>Tgl Persetujuan :</label>
-
+										<label>Hasil KKF Payback Period :</label>
+										<?php 			
+											/* echo '<b>'.$payback_period.' Tahun </b>'; */
+											echo '<b>'.number_format($payback_period,2).' Tahun </b>';
+										?>
 									</div>									
 								</div>
 								<div class="col-md-6">
@@ -110,8 +113,10 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label>No Surat AMS / BA Persetujuan :</label>
-
+										<label>Kesimpulan :</label>										
+										<?php 			
+											echo '<b>'.$kesimpulan.'</b>';
+										?>
 									</div>									
 								</div>
 								<div class="col-md-6">
@@ -218,7 +223,7 @@
 								px-4
 								waves-effect waves-light"
 								
-								onclick="location.href='<?php echo base_url()?>Input/Batal_Upload/<?php echo $id_ulp ?>/<?php echo $id_capel ?>';"
+								onclick="location.href='<?php echo base_url()?>Capel/Batal_Upload/<?php echo $id_ulp ?>/<?php echo $id_capel ?>';"
 								>
       								Batal
       							</button>							

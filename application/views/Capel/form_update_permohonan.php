@@ -124,11 +124,11 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label><b>Update Status Perluasan :</b></label>
+										<label><b>Hasil Survei Perluasan :</b></label>
 										<?php
 											if(set_value('status_perluasan')!='') $set_select = set_value('status_perluasan');
 											else $set_select = $id_status_perluasan;	
-											echo form_dropdown('status_perluasan',$status_perluasan,$set_select,'class="form-select"');
+											echo form_dropdown('status_perluasan',$status_perluasan,$set_select,'class="form-select" id="status_perluasan" onChange="getOption()"');
 										?>										
 									</div>
 									<?php echo form_error('status_perluasan'); ?>
@@ -137,7 +137,7 @@
 							<div class="row">								
 								<div class="mb-3">
 									<label>Upload File RAB Hasil Survei</label>
-									<input type="file" class="form-control" name="filerab" />	
+									<input type="file" class="form-control" name="filerab" id="filerab" disabled />	
 								</div>									
 							</div>
 							<?php echo form_error('filerab'); ?>							
@@ -151,7 +151,7 @@
 								rounded-pill
 								px-4
 								waves-effect waves-light
-								">Upload
+								">Simpan
       							</button>
       						</div>
       					</div>
@@ -174,3 +174,13 @@
       	<!-- End footer -->
       	<!-- ============================================================== -->
       </div>
+
+<script>
+    function getOption() {
+		var e = document.getElementById("status_perluasan").value;
+		if(e < 2)
+			document.getElementById("filerab").disabled = true;
+		else
+			document.getElementById("filerab").disabled = false;
+    }	
+</script>

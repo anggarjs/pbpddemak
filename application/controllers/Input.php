@@ -157,7 +157,7 @@ class Input extends CI_Controller {
 				if(strstr($temp_nama_pelanggan,'=')==true)
 					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getOldCalculatedValue();
 				else
-					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
+					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();			
 				
 				$temp_biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
 				if(strstr($temp_biaya_invest,'=')==true)
@@ -176,6 +176,7 @@ class Input extends CI_Controller {
 					'tgl_entry_aplikasi' 	=> date("Y-m-d"),
 				);
 				
+	
 				// HANDLER UPLOAD RAB ------------------------------------------------------------ //
 				
 				//cek apakah sudah pernah ada capel sebelumnya
@@ -234,7 +235,7 @@ class Input extends CI_Controller {
 					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
 					foreach($id_detail_mdu->result() as $row){
 						$var_id				= $row->id_detail_mdu;
-					}					
+					}
 
 					if($var_id){
 						if($vol_material){
@@ -323,6 +324,8 @@ class Input extends CI_Controller {
 		$data['nomor_persetujuan']		= $data_plg['nomor_persetujuan'];
 		$data['path_file']				= $file_name;
 		$data['id_capel']				= $id_capel;
+		
+
 	
 		$data['data_plg']				= $data_plg;
 		$data['data_material']			= $array_data_material;

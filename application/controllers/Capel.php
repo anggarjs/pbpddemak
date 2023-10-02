@@ -206,180 +206,225 @@ class Capel extends CI_Controller {
 			}
 			$id_capel					= $this->input->post('id_capel');
 			
+			//jika perlu perluasan, proses lebih lanjut
+			if($this->input->post('status_perluasan') > 1){
+				$path 						= 'uploads/'.$data['id_ulp'].'/';
+				$new_name 					= 'Temporary'.$_SESSION['nama_user'];
+				$config['file_name'] 		= $new_name;
+				
+				$config['upload_path']		= './uploads/'.$data['id_ulp'].'/';
+				$config['allowed_types'] 	= 'xlsx|xls';
+				$config['max_size'] 		= 16384;
+				$this->load->library('upload', $config);		
 
-			$path 						= 'uploads/'.$data['id_ulp'].'/';
-			$new_name 					= 'Temporary'.$_SESSION['nama_user'];
-			$config['file_name'] 		= $new_name;
-			
-			$config['upload_path']		= './uploads/'.$data['id_ulp'].'/';
-			$config['allowed_types'] 	= 'xlsx|xls';
-			$config['max_size'] 		= 16384;
-			$this->load->library('upload', $config);		
+				if ($this->upload->do_upload('filerab')){
 
-			if ($this->upload->do_upload('filerab')){
-
-				$file_name 			= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
-				$arr_file 			= explode('.', $file_name);
-				$extension 			= end($arr_file);
-				if('csv' == $extension) 
-					$reader 		= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-				else 
-					$reader 		= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();				
+					$file_name 			= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
+					$arr_file 			= explode('.', $file_name);
+					$extension 			= end($arr_file);
+					if('csv' == $extension) 
+						$reader 		= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+					else 
+						$reader 		= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();				
+						
+					//load file and get data
+					$reader->setReadDataOnly(TRUE);
+					$spreadsheet 		= $reader->load($file_name);		
 					
-				//load file and get data
-				$reader->setReadDataOnly(TRUE);
-				$spreadsheet 		= $reader->load($file_name);		
-				
-				$dayalama		 		= $spreadsheet->getSheetByName('DATA')->getCell('D17')->getValue()*1000;
-				$dayabaru		 		= $spreadsheet->getSheetByName('DATA')->getCell('D20')->getCalculatedValue()*1000;
-				$biaya_sambung			= str_replace('.','',$spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue());
-				
-				$temp_nama_pelanggan	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
-				if(strstr($temp_nama_pelanggan,'=')==true)
-					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getOldCalculatedValue();
-				else
-					$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
-				
-				$temp_biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
-				if(strstr($temp_biaya_invest,'=')==true)
-					$biaya_invest 	= floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
+					$dayalama		 		= $spreadsheet->getSheetByName('DATA')->getCell('D17')->getValue()*1000;
+					$dayabaru		 		= $spreadsheet->getSheetByName('DATA')->getCell('D20')->getCalculatedValue()*1000;
+					$biaya_sambung			= str_replace('.','',$spreadsheet->getSheetByName('DATA')->getCell('D9')->getCalculatedValue());
+					
+					$temp_nama_pelanggan	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
+					if(strstr($temp_nama_pelanggan,'=')==true)
+						$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getOldCalculatedValue();
+					else
+						$nama_pelanggan 	= $spreadsheet->getSheetByName('DATA')->getCell('D14')->getValue();
+					
+					$temp_kkf				= $spreadsheet->getSheetByName('KKF')->getCell('Q35')->getValue();
+					if(strstr($temp_kkf,'=')==true)
+						$hasil_pbp		 	= $spreadsheet->getSheetByName('KKF')->getCell('Q35')->getOldCalculatedValue();
+					else
+						$hasil_pbp 			= $spreadsheet->getSheetByName('KKF')->getCell('Q35')->getValue();
+					
+					$temp_biaya_invest		= $spreadsheet->getSheetByName('DATA')->getCell('D10')->getValue();
+					if(strstr($temp_biaya_invest,'=')==true)
+						$biaya_invest 	= floor($spreadsheet->getSheetByName('DATA')->getCell('D10')->getOldCalculatedValue());
 
+					$data_plg = array(
+						'id_ulp'				=> $data['id_ulp'],
+						'nama_capel' 			=> trim($nama_pelanggan),
+						'daya_lama' 			=> $dayalama,
+						'daya_baru' 			=> $dayabaru,
+						'biaya_penyambungan' 	=> $biaya_sambung,
+						'biaya_investasi' 		=> $biaya_invest,
+						'tgl_entry_aplikasi' 	=> date("Y-m-d"),
+						'status_perluasan'		=> $this->input->post('status_perluasan'),
+					);
+					
+					if(str_contains($hasil_pbp, 'DIV')) {
+						$real_pbp				= 25;
+						$kesimpulan				= 'Perlu Persetujuan ACC UP3';						
+					}
+					else{
+						if($hasil_pbp <= 5){
+							/* echo 'b'; */
+							$real_pbp			= $hasil_pbp;
+							$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+						}
+						if($hasil_pbp <= 25 && $hasil_pbp > 5){
+							/* echo 'c'; */
+							$real_pbp			= $hasil_pbp;
+							$kesimpulan			= 'Perlu Persetujuan ACC UP3';
+						}						
+					}
+
+					
+					$data_kkf = array(
+						'payback_period' 		=> $real_pbp,
+						'kesimpulan' 			=> $kesimpulan,
+					);
+
+					//cek apakah sudah pernah ada capel sebelumnya
+					$cek_capel_awal				= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->num_rows();
+					if($cek_capel_awal > 0){
+						//delete temporary file
+						$path 					= 'uploads/'.$data['id_ulp'].'/';
+						unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+						$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Sudah Pernah Upload Hasil Survei');
+						redirect('Capel/Update_permohonan/'.$id_capel);	
+					}
+					
+					//cek apakah menggunakan HSS 2022
+					$new_var_tahun_hss		= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue()); 
+					if($new_var_tahun_hss[2] < 2023){					
+						$path 					= 'uploads/'.$data['id_ulp'].'/';
+						unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+						$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Menggunakan HSS sebelum tahun 2023');
+						redirect('Capel/Update_permohonan/'.$id_capel);	
+					}				
+					// END OF HANDLER UPLOAD RAB  ------------------------------------------------------------ //
+
+					//updating into database
+					$this->capel_model->update_capel($data_plg,$id_capel);
+					
+					//set session nama capel ketika simpan konfirmasi rab
+					$newdata2 = array(
+						'nama_capel' 			=> trim($nama_pelanggan),
+					);
+					$this->session->set_userdata($newdata2);
+					
+					//get data MDU				
+					$array_data_material 		= array();
+					$start_data					= 16;
+					$akhir_data					= 100;
+					for ($i = $start_data;$i<=$akhir_data;$i++) {
+						$temp_data_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getValue();
+						if(strstr($temp_data_material,'=')==true)
+							$data_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getOldCalculatedValue();
+						
+						$temp_satuan_material	= $spreadsheet->getSheetByName('REKAP MDU')->getCell('E'.(string)$i)->getValue();
+						if(strstr($temp_satuan_material,'=')==true)
+							$satuan_material 	= $spreadsheet->getSheetByName('REKAP MDU')->getCell('E'.(string)$i)->getOldCalculatedValue();
+											
+						$temp_vol_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getValue();
+						if(strstr($temp_vol_material,'=')==true)
+							$vol_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getOldCalculatedValue();
+						
+						//get_id_detail mdu
+						$var_id					= '';
+						$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
+						foreach($id_detail_mdu->result() as $row){
+							$var_id				= $row->id_detail_mdu;
+						}					
+
+						if($var_id){
+							if($vol_material){
+								$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
+								$data = array(
+									'id_detail_mdu'		=> $var_id,
+									'id_capel'			=> $id_capel,
+									'volume_mdu'		=> $vol_material,
+								);
+								//insert database
+								$this->material_model->insert_kebutuhan_mdu($data);
+							}
+						}
+						// ----- HANDLER NAMA MATERIAL TIDAK ADA DALAM LIST -----
+						else{
+							$path 				= 'uploads/'.$this->input->post('pilihan_ulp').'/';
+							unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+							$this->session->set_userdata('alert_upload','Material '.$data_material.' Pelanggan Atas Nama '.trim($nama_pelanggan).' Tidak ada dalam Database');
+							
+							//rollback database
+							$this->material_model->hapus_kebutuhan_mdu($id_capel);
+							$this->material_model->hapus_kebutuhan_tibet($id_capel);
+							$this->capel_model->hapus_capel($id_capel);
+							
+							redirect('Capel/Update_permohonan/'.$id_capel);	
+						}
+					}//end reading volume MDU
+					
+					//get data Tibet				
+					$array_data_tibet	 		= array();
+					$start_data					= 16;
+					$akhir_data					= 30;
+					for ($i = $start_data;$i<=$akhir_data;$i++) {
+						$temp_data_material		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('C'.(string)$i)->getValue();
+						if(strstr($temp_data_material,'=')==true)
+							$data_material 		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('C'.(string)$i)->getOldCalculatedValue();
+						
+						$temp_satuan_material	= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('E'.(string)$i)->getValue();
+						if(strstr($temp_satuan_material,'=')==true)
+							$satuan_material 	= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('E'.(string)$i)->getOldCalculatedValue();
+											
+						$temp_vol_material		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('F'.(string)$i)->getValue();
+						if(strstr($temp_vol_material,'=')==true)
+							$vol_material 		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('F'.(string)$i)->getOldCalculatedValue();
+						
+						//get_id_detail mdu
+						$var_id					= '';
+						$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
+						foreach($id_detail_mdu->result() as $row){
+							$var_id				= $row->id_detail_mdu;
+						}					
+
+						if($var_id){
+							if($vol_material){
+								$array_data_tibet[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
+								$data = array(
+									'id_detail_mdu'		=> $var_id,
+									'id_capel'			=> $id_capel,
+									'volume_tibet'		=> $vol_material,
+								);
+								//insert database
+								 $this->material_model->insert_kebutuhan_tibet($data); 
+							}
+						}
+					}//end reading volume Tibet
+					
+					//parsing to konfirmasi upload
+					/* $this->konfirmasi_upload($data_kkf,$array_data_material,$file_name,$id_capel,$array_data_tibet); */
+					
+					$data['nama_user'] 		= $_SESSION['username'];
+					$data['content'] 		= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
+					$this->load->view('beranda',$data);
+				}
+			}
+			//jika tidak perlu perluasan, stop disini
+			else{
 				$data_plg = array(
-					'id_ulp'				=> $data['id_ulp'],
-					'nama_capel' 			=> trim($nama_pelanggan),
-					'daya_lama' 			=> $dayalama,
-					'daya_baru' 			=> $dayabaru,
-					'biaya_penyambungan' 	=> $biaya_sambung,
-					'biaya_investasi' 		=> $biaya_invest,
 					'tgl_entry_aplikasi' 	=> date("Y-m-d"),
 					'status_perluasan'		=> $this->input->post('status_perluasan'),
 				);
-
-				//cek apakah sudah pernah ada capel sebelumnya
-				$cek_capel_awal				= $this->capel_model->cek_capel(trim($nama_pelanggan),$dayabaru)->num_rows();
-				if($cek_capel_awal > 0){
-					//delete temporary file
-					$path 					= 'uploads/'.$data['id_ulp'].'/';
-					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-					$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Sudah Pernah Upload Hasil Survei');
-					redirect('Capel/Update_permohonan/'.$id_capel);	
-				}
-				
-				//cek apakah menggunakan HSS 2022
-				$new_var_tahun_hss		= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue()); 
-				if($new_var_tahun_hss[2] < 2023){					
-					$path 					= 'uploads/'.$data['id_ulp'].'/';
-					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-					$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Menggunakan HSS sebelum tahun 2023');
-					edirect('Capel/Update_permohonan/'.$id_capel);	
-				}				
-				// END OF HANDLER UPLOAD RAB  ------------------------------------------------------------ //
-
 				//updating into database
 				$this->capel_model->update_capel($data_plg,$id_capel);
-				
-				//set session nama capel ketika simpan konfirmasi rab
-				$newdata2 = array(
-					'nama_capel' 			=> trim($nama_pelanggan),
-				);
-				$this->session->set_userdata($newdata2);
-				
-				//get data MDU				
-				$array_data_material 		= array();
-				$start_data					= 16;
-				$akhir_data					= 100;
-				for ($i = $start_data;$i<=$akhir_data;$i++) {
-					$temp_data_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getValue();
-					if(strstr($temp_data_material,'=')==true)
-						$data_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('C'.(string)$i)->getOldCalculatedValue();
-					
-					$temp_satuan_material	= $spreadsheet->getSheetByName('REKAP MDU')->getCell('E'.(string)$i)->getValue();
-					if(strstr($temp_satuan_material,'=')==true)
-						$satuan_material 	= $spreadsheet->getSheetByName('REKAP MDU')->getCell('E'.(string)$i)->getOldCalculatedValue();
-										
-					$temp_vol_material		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getValue();
-					if(strstr($temp_vol_material,'=')==true)
-						$vol_material 		= $spreadsheet->getSheetByName('REKAP MDU')->getCell('F'.(string)$i)->getOldCalculatedValue();
-					
-					//get_id_detail mdu
-					$var_id					= '';
-					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
-					foreach($id_detail_mdu->result() as $row){
-						$var_id				= $row->id_detail_mdu;
-					}					
-
-					if($var_id){
-						if($vol_material){
-							$array_data_material[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
-							$data = array(
-								'id_detail_mdu'		=> $var_id,
-								'id_capel'			=> $id_capel,
-								'volume_mdu'		=> $vol_material,
-							);
-							//insert database
-							$this->material_model->insert_kebutuhan_mdu($data);
-						}
-					}
-					// ----- HANDLER NAMA MATERIAL TIDAK ADA DALAM LIST -----
-					else{
-						$path 				= 'uploads/'.$this->input->post('pilihan_ulp').'/';
-						unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-						$this->session->set_userdata('alert_upload','Material '.$data_material.' Pelanggan Atas Nama '.trim($nama_pelanggan).' Tidak ada dalam Database');
-						
-						//rollback database
-						$this->material_model->hapus_kebutuhan_mdu($id_capel);
-						$this->material_model->hapus_kebutuhan_tibet($id_capel);
-						$this->capel_model->hapus_capel($id_capel);
-						
-						redirect('Input');
-					}
-				}//end reading volume MDU
-				
-				//get data Tibet				
-				$array_data_tibet	 		= array();
-				$start_data					= 16;
-				$akhir_data					= 30;
-				for ($i = $start_data;$i<=$akhir_data;$i++) {
-					$temp_data_material		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('C'.(string)$i)->getValue();
-					if(strstr($temp_data_material,'=')==true)
-						$data_material 		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('C'.(string)$i)->getOldCalculatedValue();
-					
-					$temp_satuan_material	= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('E'.(string)$i)->getValue();
-					if(strstr($temp_satuan_material,'=')==true)
-						$satuan_material 	= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('E'.(string)$i)->getOldCalculatedValue();
-										
-					$temp_vol_material		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('F'.(string)$i)->getValue();
-					if(strstr($temp_vol_material,'=')==true)
-						$vol_material 		= $spreadsheet->getSheetByName('REKAP TIANG')->getCell('F'.(string)$i)->getOldCalculatedValue();
-					
-					//get_id_detail mdu
-					$var_id					= '';
-					$id_detail_mdu			= $this->material_model->cek_id_mdu($data_material);	
-					foreach($id_detail_mdu->result() as $row){
-						$var_id				= $row->id_detail_mdu;
-					}					
-
-					if($var_id){
-						if($vol_material){
-							$array_data_tibet[] 	= array("nama" => $data_material, "satuan" => $satuan_material, "volume" => $vol_material);
-							$data = array(
-								'id_detail_mdu'		=> $var_id,
-								'id_capel'			=> $id_capel,
-								'volume_tibet'		=> $vol_material,
-							);
-							//insert database
-							 $this->material_model->insert_kebutuhan_tibet($data); 
-						}
-					}
-				}//end reading volume Tibet
-				
-				//parsing to konfirmasi upload
-				$this->konfirmasi_upload($data_plg,$array_data_material,$file_name,$id_capel,$array_data_tibet);				
+				redirect('Capel/view_capel_bermohon');
 			}
 		}
 	}//end of function
 	
-	function konfirmasi_upload($array_data_material,$file_name,$id_capel,$array_data_tibet){
+	function konfirmasi_upload($data_kkf,$array_data_material,$file_name,$id_capel,$array_data_tibet){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
@@ -391,28 +436,48 @@ class Capel extends CI_Controller {
 			$data['daya_lama']				= $row->daya_lama;
 			$data['daya_baru']				= $row->daya_baru;
 			$data['biaya_penyambungan']		= $row->biaya_penyambungan;
-		}		
+		}
 		
-/* 		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
-		$data['id_ulp']					= $data_plg['id_ulp'];
-		$data['nama_capel']				= $data_plg['nama_capel'];
-		$data['daya_lama']				= $data_plg['daya_lama'];
-		$data['daya_baru']				= $data_plg['daya_baru'];
-		$data['biaya_penyambungan']		= $data_plg['biaya_penyambungan'];
-		$data['biaya_investasi']		= $data_plg['biaya_investasi'];
-		$data['tgl_surat_diterima']		= $data_plg['tgl_surat_diterima'];
-		$data['tgl_persetujuan']		= $data_plg['tgl_persetujuan'];
-		$data['nomor_persetujuan']		= $data_plg['nomor_persetujuan']; */
+		$data['payback_period']			= $data_kkf['payback_period'];
+		$data['kesimpulan']				= $data_kkf['kesimpulan'];
+		
 		$data['path_file']				= $file_name;
 		$data['id_capel']				= $id_capel;
 	
 		$data['data_material']			= $array_data_material;
 		$data['data_tibet']				= $array_data_tibet;
 	
-
 		$data['nama_user'] 				= $_SESSION['username'];
 		$data['content'] 				= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
 		$this->load->view('beranda',$data);
+	}
+	
+	function Batal_Upload($ulp,$id_capel){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');	
+		
+		//delete temporary file
+		$path						= './uploads/'.$ulp.'/';
+		unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+		
+		//rollback database
+		$this->material_model->hapus_kebutuhan_mdu($id_capel);
+		$this->material_model->hapus_kebutuhan_tibet($id_capel);
+	
+		$data_plg = array(
+			'id_ulp'				=> $ulp,
+			'nama_capel' 			=> '',
+			'daya_lama' 			=> '',
+			'daya_baru' 			=> '',
+			'biaya_penyambungan' 	=> '',
+			'biaya_investasi' 		=> '',
+			'tgl_entry_aplikasi' 	=> null,
+			'status_perluasan'		=> 0,
+		);
+		//updating into database
+		$this->capel_model->update_capel($data_plg,$id_capel);		
+		
+		redirect('Capel/view_capel_bermohon');
 	}	
 	
 	function Update_material($id_capel){
@@ -455,7 +520,7 @@ class Capel extends CI_Controller {
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
-			$data['title'] = 'Update Progres Capel';
+
 			$data['nama_user'] 			= $_SESSION['username'];
 			$data['content'] 			= $this->load->view('Capel/form_update_capel_material',$data,true);
 			$this->load->view('beranda',$data);

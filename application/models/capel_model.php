@@ -224,7 +224,8 @@ class Capel_model extends CI_Model {
 	function get_all_data_capel_bermohon(){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->where('id_status_capel <','1');		
+		$this->db->where('id_status_capel <','1');
+		$this->db->where('status_perluasan <','1');		
 		$this->db->order_by('tgl_persetujuan', 'ASC');	
 		$query = $this->db->get();			
 		return $query;
@@ -234,7 +235,8 @@ class Capel_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from('view_capel');
 		$this->db->where('id_ulp',$ulp);
-		$this->db->where('id_status_capel <','1');		
+		$this->db->where('id_status_capel <','1');
+		$this->db->where('status_perluasan <','1');
 		$this->db->order_by('tgl_persetujuan', 'ASC');			
 		$query = $this->db->get();
 		return $query;
