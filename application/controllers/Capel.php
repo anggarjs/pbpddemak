@@ -142,7 +142,7 @@ class Capel extends CI_Controller {
 			
 			$data['title'] = "Data Detail Capel";
 			$data['nama_user'] 			= $_SESSION['username'];
-			$data['content'] 			= $this->load->view('Capel/form_update_capel',$data,true);
+			$data['content'] 			= $this->load->view('Capel/form_detail_capel',$data,true);
 			$this->load->view('beranda',$data);
 		}
 		else{	
@@ -187,7 +187,8 @@ class Capel extends CI_Controller {
 			$status_perluasan['0'] 		= "- Pilih Status Perluasan -";
  			$status_perluasan['1'] 		= "Tidak Perluasan";
 			$status_perluasan['2'] 		= "Perlu Perluasan JTR";
-			$status_perluasan['3'] 		= "Perlu Perluasan JTM dgn Trafo";			
+			$status_perluasan['3'] 		= "Perlu Perluasan JTM dgn Trafo";
+			$status_perluasan['4'] 		= "Perluasan Pelanggan dgn Kubikel";	
 			$data['status_perluasan'] 	= $status_perluasan;
 
 			$data['nama_user'] 			= $_SESSION['username'];
@@ -264,18 +265,21 @@ class Capel extends CI_Controller {
 					
 					if(str_contains($hasil_pbp, 'DIV')) {
 						$real_pbp				= 25;
-						$kesimpulan				= 'Perlu Persetujuan ACC UP3';						
+						$kesimpulan				= 'Perlu Persetujuan ACC UP3';
+						$pointer				= 1;
 					}
 					else{
 						if($hasil_pbp <= 5){
 							/* echo 'b'; */
 							$real_pbp			= $hasil_pbp;
 							$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+							$pointer			= 0;
 						}
 						if($hasil_pbp <= 25 && $hasil_pbp > 5){
 							/* echo 'c'; */
 							$real_pbp			= $hasil_pbp;
 							$kesimpulan			= 'Perlu Persetujuan ACC UP3';
+							$pointer			= 1;
 						}						
 					}
 
@@ -405,10 +409,36 @@ class Capel extends CI_Controller {
 					
 					//parsing to konfirmasi upload
 					/* $this->konfirmasi_upload($data_kkf,$array_data_material,$file_name,$id_capel,$array_data_tibet); */
+					foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
+						$data['id_ulp']					= $row->id_ulp;
+						$data['nama_capel']				= $row->nama_capel;
+						$data['biaya_investasi']		= $row->biaya_investasi;
+						$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+						$data['daya_lama']				= $row->daya_lama;
+						$data['daya_baru']				= $row->daya_baru;
+						$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+					}
 					
-					$data['nama_user'] 		= $_SESSION['username'];
-					$data['content'] 		= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
-					$this->load->view('beranda',$data);
+					$data['id_capel']			= $this->input->post('id_capel');
+					$data['data_material']		= $array_data_material;
+					$data['data_tibet']			= $array_data_tibet;
+					
+					$data['path_file'] 			= $file_name;
+					$data['payback_period']		= $data_kkf['payback_period'];
+					$data['kesimpulan']			= $data_kkf['kesimpulan'];
+					
+					//jika PBP < 5 tahun diarahkan pada halaman persetujuan langsung
+					if($pointer < 1){
+						$data['nama_user'] 			= $_SESSION['username'];
+						$data['content'] 			= $this->load->view('Capel/form_konfirmasi',$data,true);
+						$this->load->view('beranda',$data);
+					}
+					//jika PBP > 5 tahun diarahkan pada halaman pengurusan surat ke up3
+					else{
+						$data['nama_user'] 			= $_SESSION['username'];
+						$data['content'] 			= $this->load->view('Capel/form_acc_persetujuan',$data,true);
+						$this->load->view('beranda',$data);						
+					}				
 				}
 			}
 			//jika tidak perlu perluasan, stop disini
@@ -424,33 +454,78 @@ class Capel extends CI_Controller {
 		}
 	}//end of function
 	
-	function konfirmasi_upload($data_kkf,$array_data_material,$file_name,$id_capel,$array_data_tibet){
+	function Update_Persetujuan($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
-		foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
-			$data['id_ulp']					= $row->id_ulp;
-			$data['nama_capel']				= $row->nama_capel;
-			$data['biaya_investasi']		= $row->biaya_investasi;
-			$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
-			$data['daya_lama']				= $row->daya_lama;
-			$data['daya_baru']				= $row->daya_baru;
-			$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+		$this->form_validation->set_rules('nomor_persetujuan', 'Nomor BA Persetujuan', 'required');
+		$this->form_validation->set_rules('tgl_persetujuan', 'Tanggal BA Persetujuan', 'required');
+
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
+		if($this->form_validation->run() == FALSE){			
+
+			foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['daya_lama']				= $row->daya_lama;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+			}
+			
+			$array_data_material 		= array();
+			foreach ($this->material_model->get_data_material($this->input->post('id_capel'))->result() as $row) {
+				$array_data_material[] 	= array("nama" => $row->nama_detail_mdu, "satuan" => $row->satuan, "volume" => $row->volume_mdu);
+			}
+
+			$array_data_tibet 		= array();
+			foreach ($this->material_model->get_data_tibet($this->input->post('id_capel'))->result() as $row) {
+				$array_data_tibet[] 	= array("nama" => $row->nama_detail_mdu, "satuan" => $row->satuan, "volume" => $row->volume_mdu);
+			}			
+			
+			$data['id_capel']			= $this->input->post('id_capel');
+			$data['path_file']			= $this->input->post('path_file');
+			$data['payback_period']		= $this->input->post('payback_period');
+			$data['kesimpulan']			= $this->input->post('kesimpulan');
+			
+			$data['data_material']		= $array_data_material;
+			$data['data_tibet']			= $array_data_tibet;
+
+			$data['nama_user'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_konfirmasi',$data,true);
+			$this->load->view('beranda',$data);
 		}
-		
-		$data['payback_period']			= $data_kkf['payback_period'];
-		$data['kesimpulan']				= $data_kkf['kesimpulan'];
-		
-		$data['path_file']				= $file_name;
-		$data['id_capel']				= $id_capel;
-	
-		$data['data_material']			= $array_data_material;
-		$data['data_tibet']				= $array_data_tibet;
-	
-		$data['nama_user'] 				= $_SESSION['username'];
-		$data['content'] 				= $this->load->view('RAB/form_konfirmasi_rab',$data,true);
-		$this->load->view('beranda',$data);
-	}
+		else{	
+			$data_plg = array(
+				'id_status_capel'		=> 2,
+				'tgl_persetujuan'		=> $this->input->post('tgl_persetujuan'),
+				'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
+			);
+			
+			//update into database
+			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));	
+
+			$path 						= 'uploads/'.$this->input->post('id_ulp').'/';
+			//path old file
+			$file_name 					= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
+
+			//rename file
+			$new_name 					= 'RAB_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.xlsx';
+			$path_new_file				= $path.$new_name;
+			//echo $path_new_file;
+			rename($file_name,$path_new_file);
+			
+			//send email notice to user
+			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
+			
+			redirect('Capel/view_capel');			
+		}
+	}//end of function
 	
 	function Batal_Upload($ulp,$id_capel){
 		if(!isset($_SESSION['username']))
@@ -876,8 +951,168 @@ class Capel extends CI_Controller {
 		echo $msg;
 
 		$mail->Body    = $msg;
-		$mail->send();
+		$mail->send();	
+	}
+	
+	function send_email_survei($id_capel,$ulp){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		$mail = new PHPMailer(true);
+		 
+		// -- setting config email --
+		foreach ($this->google_model->get_data_oauth_google()->result() as $row) {
+			$g_smtp_oauthClientId			= $row->client_id_google;
+			$g_smtp_oauthClientSecret		= $row->secret_key_google;
+			$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
+			$g_smtp_oauthUserEmail 			= $row->email_google;			
+		}
+		
+		foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
+			$nama_capel						= $row->nama_capel;
+			$daya_baru						= $row->daya_baru;	
+			$nama_ulp						= $row->nama_ulp;
+			$biaya_penyambungan				= $row->biaya_penyambungan;	
+			$biaya_investasi				= $row->biaya_investasi;				
+		}
+
+		// setting sending email via gmail
+		$mail->isSMTP();
+		$mail->Host 		= 'smtp.gmail.com'; // host
+		$mail->SMTPAuth 	= true;	
+		$mail->SMTPSecure 	= 'ssl';
+		$mail->Port 		= 465; //smtp port
+		$mail->AuthType 	= 'XOAUTH2';
+		
+		$provider = new Google(
+			[
+			'clientId' 			=> $g_smtp_oauthClientId,
+			'clientSecret' 		=> $g_smtp_oauthClientSecret,
+			]
+		);				
+		$mail->setOAuth(
+			new OAuth(
+				[
+				'provider' 		=> $provider,
+				'clientId' 		=> $g_smtp_oauthClientId,
+				'clientSecret' 	=> $g_smtp_oauthClientSecret,
+				'refreshToken' 	=> $g_smtp_oauthRefreshToken,
+				'userName' 		=> $g_smtp_oauthUserEmail,
+				]
+			)
+		);				
 		
 
+		$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
+
+		//setting to email
+		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
+			$mail->addAddress($row->email_user, '');
+			//$mail->addAddress($row->email_user2, '');
+		}		
+		
+		//setting CC email
+		foreach ($this->users_model->get_data_user_by_ulp($ulp)->result() as $row) {
+			$mail->AddCC($row->email_user, '');
+			$mail->AddCC($row->email_user2, '');
+		}
+		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
+			echo $row->email_user.'<br>';
+			$mail->AddCC($row->email_user, '');
+		}		
+		
+		$mail->isHTML(true);
+		$mail->Subject = 'Permohonan Cek Material PBPD '.$nama_ulp;
+		
+		//setting style dan header content
+		$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
+		<head>
+		<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
+		<meta name=Generator content="Microsoft Word 12 (filtered medium)">
+		<style>
+		<!--
+		 /* Font Definitions */
+		 @font-face
+			{font-family:Wingdings;
+			panose-1:5 0 0 0 0 0 0 0 0 0;}
+		@font-face
+			{font-family:Wingdings;
+			panose-1:5 0 0 0 0 0 0 0 0 0;}
+		@font-face
+			{font-family:Calibri;
+			panose-1:2 15 5 2 2 2 4 3 2 4;}
+		 /* Style Definitions */
+		 p.MsoNormal, li.MsoNormal, div.MsoNormal
+			{margin:0cm;
+			margin-bottom:.0001pt;
+			font-size:11.0pt;
+			font-family:"Calibri","sans-serif";}
+		a:link, span.MsoHyperlink
+			{mso-style-priority:99;
+			color:blue;
+			text-decoration:underline;}
+		a:visited, span.MsoHyperlinkFollowed
+			{mso-style-priority:99;
+			color:purple;
+			text-decoration:underline;}
+		span.EmailStyle17
+			{mso-style-type:personal-compose;
+			font-family:"Calibri","sans-serif";
+			color:windowtext;}
+		.MsoChpDefault
+			{mso-style-type:export-only;}
+		@page Section1
+			{size:612.0pt 792.0pt;
+			margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+		div.Section1
+			{page:Section1;}
+		-->
+		</style>
+		<!--[if gte mso 9]><xml>
+		 <o:shapedefaults v:ext="edit" spidmax="1026" />
+		</xml><![endif]--><!--[if gte mso 9]><xml>
+		 <o:shapelayout v:ext="edit">
+		  <o:idmap v:ext="edit" data="1" />
+		 </o:shapelayout></xml><![endif]-->
+		</head>
+
+		<body lang=EN-US link=blue vlink=purple>
+
+		<div class=Section1>
+
+		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
+		<br>
+		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
+		
+		//set content
+		$msg	.='	
+		
+		<p class=MsoNormal><b>Nama Pelanggan : </b><br>
+		'.$nama_capel.'<br></p><br>		
+		<p class=MsoNormal><b>Daya Pelanggan :</b><br>
+		'.number_format($daya_baru).' VA <br></p><br>
+		<p class=MsoNormal><b>Biaya Penyambungan :</b><br>
+		'.number_format($biaya_penyambungan).'<br></p><br>		
+		<p class=MsoNormal><b>Biaya Investasi :</b><br>
+		'.number_format($biaya_investasi).'<br></p><br>
+		<p class=MsoNormal><b>Username Input : </b><br>
+		'.$_SESSION['username'].'<br></p><br>			
+
+		<p class=MsoNormal>Silahkan dapat update ketersediaan material dengan mengakses Dashboard PBPD pada alamat '.base_url().'<br></p><br>			
+		';
+		
+		//setting footer content
+		$msg	.= '
+		<br>
+		<p class=MsoNormal>Terima kasih</p>
+		<p class=MsoNormal><b>Mail System PBPD UP3 Demak</b></p>
+		
+		</div>
+		</body>
+		</html>';				
+
+		$mail->Body    = $msg;
+		$mail->send();	
 	}
+	
 }

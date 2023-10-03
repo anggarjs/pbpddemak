@@ -35,6 +35,14 @@ class Material_model extends CI_Model
 		$query = $this->db->get();
 		return $query;
 	} //end of function
+	
+	function get_data_tibet($id_capel){
+		$this->db->select('*');
+		$this->db->from('view_kebutuhan_tibet');
+		$this->db->where('id_capel', $id_capel);
+		$query = $this->db->get();
+		return $query;
+	} //end of function	
 
 	function get_status_material(){
 		$this->db->select('*');
