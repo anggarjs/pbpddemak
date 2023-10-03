@@ -49,7 +49,13 @@
       											<tr>
       												<td>
       													<div class="d-flex justify-content-around">
-      														<a href="<?php echo base_url('Capel/Update/') . $data->id_capel; ?>">
+      														<a href="<?php 
+																if ($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 5) 
+																	echo base_url('Capel/ACC_Pelanggan/') . $data->id_capel;
+																else
+																	echo base_url('Capel/Update/') . $data->id_capel;
+															
+															?>">
       															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
       														</a>
       													</div>

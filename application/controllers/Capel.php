@@ -619,6 +619,66 @@ class Capel extends CI_Controller {
 		}
 	}//end of function	
 	
+	function ACC_Pelanggan($id_capel){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		$this->form_validation->set_rules('nomor_persetujuan', 'Nomor Surat Persetujuan UP3', 'required');
+		$this->form_validation->set_rules('tgl_persetujuan', 'Tanggal Surat Persetujuan UP3', 'required');
+
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
+		if($this->form_validation->run() == FALSE){			
+			foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['daya_lama']				= $row->daya_lama;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
+				$data['id_status_capel']		= $row->id_status_capel;
+				$data['id_status_material']		= $row->id_status_material;
+				$data['tgl_bayar_plgn']			= $row->tgl_bayar_plgn;
+				$data['status_material']		= $row->status_material;	
+				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	
+				$data['keterangan_material']	= $row->keterangan_material;	
+				$data['tgl_peremajaan']			= $row->tgl_peremajaan;			
+			}
+			$data['id_capel']					= $id_capel;
+
+			$path 								= 'uploads/'.$data['id_ulp'].'/';
+			$data['path_file']					= $path.'RAB_'.$data['id_ulp'].'_'.$data['nama_capel']	.'_'. $data['daya_baru'].'VA.xlsx';;
+			
+			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
+			
+			$data['nama_user'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_persetujuan_up3',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{	
+			$data_plg = array(
+				'id_status_capel'		=> 2,
+				'nomor_persetujuan'		=> $this->input->post('nomor_persetujuan'),
+				'tgl_persetujuan' 		=> $this->input->post('tgl_persetujuan'),
+			);
+			
+			//update into database
+			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));
+
+			//send email notice to user
+			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
+						
+			
+			redirect('Capel/view_capel');			
+		}
+	}//end of function	
+	
 	function Batal_Upload($ulp,$id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');	
@@ -1061,6 +1121,7 @@ class Capel extends CI_Controller {
 		}
 		
 		foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
+			$id_ulp							= $row->id_ulp;
 			$nama_capel						= $row->nama_capel;
 			$daya_baru						= $row->daya_baru;	
 			$nama_ulp						= $row->nama_ulp;
@@ -1174,7 +1235,7 @@ class Capel extends CI_Controller {
 
 		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
 		<br>
-		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
+		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' yang telah mendapat persetujuan dengan rincian data sebagai berikut :<br><br></p>';
 		
 		//set content
 		$msg	.='	
