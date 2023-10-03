@@ -39,6 +39,21 @@ class Capel extends CI_Controller {
 		$this->load->view('beranda', $data);
 	}
 
+	function view_capel_persetujuan(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_persetujuan_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_capel_persetujuan();
+
+		$data['title'] = "Data Capel Disetujui";
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('capel/view_all_capel_persetujuan', $data, true);
+		$this->load->view('beranda', $data);
+	}
+
 	function view_capel(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -417,6 +432,8 @@ class Capel extends CI_Controller {
 						$data['daya_lama']				= $row->daya_lama;
 						$data['daya_baru']				= $row->daya_baru;
 						$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+						$data['srt_daya_awal_capel']	= $row->srt_daya_awal_capel;
+						$data['srt_nama_capel']			= $row->srt_nama_capel;							
 					}
 					
 					$data['id_capel']			= $this->input->post('id_capel');
@@ -476,6 +493,8 @@ class Capel extends CI_Controller {
 				$data['daya_lama']				= $row->daya_lama;
 				$data['daya_baru']				= $row->daya_baru;
 				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['srt_daya_awal_capel']	= $row->srt_daya_awal_capel;
+				$data['srt_nama_capel']			= $row->srt_nama_capel;					
 			}
 			
 			$array_data_material 		= array();
@@ -526,6 +545,79 @@ class Capel extends CI_Controller {
 			redirect('Capel/view_capel');			
 		}
 	}//end of function
+	
+	function Update_PersetujuanUP3($id_capel){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		$this->form_validation->set_rules('no_permohonan_acc', 'Surat Permohonan ACC ke UP3 ', 'required');
+		$this->form_validation->set_rules('tgl_permohonan_acc', 'Tanggal Permohonan ACC ke UP3', 'required');
+
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
+		if($this->form_validation->run() == FALSE){			
+
+			foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['daya_lama']				= $row->daya_lama;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['srt_daya_awal_capel']	= $row->srt_daya_awal_capel;
+				$data['srt_nama_capel']			= $row->srt_nama_capel;				
+				
+			}
+			
+			$array_data_material 		= array();
+			foreach ($this->material_model->get_data_material($this->input->post('id_capel'))->result() as $row) {
+				$array_data_material[] 	= array("nama" => $row->nama_detail_mdu, "satuan" => $row->satuan, "volume" => $row->volume_mdu);
+			}
+
+			$array_data_tibet 		= array();
+			foreach ($this->material_model->get_data_tibet($this->input->post('id_capel'))->result() as $row) {
+				$array_data_tibet[] 	= array("nama" => $row->nama_detail_mdu, "satuan" => $row->satuan, "volume" => $row->volume_mdu);
+			}			
+			
+			$data['id_capel']			= $this->input->post('id_capel');
+			$data['path_file']			= $this->input->post('path_file');
+			$data['payback_period']		= $this->input->post('payback_period');
+			$data['kesimpulan']			= $this->input->post('kesimpulan');
+			
+			$data['data_material']		= $array_data_material;
+			$data['data_tibet']			= $array_data_tibet;
+
+			$data['nama_user'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Capel/form_acc_persetujuan',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{	
+			$data_plg = array(
+				'id_status_capel'		=> 1,
+				'no_permohonan_acc'		=> $this->input->post('no_permohonan_acc'),
+				'tgl_permohonan_acc' 	=> $this->input->post('tgl_permohonan_acc'),
+			);
+			
+			//update into database
+			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));	
+
+			$path 						= 'uploads/'.$this->input->post('id_ulp').'/';
+			//path old file
+			$file_name 					= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
+
+			//rename file
+			$new_name 					= 'RAB_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.xlsx';
+			$path_new_file				= $path.$new_name;
+			//echo $path_new_file;
+			rename($file_name,$path_new_file);
+			
+			redirect('Capel/view_capel');			
+		}
+	}//end of function	
 	
 	function Batal_Upload($ulp,$id_capel){
 		if(!isset($_SESSION['username']))

@@ -99,9 +99,12 @@
 								<div class="col-md-6">	
 									<div class="mb-3">
 										<label>Tgl Persetujuan :</label>
-										<?php 			
-											$date2 = date_create($tgl_persetujuan);
-											echo '<b>'.date_format($date2,"d-m-Y").'</b>';
+										<?php 														
+											if(!is_null($tgl_persetujuan)){
+												/* echo '<b>'.$tgl_lengkap_material.'</b>'; */
+												$date4 = date_create($tgl_persetujuan);
+												echo '<b>'.date_format($date4,"d-m-Y").'</b>';
+											}											
 										?>
 									</div>									
 								</div>

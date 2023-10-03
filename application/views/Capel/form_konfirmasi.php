@@ -42,9 +42,25 @@
 								<div class="col-md-6">						
 									<div class="mb-3">
 										<label>Asal Unit Kerja :</label>
+										<?php echo '<b>'.$id_ulp.'</b>'; ?>
+									</div>
+									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+										<label>Permohonan Daya Awal :</label>
 										<?php 			
-											echo '<b>'.$id_ulp.'</b>';
-										?>
+											echo '<b>'.number_format($srt_daya_awal_capel).' VA'.'</b>';
+										?>									
+									</div>
+									
+								</div>
+							</div>	
+							<div class="row">
+								<div class="col-md-6">						
+									<div class="mb-3">
+										<label>Nama Pelanggan di Surat :</label>
+										<?php echo '<b>'.$srt_nama_capel.'</b>'; ?>
 									</div>
 									
 								</div>
@@ -62,7 +78,7 @@
 							<div class="row">
 								<div class="col-md-6">						
 									<div class="mb-3">
-										<label>Nama Pelanggan :</label>
+										<label>Nama Pelanggan Hasil Survei :</label>
 										<?php 			
 											echo '<b>'.$nama_capel.'</b>';
 										?>

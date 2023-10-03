@@ -50,6 +50,26 @@
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">
+										<label>Permohonan Daya Awal :</label>
+										<?php 			
+											echo '<b>'.number_format($srt_daya_awal_capel).' VA'.'</b>';
+										?>									
+									</div>
+									
+								</div>
+							</div>	
+							<div class="row">
+								<div class="col-md-6">						
+									<div class="mb-3">
+										<label>Nama Pelanggan di Surat :</label>
+										<?php 			
+											echo '<b>'.$srt_nama_capel.'</b>';
+										?>
+									</div>
+									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
 										<label>Daya Lama Pelanggan :</label>
 										<?php 			
 											echo '<b>'.number_format($daya_lama).' VA'.'</b>';
@@ -62,7 +82,7 @@
 							<div class="row">
 								<div class="col-md-6">						
 									<div class="mb-3">
-										<label>Nama Pelanggan :</label>
+										<label>Nama Pelanggan Hasil Survei :</label>
 										<?php 			
 											echo '<b>'.$nama_capel.'</b>';
 										?>
@@ -142,23 +162,23 @@
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">
-										<label><b>Tanggal Persetujuan :</b></label>
-										<input type="date" class="form-control" name="tgl_persetujuan" 
-										value="<?php if(set_value('tgl_persetujuan')!='') echo set_value('tgl_persetujuan');?>"/>										
+										<label><b>Tanggal Permohonan ACC ke UP3 :</b></label>
+										<input type="date" class="form-control" name="tgl_permohonan_acc" 
+										value="<?php if(set_value('tgl_permohonan_acc')!='') echo set_value('tgl_permohonan_acc');?>"/>										
 									</div>
-									<?php echo form_error('tgl_persetujuan'); ?>
+									<?php echo form_error('tgl_permohonan_acc'); ?>
 								</div>
 								<div class="col-md-6">
 									<div class="mb-3">	
-										<label>No BA Persetujuan dari ULP :</label>
+										<label>No Surat Permohonan ACC ke UP3 :</label>
 										<input
 										  type="text"
 										  class="form-control"
-										  value="<?php if(set_value('nomor_persetujuan')!='') echo set_value('nomor_persetujuan');?>"
-										  name="nomor_persetujuan"
+										  value="<?php if(set_value('no_permohonan_acc')!='') echo set_value('no_permohonan_acc');?>"
+										  name="no_permohonan_acc"
 										/>
 									</div>
-									<?php echo form_error('nomor_persetujuan'); ?>
+									<?php echo form_error('no_permohonan_acc'); ?>
 								</div>	
 							</div>									
 
