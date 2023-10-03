@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['url_system']	= 'localhost';
+$config['url_system']	= '10.4.60.72';
 //$base_url				= "http://10.4.220.187/speedjardist/";
 $config['base_url']		= "http://".$config['url_system']."/pbpddemak/";
 /*
