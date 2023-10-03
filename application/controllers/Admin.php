@@ -37,7 +37,7 @@ class Admin extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
-		$data['total_plgn']			= $this->capel_model->get_all_capel()->num_rows();
+		$data['total_plgn']			= $this->capel_model->get_all_capel_non_peremajaan()->num_rows();
 		$data['biaya_penyambungan']	= $this->capel_model->get_total('sum(biaya_penyambungan) as biaya_penyambungan')->row()->biaya_penyambungan/1000000000;
 		$data['biaya_investasi']	= $this->capel_model->get_total('sum(biaya_investasi) as biaya_investasi')->row()->biaya_investasi/1000000000;
 		$data['daya_lama']			= $this->capel_model->get_total('sum(daya_lama) as daya_lama')->row()->daya_lama/1000000;
@@ -52,7 +52,7 @@ class Admin extends CI_Controller {
 		$data['pembayaran']			= $this->capel_model->get_total_cpl_status_plgn('3')->num_rows();		
 		$data['peremajaan']			= $this->capel_model->get_total_cpl_status_plgn('4')->num_rows();
 		
-		$status_capel 				= $this->capel_model->get_status_capel();
+		$status_capel 				= $this->capel_model->get_status_capel_non_peremajaan();
 		$data['js_script_label']	= 'labels: [';
 		$data['js_script_series']	= 'series: [';
 		

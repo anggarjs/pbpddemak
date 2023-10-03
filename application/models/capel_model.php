@@ -120,6 +120,7 @@ class Capel_model extends CI_Model {
 		$query = $this->db->get();
 		return $query;
 	} //end of function	
+	
 
 	function get_all_capel_awal(){
 		$this->db->select('*');
@@ -147,9 +148,18 @@ class Capel_model extends CI_Model {
 		return $query;
 	}//end of function
 	
+	function get_all_capel_non_peremajaan(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('id_status_capel <','4');	
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
 	function get_total($var){
 		$this->db->select($var);
 		$this->db->from('view_capel');
+		$this->db->where('id_status_capel <','4');
 		$query = $this->db->get();
 		return $query;
 	}//end of function
@@ -157,7 +167,8 @@ class Capel_model extends CI_Model {
 	function get_total_cpl_status_material($var){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->where('id_status_material', $var);		
+		$this->db->where('id_status_material', $var);
+		$this->db->where('id_status_capel <','4');
 		$query = $this->db->get();
 		return $query;
 	}//end of function
@@ -165,7 +176,8 @@ class Capel_model extends CI_Model {
 	function get_total_status_lengkap(){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->where('id_status_material >2');		
+		$this->db->where('id_status_material >2');
+		$this->db->where('id_status_capel <','4');
 		$query = $this->db->get();
 		return $query;
 	}//end of function

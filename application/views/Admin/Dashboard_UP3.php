@@ -28,7 +28,7 @@
 							<div class="row align-items-center">
 								<div class="col-7">
 									<i class="ri-emotion-line fs-6 text-info"></i>
-									<p class="fs-4 mb-1">Capel</p>
+									<p class="fs-4 mb-1">Potensi Capel</p>
 								</div>
 								<div class="col-5">
 									<h2 class="fw-light text-end mb-0"><?php echo $total_plgn ?></h2>
@@ -95,21 +95,21 @@
 								<i
 								class="ri-checkbox-blank-circle-fill fs-4 text-primary"
 								></i>
-								<h4 class="mb-0 font-weight-medium"><?php echo $lengkap ?></h4>
+								<h4 class="mb-0 font-weight-medium"><?php echo $lengkap ?></h4> Plgn
 								<span>Lengkap Material</span>
 							</div>
 							<div class="col-4 border-end">
 								<i
 								class="ri-checkbox-blank-circle-fill fs-4 text-info"
 								></i>
-								<h4 class="mb-0 font-weight-medium"><?php echo $blm_lengkap ?></h4>
+								<h4 class="mb-0 font-weight-medium"><?php echo $blm_lengkap ?></h4> Plgn
 								<span>Belum Lengkap Material</span>
 							</div>
 							<div class="col-4 p-l-20">
 								<i
 								class="ri-checkbox-blank-circle-fill fs-4 text-success"
 								></i>
-								<h4 class="mb-0 font-weight-medium"><?php echo $blm_pengecekan ?></h4>
+								<h4 class="mb-0 font-weight-medium"><?php echo $blm_pengecekan ?></h4> Plgn
 								<span>Belum Pengecekan</span>
 							</div>
 						</div>

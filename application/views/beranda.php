@@ -218,20 +218,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<span class="hide-menu">Pengelolaan PBPD</span>
 				</a>
 				<ul aria-expanded="false" class="collapse first-level">
+				<?php if ($_SESSION['role_user'] != 2) { ?>
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Input/upload_surat" class="sidebar-link">
 							<i class="mdi mdi-content-paste"></i>
 							<span class="hide-menu"> Upload Surat Plgn</span>
 						</a>
 					</li>
-					<!--
-					<li class="sidebar-item">
-						<a href="<?php echo base_url() ?>Input/upload_rab" class="sidebar-link">
-							<i class="mdi mdi-content-paste"></i>
-							<span class="hide-menu"> Upload RAB</span>
-						</a>
-					</li>
-					-->
+				<?php } ?>	
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/view_capel_bermohon" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
@@ -244,6 +238,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<span class="hide-menu"> Capel Perlu Persetujuan</span>
 						</a>
 					</li>
+				
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
