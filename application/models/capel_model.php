@@ -193,7 +193,7 @@ class Capel_model extends CI_Model {
 	function get_all_status_capel($var){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->like('status_capel',$var);	
+		$this->db->like('id_status_capel',$var);	
 		$query = $this->db->get();
 		return $query;
 	}//end of function

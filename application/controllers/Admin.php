@@ -58,7 +58,7 @@ class Admin extends CI_Controller {
 		
 		foreach($status_capel->result() as $row){
 			$data['js_script_label']	.= '"'.$row->status_capel.'",';		
-			$total_plgn 				= $this->capel_model->get_all_status_capel($row->status_capel)->num_rows();
+			$total_plgn 				= $this->capel_model->get_all_status_capel($row->id_status_capel)->num_rows();
 			$data['js_script_series'] 	.= $total_plgn.',';
 		}
 		
