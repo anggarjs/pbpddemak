@@ -76,8 +76,16 @@ class Admin extends CI_Controller {
 			$data['js_series_plgn']	.= "name:'".$row->status_capel."',data: [";		
 			foreach($this->capel_model->get_data_ulp()->result() as $row2){
 				foreach($this->capel_model->get_status_capel_by_status_capel_dan_ulp($row->status_capel,$row2->id_ulp)->result() as $row3){
-					$total_daya		= $row3->total_daya_baru-$row3->total_daya_lama;
-					$total_daya		= $total_daya/1000;
+					//echo 'aa'.$row->status_capel.'-'.$row2->id_ulp.'-'.$row3->total_daya_baru.'<br>';
+					if($row3->total_daya_baru == 0){
+						//echo 'bb'.$row3->total_daya_awal.'<br>';
+						$total_daya		= $row3->total_daya_awal;
+						$total_daya		= $total_daya/1000;
+					}
+					else{
+						$total_daya		= $row3->total_daya_baru-$row3->total_daya_lama;
+						$total_daya		= $total_daya/1000;
+					}
 					$data['js_series_plgn']		.= $total_daya.',';	
 				}
 				
