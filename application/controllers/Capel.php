@@ -938,7 +938,8 @@ class Capel extends CI_Controller {
 			$g_smtp_oauthClientId			= $row->client_id_google;
 			$g_smtp_oauthClientSecret		= $row->secret_key_google;
 			$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
-			$g_smtp_oauthUserEmail 			= $row->email_google;			
+			$g_smtp_oauthUserEmail 			= $row->email_google;
+			$wa_token			 			= $row->token_whatssap;	
 		}
 		
 		foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
@@ -992,13 +993,11 @@ class Capel extends CI_Controller {
 		
 		//setting CC email
 		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
-			/* echo $row->email_user.' CC <br>'; */
 			$mail->AddCC($row->email_user, '');
 		}
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
 			$mail->AddCC($row->email_user, '');
 			//$mail->addAddress($row->email_user, '');
-			echo $row->email_user.'<br>';
 		}
 		foreach ($this->users_model->get_data_user_by_role('5')->result() as $row) {
 			$mail->AddCC($row->email_user, '');
@@ -1100,10 +1099,81 @@ class Capel extends CI_Controller {
 		</body>
 		</html>';
 		
-		echo $msg;
+		//echo $msg;
 
 		$mail->Body    = $msg;
-		$mail->send();	
+		$mail->send();
+		
+		//-----------------------------------------------------------------------setting teks WA
+		//setting to email
+		$target			= '';
+		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
+			if($row->phone_number)
+				$target		.= $row->phone_number.',';
+		}		
+
+		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
+			if($row->phone_number)
+				$target		.= $row->phone_number.',';
+		}
+		foreach ($this->users_model->get_data_user_by_role('5')->result() as $row) {
+			if($row->phone_number)
+				$target		.= $row->phone_number.',';		
+		}	
+		
+		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
+			$target		.= $row->phone_number.',';
+		}
+		$target			= substr_replace($target,"",-1);
+		//echo $target;
+		
+		$curl 			= curl_init();
+		
+		$teks_wa		= '*DENGAN HORMAT,*
+
+Berikut kami informasikan permohonanan PBPD dari '.$nama_ulp.' telah *lengkap material* dengan rincian sebagai berikut :
+
+*Nama Pelanggan :*
+'.$nama_capel.'	
+*Daya Pelanggan :*
+'.number_format($daya_baru).' VA 
+*Biaya Penyambungan :*
+Rp '.number_format($biaya_penyambungan).'	
+*Biaya Investasi :*
+Rp '.number_format($biaya_investasi).'
+*Status Material :*
+'.$status_material.'	
+*Keterangan Material :*
+'.$keterangan_material.'
+*Username Updater :*
+'.$_SESSION['username'].'
+
+*Terima kasih*
+WA System PBPD UP3 Demak
+		';
+
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => 'https://api.fonnte.com/send',
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS => array(
+			'target' 		=> $target,
+			'message' 		=> $teks_wa, 
+			'countryCode' 	=> '62', //optional
+		),
+		CURLOPT_HTTPHEADER => array(
+		'Authorization: '.$wa_token //change TOKEN to your actual token
+		),
+		));
+
+		$response = curl_exec($curl);
+		curl_close($curl);	
+		//echo $response;	
 	}
 	
 	function send_email_survei($id_capel,$ulp){

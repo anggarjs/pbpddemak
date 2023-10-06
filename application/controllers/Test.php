@@ -46,7 +46,7 @@ class Test extends CI_Controller {
 				$g_smtp_oauthClientSecret		= $row->secret_key_google;
 				$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
 				$g_smtp_oauthUserEmail 			= $row->email_google;
-				
+				$wa_token			 			= $row->token_whatssap;
 			}
 			 
 					 
@@ -144,7 +144,7 @@ class Test extends CI_Controller {
 
 				<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
 				<br>
-				<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari ULP .... dengan rincian data sebagai berikut :</p>';			
+				<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari ULP 123 dengan rincian data sebagai berikut :</p>';			
 
 				//setting footer content
 				$msg	.= '
@@ -156,14 +156,50 @@ class Test extends CI_Controller {
 				</body>
 				</html>';
 
-				$teks_email		= $this->input->post('nomor_persetujuan');
+				$teks_email		= 'ANGGA';
+				
 
 				$mail->Body    	= $teks_email;
-				$mail->send();
+				//$mail->send();
 				
 				echo $msg;
 				echo 'Sukses Kirim Email';
 				// isi pesan jika telah berhasil terkirim
+				
+				$curl = curl_init();
+				
+				$teks_wa		= '*DENGAN HORMAT,*
+Berikut kami informasikan terdapat permohonanan PBPD dari ULP Demak dengan rincian data sebagai berikut :
+				';
+/* 				$teks_wa		.= 'Berikut kami informasikan terdapat permohonanan PBPD dari ULP Demak dengan rincian data sebagai berikut :
+				
+				'; */
+
+				curl_setopt_array($curl, array(
+				CURLOPT_URL => 'https://api.fonnte.com/send',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'POST',
+				CURLOPT_POSTFIELDS => array(
+				'target' => '',
+				'message' => $teks_wa, 
+				'countryCode' => '62', //optional
+				),
+				CURLOPT_HTTPHEADER => array(
+				'Authorization: '.$wa_token //change TOKEN to your actual token
+				),
+				));
+
+				$response = curl_exec($curl);
+
+				curl_close($curl);
+				echo $response;				
+				
+				
 			} catch (Exception $e) {
 				echo $mail->ErrorInfo;
 			}

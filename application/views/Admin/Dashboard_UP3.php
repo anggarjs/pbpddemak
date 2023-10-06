@@ -130,6 +130,30 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="row">
+            <!-- column -->
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<h4 class="card-title">Durasi Capel Belum Pembayaran</h4>
+							<h6 class="card-title">Note : Sudah Disetujui dan Lengkap Material</h6>
+						</div>
+						<div id="yearly-comparison" class="mt-4"></div>
+					</div>
+				</div>
+            <!-- column -->
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-body">
+							<div class="to-do-widget mt-3 common-widget scrollable" style="height: 438px" >
+							<ul class="list-task todo-list list-group mb-0" data-role="tasklist">
+							</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
          		
       		<!-- End Row -->
       	</div>
