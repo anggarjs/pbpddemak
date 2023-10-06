@@ -195,9 +195,10 @@ class Capel extends CI_Controller {
 				$data['id_status_perluasan']	= $row->status_perluasan;
 			}
 			$data['id_capel']			= $id_capel;
+			$new_nama_capel				= str_replace(" ","_",$data['srt_nama_capel']);
 
 			$path 						= 'uploads/'.$data['id_ulp'].'/';
-			$data['path_file']			= $path.'SRT_PLGN_an_'.$data['srt_nama_capel'].'_'.$data['srt_daya_awal_capel'].'VA.pdf';;
+			$data['path_file']			= $path.'SRT_PLGN_an_'.$new_nama_capel.'_'.$data['srt_daya_awal_capel'].'VA.pdf';;
 		
 			$status_perluasan['0'] 		= "- Pilih Status Perluasan -";
  			$status_perluasan['1'] 		= "Tidak Perluasan";
@@ -673,6 +674,7 @@ class Capel extends CI_Controller {
 
 			//send email notice to user
 			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
+			$this->send_WA($this->input->post('id_capel'),$this->input->post('id_ulp'));
 						
 			
 			redirect('Capel/view_capel');			
@@ -1305,7 +1307,7 @@ WA System PBPD UP3 Demak
 
 		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
 		<br>
-		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' yang telah mendapat persetujuan dengan rincian data sebagai berikut :<br><br></p>';
+		<p class=MsoNormal>Berikut kami informasikan terdapat permohonan PBPD dari '.$nama_ulp.' yang telah mendapat persetujuan dengan rincian data sebagai berikut :<br><br></p>';
 		
 		//set content
 		$msg	.='	

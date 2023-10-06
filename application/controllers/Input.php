@@ -86,7 +86,10 @@ class Input extends CI_Controller {
 				//insert into database
 				$this->capel_model->insert_capel($data_plg);
 				
-				//$this->send_email_plgn_bermohon($this->input->post('srt_nama_capel'),$this->input->post('pilihan_ulp'));
+				//get id capel
+				$id_capel					= $this->capel_model->cek_surat_capel(trim($this->input->post('srt_nama_capel')),$this->input->post('srt_daya_awal_capel'))->row()->id_capel;				
+				
+				$this->send_WA($id_capel,$this->input->post('pilihan_ulp'));
 				redirect('Capel/view_capel_bermohon');
 			}
 		}
@@ -376,321 +379,75 @@ class Input extends CI_Controller {
 		redirect('Capel/View_capel');
 	}
 	
-	function send_email_plgn_bermohon($nama_capel,$ulp){
+	function send_WA($id_capel,$id_ulp){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
-
-		$mail = new PHPMailer(true);
-		 
-		// -- setting config email --
-		foreach ($this->google_model->get_data_oauth_google()->result() as $row) {
-			$g_smtp_oauthClientId			= $row->client_id_google;
-			$g_smtp_oauthClientSecret		= $row->secret_key_google;
-			$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
-			$g_smtp_oauthUserEmail 			= $row->email_google;			
-		}
 		
-		foreach ($this->capel_model->get_data_capel_bermohon($nama_capel,$ulp)->result() as $row) {
-			$nama_capel						= $row->srt_nama_capel;
-			$alamat_capel					= $row->srt_alamat_capel;	
-			$daya_bermohon					= $row->srt_daya_awal_capel;
-			$nama_ulp						= $row->nama_ulp;
-		}
-
-		// setting sending email via gmail
-		$mail->isSMTP();
-		$mail->Host 		= 'smtp.gmail.com'; // host
-		$mail->SMTPAuth 	= true;	
-		$mail->SMTPSecure 	= 'ssl';
-		$mail->Port 		= 465; //smtp port
-		$mail->AuthType 	= 'XOAUTH2';
-		
-		$provider = new Google(
-			[
-			'clientId' 			=> $g_smtp_oauthClientId,
-			'clientSecret' 		=> $g_smtp_oauthClientSecret,
-			]
-		);				
-		$mail->setOAuth(
-			new OAuth(
-				[
-				'provider' 		=> $provider,
-				'clientId' 		=> $g_smtp_oauthClientId,
-				'clientSecret' 	=> $g_smtp_oauthClientSecret,
-				'refreshToken' 	=> $g_smtp_oauthRefreshToken,
-				'userName' 		=> $g_smtp_oauthUserEmail,
-				]
-			)
-		);				
-		
-
-		$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
-
-		//setting to email
-		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
-			$mail->addAddress($row->email_user, '');
-		}
-		
-		//setting CC email
-		foreach ($this->users_model->get_data_user_by_ulp($ulp)->result() as $row) {
-			$mail->AddCC($row->email_user, '');
-			$mail->AddCC($row->email_user2, '');
-		}
-		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
-			echo $row->email_user.'<br>';
-			$mail->AddCC($row->email_user, '');
-		}		
-		
-		$mail->isHTML(true);
-		$mail->Subject = 'Info Pelanggan Bermohon '.$nama_ulp;
-		
-		//setting style dan header content
-		$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
-		<head>
-		<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
-		<meta name=Generator content="Microsoft Word 12 (filtered medium)">
-		<style>
-		<!--
-		 /* Font Definitions */
-		 @font-face
-			{font-family:Wingdings;
-			panose-1:5 0 0 0 0 0 0 0 0 0;}
-		@font-face
-			{font-family:Wingdings;
-			panose-1:5 0 0 0 0 0 0 0 0 0;}
-		@font-face
-			{font-family:Calibri;
-			panose-1:2 15 5 2 2 2 4 3 2 4;}
-		 /* Style Definitions */
-		 p.MsoNormal, li.MsoNormal, div.MsoNormal
-			{margin:0cm;
-			margin-bottom:.0001pt;
-			font-size:11.0pt;
-			font-family:"Calibri","sans-serif";}
-		a:link, span.MsoHyperlink
-			{mso-style-priority:99;
-			color:blue;
-			text-decoration:underline;}
-		a:visited, span.MsoHyperlinkFollowed
-			{mso-style-priority:99;
-			color:purple;
-			text-decoration:underline;}
-		span.EmailStyle17
-			{mso-style-type:personal-compose;
-			font-family:"Calibri","sans-serif";
-			color:windowtext;}
-		.MsoChpDefault
-			{mso-style-type:export-only;}
-		@page Section1
-			{size:612.0pt 792.0pt;
-			margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-		div.Section1
-			{page:Section1;}
-		-->
-		</style>
-		<!--[if gte mso 9]><xml>
-		 <o:shapedefaults v:ext="edit" spidmax="1026" />
-		</xml><![endif]--><!--[if gte mso 9]><xml>
-		 <o:shapelayout v:ext="edit">
-		  <o:idmap v:ext="edit" data="1" />
-		 </o:shapelayout></xml><![endif]-->
-		</head>
-
-		<body lang=EN-US link=blue vlink=purple>
-
-		<div class=Section1>
-
-		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
-		<br>
-		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan Surat Pelanggan dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
-		
-		//set content
-		$msg	.='	
-		
-		<p class=MsoNormal><b>Nama Calon Pelanggan : </b><br>
-		'.$nama_capel.'<br></p><br>		
-		<p class=MsoNormal><b>Daya Calon Pelanggan :</b><br>
-		'.number_format($daya_bermohon).' VA <br></p><br>
-		<p class=MsoNormal><b>Alamat Calon Pelanggan : </b><br>
-		'.$alamat_capel.'<br></p><br>		
-		<p class=MsoNormal><b>Username Input : </b><br>
-		'.$_SESSION['username'].'<br></p><br>			
-
-				
-		';
-		
-		//setting footer content
-		$msg	.= '
-		<br>
-		<p class=MsoNormal>Terima kasih</p>
-		<p class=MsoNormal><b>Mail System PBPD UP3 Demak</b></p>
-		
-		</div>
-		</body>
-		</html>';				
-
-		$mail->Body    = $msg;
-		$mail->send();	
-	}	
-	
-	function send_email($id_capel,$ulp){
-		if(!isset($_SESSION['username']))
-			redirect('Welcome');
-
-		$mail = new PHPMailer(true);
-		 
-		// -- setting config email --
-		foreach ($this->google_model->get_data_oauth_google()->result() as $row) {
-			$g_smtp_oauthClientId			= $row->client_id_google;
-			$g_smtp_oauthClientSecret		= $row->secret_key_google;
-			$g_smtp_oauthRefreshToken		= $row->refresh_token_google;
-			$g_smtp_oauthUserEmail 			= $row->email_google;			
-		}
+		$wa_token				=	$this->google_model->get_data_oauth_google()->row()->token_whatssap;
 		
 		foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
-			$nama_capel						= $row->nama_capel;
-			$daya_baru						= $row->daya_baru;	
-			$nama_ulp						= $row->nama_ulp;
-			$biaya_penyambungan				= $row->biaya_penyambungan;	
-			$biaya_investasi				= $row->biaya_investasi;				
+			$nama_awal					= $row->srt_nama_capel;
+			$alamat_awal				= $row->srt_alamat_capel;	
+			$daya_awal					= $row->srt_daya_awal_capel;
+			$tgl_mohon					= $row->tgl_surat_diterima;
+			$nama_ulp					= $row->nama_ulp;
 		}
-
-		// setting sending email via gmail
-		$mail->isSMTP();
-		$mail->Host 		= 'smtp.gmail.com'; // host
-		$mail->SMTPAuth 	= true;	
-		$mail->SMTPSecure 	= 'ssl';
-		$mail->Port 		= 465; //smtp port
-		$mail->AuthType 	= 'XOAUTH2';
 		
-		$provider = new Google(
-			[
-			'clientId' 			=> $g_smtp_oauthClientId,
-			'clientSecret' 		=> $g_smtp_oauthClientSecret,
-			]
-		);				
-		$mail->setOAuth(
-			new OAuth(
-				[
-				'provider' 		=> $provider,
-				'clientId' 		=> $g_smtp_oauthClientId,
-				'clientSecret' 	=> $g_smtp_oauthClientSecret,
-				'refreshToken' 	=> $g_smtp_oauthRefreshToken,
-				'userName' 		=> $g_smtp_oauthUserEmail,
-				]
-			)
-		);				
-		
-
-		$mail->setFrom($g_smtp_oauthUserEmail, 'Mail System PBPD UP3 Demak');
-
+		//-----------------------------------------------------------------------setting teks WA
 		//setting to email
-		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
-			$mail->addAddress($row->email_user, '');
+		$target			= '';
+		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
+/* 			if($row->phone_number)
+			$target		.= $row->phone_number.','; */
 		}		
-		
-		//setting CC email
-		foreach ($this->users_model->get_data_user_by_ulp($ulp)->result() as $row) {
-			$mail->AddCC($row->email_user, '');
-			$mail->AddCC($row->email_user2, '');
-		}
+
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
-			echo $row->email_user.'<br>';
-			$mail->AddCC($row->email_user, '');
-		}		
+			if($row->phone_number)
+				$target		.= $row->phone_number.',';
+		}
 		
-		$mail->isHTML(true);
-		$mail->Subject = 'Permohonan Cek Material PBPD '.$nama_ulp;
+		$target			= substr_replace($target,"",-1);
+		$curl 			= curl_init();
 		
-		//setting style dan header content
-		$msg		= '<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40">
-		<head>
-		<meta http-equiv=Content-Type content="text/html; charset=us-ascii">
-		<meta name=Generator content="Microsoft Word 12 (filtered medium)">
-		<style>
-		<!--
-		 /* Font Definitions */
-		 @font-face
-			{font-family:Wingdings;
-			panose-1:5 0 0 0 0 0 0 0 0 0;}
-		@font-face
-			{font-family:Wingdings;
-			panose-1:5 0 0 0 0 0 0 0 0 0;}
-		@font-face
-			{font-family:Calibri;
-			panose-1:2 15 5 2 2 2 4 3 2 4;}
-		 /* Style Definitions */
-		 p.MsoNormal, li.MsoNormal, div.MsoNormal
-			{margin:0cm;
-			margin-bottom:.0001pt;
-			font-size:11.0pt;
-			font-family:"Calibri","sans-serif";}
-		a:link, span.MsoHyperlink
-			{mso-style-priority:99;
-			color:blue;
-			text-decoration:underline;}
-		a:visited, span.MsoHyperlinkFollowed
-			{mso-style-priority:99;
-			color:purple;
-			text-decoration:underline;}
-		span.EmailStyle17
-			{mso-style-type:personal-compose;
-			font-family:"Calibri","sans-serif";
-			color:windowtext;}
-		.MsoChpDefault
-			{mso-style-type:export-only;}
-		@page Section1
-			{size:612.0pt 792.0pt;
-			margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-		div.Section1
-			{page:Section1;}
-		-->
-		</style>
-		<!--[if gte mso 9]><xml>
-		 <o:shapedefaults v:ext="edit" spidmax="1026" />
-		</xml><![endif]--><!--[if gte mso 9]><xml>
-		 <o:shapelayout v:ext="edit">
-		  <o:idmap v:ext="edit" data="1" />
-		 </o:shapelayout></xml><![endif]-->
-		</head>
+		$teks_wa		= '*DENGAN HORMAT,*
 
-		<body lang=EN-US link=blue vlink=purple>
+Berikut kami informasikan terdapat permohonan surat dari '.$nama_ulp.' dengan rincian sebagai berikut :
 
-		<div class=Section1>
+*Nama Calon Pelanggan :*
+'.$nama_awal.'	
+*Daya Pelanggan :*
+'.number_format($daya_awal).' VA 
+*Tanggal Permohonan Pelanggan :*
+'.date_format(date_create($tgl_mohon),"d-m-Y").' 
+*Username Uploader :*
+'.$_SESSION['username'].'
 
-		<p class=MsoNormal><b>DENGAN HORMAT,</b></p>
-		<br>
-		<p class=MsoNormal>Berikut kami informasikan terdapat permohonanan PBPD dari '.$nama_ulp.' dengan rincian data sebagai berikut :<br><br></p>';
-		
-		//set content
-		$msg	.='	
-		
-		<p class=MsoNormal><b>Nama Pelanggan : </b><br>
-		'.$nama_capel.'<br></p><br>		
-		<p class=MsoNormal><b>Daya Pelanggan :</b><br>
-		'.number_format($daya_baru).' VA <br></p><br>
-		<p class=MsoNormal><b>Biaya Penyambungan :</b><br>
-		'.number_format($biaya_penyambungan).'<br></p><br>		
-		<p class=MsoNormal><b>Biaya Investasi :</b><br>
-		'.number_format($biaya_investasi).'<br></p><br>
-		<p class=MsoNormal><b>Username Input : </b><br>
-		'.$_SESSION['username'].'<br></p><br>			
-
-		<p class=MsoNormal>Silahkan dapat update ketersediaan material dengan mengakses Dashboard PBPD pada alamat '.base_url().'<br></p><br>			
+*Terima kasih*
+WA System PBPD UP3 Demak
 		';
-		
-		//setting footer content
-		$msg	.= '
-		<br>
-		<p class=MsoNormal>Terima kasih</p>
-		<p class=MsoNormal><b>Mail System PBPD UP3 Demak</b></p>
-		
-		</div>
-		</body>
-		</html>';				
 
-		$mail->Body    = $msg;
-		$mail->send();	
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => 'https://api.fonnte.com/send',
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS => array(
+			'target' 		=> $target,
+			'message' 		=> $teks_wa, 
+			'countryCode' 	=> '62', //optional
+		),
+		CURLOPT_HTTPHEADER => array(
+		'Authorization: '.$wa_token //change TOKEN to your actual token
+		),
+		));
+
+		$response = curl_exec($curl);
+		curl_close($curl);	
+		//echo $response;	
 	}
 	
 	function validasi_data_list($str){

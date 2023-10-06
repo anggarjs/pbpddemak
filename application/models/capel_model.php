@@ -20,7 +20,16 @@ class Capel_model extends CI_Model {
 		$this->db->where('daya_baru',$daya);
 		$query = $this->db->get();
 		return $query;		
-	}//end of function	
+	}//end of function
+	
+	function cek_surat_capel($nama_plgn,$daya){		
+		$this->db->select('id_capel');
+		$this->db->from('data_capel');		
+		$this->db->like('srt_nama_capel',$nama_plgn);
+		$this->db->where('srt_daya_awal_capel',$daya);
+		$query = $this->db->get();
+		return $query;		
+	}//end of function		
 	
 	function hapus_capel($id_capel){	
 		$this->db->where('id_capel',$id_capel);
