@@ -397,8 +397,8 @@ class Input extends CI_Controller {
 		//setting to email
 		$target			= '';
 		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
-/* 			if($row->phone_number)
-			$target		.= $row->phone_number.','; */
+			if($row->phone_number)
+			$target		.= $row->phone_number.',';
 		}		
 
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
@@ -415,10 +415,13 @@ Berikut kami informasikan terdapat permohonan surat dari '.$nama_ulp.' dengan ri
 
 *Nama Calon Pelanggan :*
 '.$nama_awal.'	
+
 *Daya Pelanggan :*
 '.number_format($daya_awal).' VA 
+
 *Tanggal Permohonan Pelanggan :*
 '.date_format(date_create($tgl_mohon),"d-m-Y").' 
+
 *Username Uploader :*
 '.$_SESSION['username'].'
 

@@ -173,6 +173,7 @@ class Capel extends CI_Controller {
 		}
 	}//end of function
 	
+	//form untuk upload rab dari surat permohonan
 	function Update_permohonan($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -424,7 +425,6 @@ class Capel extends CI_Controller {
 					}//end reading volume Tibet
 					
 					//parsing to konfirmasi upload
-					/* $this->konfirmasi_upload($data_kkf,$array_data_material,$file_name,$id_capel,$array_data_tibet); */
 					foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
 						$data['id_ulp']					= $row->id_ulp;
 						$data['nama_capel']				= $row->nama_capel;
@@ -472,6 +472,7 @@ class Capel extends CI_Controller {
 		}
 	}//end of function
 	
+	// bila BP > RAB dan PBP di bawah 5 tahun maka masuk ke function ini
 	function Update_Persetujuan($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -537,16 +538,60 @@ class Capel extends CI_Controller {
 			//rename file
 			$new_name 					= 'RAB_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.xlsx';
 			$path_new_file				= $path.$new_name;
-			//echo $path_new_file;
 			rename($file_name,$path_new_file);
 			
 			//send email notice to user
 			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
 			
+			foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['nama_ulp']				= $row->nama_ulp;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
+				$data['tgl_persetujuan']			= $row->tgl_persetujuan;					
+			}
+			$content_wa		= '*DENGAN HORMAT,*
+
+Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang telah *mendapat persetujuan* dengan rincian data sebagai berikut :
+
+*Nama Calon Pelanggan :*
+'.$data['nama_capel'].'	
+
+*Daya Calon Pelanggan :*
+'.number_format($data['daya_baru']).' VA 
+
+*Biaya Penyambungan :*
+Rp '.number_format($data['biaya_penyambungan']).'	
+
+*Biaya Investasi :*
+Rp '.number_format($data['biaya_investasi']).'
+
+*Nomor Persetujuan :*
+'.$data['nomor_persetujuan'].' (Persetujuan ULP)
+
+*Tanggal Persetujuan :*
+'.date_format(date_create($data['tgl_persetujuan']),"d-m-Y").' 
+
+*Username Input :*
+'.$_SESSION['username'].'
+
+Selanjutnya, mohon dapat dilakukan pengecekan material.
+
+*Terima kasih*
+WA System PBPD UP3 Demak
+		';
+		
+			$this->send_WA($id_capel,$content_wa,3);
+			
 			redirect('Capel/view_capel');			
 		}
 	}//end of function
 	
+	// bila PBP di atas 5 tahun maka masuk ke function ini
 	function Update_PersetujuanUP3($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -607,14 +652,53 @@ class Capel extends CI_Controller {
 			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));	
 
 			$path 						= 'uploads/'.$this->input->post('id_ulp').'/';
-			//path old file
 			$file_name 					= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
 
 			//rename file
 			$new_name 					= 'RAB_'.$this->input->post('id_ulp').'_'.$this->input->post('nama_capel').'_'. $this->input->post('daya_baru').'VA.xlsx';
 			$path_new_file				= $path.$new_name;
-			//echo $path_new_file;
 			rename($file_name,$path_new_file);
+			
+			foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['nama_ulp']				= $row->nama_ulp;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;					
+			}
+			$content_wa		= '*DENGAN HORMAT,*
+
+Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang perlu *membutuhkan persetujuan dari UP3* dengan rincian data sebagai berikut :
+
+*Nama Calon Pelanggan :*
+'.$data['nama_capel'].'	
+
+*Daya Calon Pelanggan :*
+'.number_format($data['daya_baru']).' VA 
+
+*Biaya Penyambungan :*
+Rp '.number_format($data['biaya_penyambungan']).'	
+
+*Biaya Investasi :*
+Rp '.number_format($data['biaya_investasi']).'
+
+*Nomor Permohonan Persetujuan :*
+'.$this->input->post('no_permohonan_acc').'
+
+*Tanggal Permohonan Persetujuan :*
+'.date_format(date_create($this->input->post('tgl_permohonan_acc')),"d-m-Y").' 
+
+*Username Input :*
+'.$_SESSION['username'].'
+
+*Terima kasih*
+WA System PBPD UP3 Demak
+		';		
+			$this->send_WA($id_capel,$content_wa,5);			
 			
 			redirect('Capel/view_capel');			
 		}
@@ -673,9 +757,50 @@ class Capel extends CI_Controller {
 			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));
 
 			//send email notice to user
-			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
-			$this->send_WA($this->input->post('id_capel'),$this->input->post('id_ulp'));
-						
+			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));	
+			
+			foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
+				$data['id_ulp']					= $row->id_ulp;
+				$data['nama_capel']				= $row->nama_capel;
+				$data['biaya_investasi']		= $row->biaya_investasi;
+				$data['tgl_surat_diterima']		= $row->tgl_surat_diterima;
+				$data['nama_ulp']				= $row->nama_ulp;
+				$data['daya_baru']				= $row->daya_baru;
+				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
+				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;					
+			}
+			$content_wa		= '*DENGAN HORMAT,*
+
+Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang telah *mendapat persetujuan* dengan rincian data sebagai berikut :
+
+*Nama Calon Pelanggan :*
+'.$data['nama_capel'].'	
+
+*Daya Calon Pelanggan :*
+'.number_format($data['daya_baru']).' VA 
+
+*Biaya Penyambungan :*
+Rp '.number_format($data['biaya_penyambungan']).'	
+
+*Biaya Investasi :*
+Rp '.number_format($data['biaya_investasi']).'
+
+*Nomor Persetujuan :*
+'.$data['nomor_persetujuan'].' (Persetujuan UP3)
+
+*Tanggal Persetujuan :*
+'.date_format(date_create($data['tgl_persetujuan']),"d-m-Y").' 
+
+*Username Input :*
+'.$_SESSION['username'].'
+
+Selanjutnya, mohon dapat dilakukan pengecekan material.
+
+*Terima kasih*
+WA System PBPD UP3 Demak
+		';		
+			$this->send_WA($id_capel,$content_wa,3);
 			
 			redirect('Capel/view_capel');			
 		}
@@ -928,6 +1053,52 @@ class Capel extends CI_Controller {
 		else		
 			return TRUE;
 	}//end of function	
+	
+	function send_WA($id_capel,$content_wa,$role){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		$wa_token				=	$this->google_model->get_data_oauth_google()->row()->token_whatssap;
+		
+		//-----------------------------------------------------------------------setting teks WA
+		//setting to email
+		$target			= '';
+		foreach ($this->users_model->get_data_user_by_role($role)->result() as $row) {
+/* 			if($row->phone_number)
+			$target		.= $row->phone_number.','; */
+		}		
+
+		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
+			if($row->phone_number)
+				$target		.= $row->phone_number.',';
+		}
+		
+		$target			= substr_replace($target,"",-1);
+		$curl 			= curl_init();
+
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => 'https://api.fonnte.com/send',
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS => array(
+			'target' 		=> $target,
+			'message' 		=> $content_wa, 
+			'countryCode' 	=> '62', //optional
+		),
+		CURLOPT_HTTPHEADER => array(
+		'Authorization: '.$wa_token //change TOKEN to your actual token
+		),
+		));
+
+		$response = curl_exec($curl);
+		curl_close($curl);	
+		//echo $response;	
+	}	
 	
 	function send_email($header,$id_capel){
 		if(!isset($_SESSION['username']))
@@ -1312,9 +1483,9 @@ WA System PBPD UP3 Demak
 		//set content
 		$msg	.='	
 		
-		<p class=MsoNormal><b>Nama Pelanggan : </b><br>
+		<p class=MsoNormal><b>Nama Calon Pelanggan : </b><br>
 		'.$nama_capel.'<br></p><br>		
-		<p class=MsoNormal><b>Daya Pelanggan :</b><br>
+		<p class=MsoNormal><b>Daya Calon Pelanggan :</b><br>
 		'.number_format($daya_baru).' VA <br></p><br>
 		<p class=MsoNormal><b>Biaya Penyambungan :</b><br>
 		'.number_format($biaya_penyambungan).'<br></p><br>		
