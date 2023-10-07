@@ -1064,8 +1064,8 @@ WA System PBPD UP3 Demak
 		//setting to email
 		$target			= '';
 		foreach ($this->users_model->get_data_user_by_role($role)->result() as $row) {
-/* 			if($row->phone_number)
-			$target		.= $row->phone_number.','; */
+			if($row->phone_number)
+			$target		.= $row->phone_number.',';
 		}		
 
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
