@@ -1308,16 +1308,22 @@ Berikut kami informasikan permohonanan PBPD dari '.$nama_ulp.' telah *lengkap ma
 
 *Nama Pelanggan :*
 '.$nama_capel.'	
+
 *Daya Pelanggan :*
 '.number_format($daya_baru).' VA 
+
 *Biaya Penyambungan :*
 Rp '.number_format($biaya_penyambungan).'	
+
 *Biaya Investasi :*
 Rp '.number_format($biaya_investasi).'
+
 *Status Material :*
 '.$status_material.'	
+
 *Keterangan Material :*
 '.$keterangan_material.'
+
 *Username Updater :*
 '.$_SESSION['username'].'
 
