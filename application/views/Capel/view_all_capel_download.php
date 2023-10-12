@@ -41,7 +41,7 @@
 												<th>Nama ULP</th>
       											<th>Nama Plgn</th>
 												<th>Daya Lama</th>
-      											<th>Daya Baru</th>
+      											<th>Potensi Daya Baru</th>
 												<th>BP</th>
 												<th>RAB</th>
 												<th>Status Capel</th>
@@ -59,18 +59,24 @@
 													<td><?= $data->nama_ulp; ?></td>
 													<td><?= $data->nama_capel; ?></td>
 													<td><?= number_format($data->daya_lama); ?></td>
-													<td><?= number_format($data->daya_baru); ?></td>
+													<td><?php 
+														if($data->srt_daya_awal_capel < 1)
+															echo number_format($data->daya_baru);
+														else{
+															
+															echo number_format($data->srt_daya_awal_capel);
+														}
+													?></td>
 													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= number_format($data->biaya_investasi); ?></td>
 													<td><?= $data->status_capel; ?></td>		
 													<td><?= $data->status_material; ?></td>
 													<td><?= date_format(date_create($data->tgl_surat_diterima),"d-m-Y"); ?></td>
 													<td><?php
-														if(!is_null($data->tgl_lengkap_material)){
+														if(!is_null($data->tgl_lengkap_material))
 															echo date_format(date_create($data->tgl_lengkap_material),"d-m-Y"); 
-														}
-														else
-															
+														
+
 														?>
 													</td>
 													<td><?= $data->SELISIH_HARI; ?> Hari </td>												
