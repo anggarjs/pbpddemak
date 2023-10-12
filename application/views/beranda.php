@@ -221,7 +221,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<?php if ($_SESSION['role_user'] != 2) { ?>
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Input/upload_surat" class="sidebar-link">
-							<i class="mdi mdi-content-paste"></i>
+							<i class="mdi mdi-border-vertical"></i>
 							<span class="hide-menu"> Upload Surat Plgn</span>
 						</a>
 					</li>
@@ -231,14 +231,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<i class="mdi mdi-border-vertical"></i>
 							<span class="hide-menu"> Data Permohonan</span>
 						</a>
-					</li>	
+					</li>
+				<?php if ($_SESSION['role_user'] == 1 || $_SESSION['role_user'] == 5) { ?>
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/view_capel_persetujuan" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
 							<span class="hide-menu"> Capel Perlu Persetujuan</span>
 						</a>
 					</li>
-				
+				<?php } ?>
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/view_capel" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
@@ -267,6 +268,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</a>
 					</li>
                 <?php } ?>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/download_data" class="sidebar-link">
+							<i class="mdi mdi-border-vertical"></i>
+							<span class="hide-menu"> Download Data</span>
+						</a>
+					</li>				
 				</ul>
             </li>
 
@@ -408,6 +415,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?php echo base_url() ?>dist/libs/apexcharts/dist/apexcharts.min.js"></script>
 	<script src="<?php echo base_url() ?>dist/js/pages/dashboards/dashboard2.js"></script>
 	<!-- <script src="<?php echo base_url() ?>dist/js/pages/dashboards/dashboard3.js"></script>	-->
+	
+    <!-- start - This is for export functionality only -->
+    <script src="<?php echo base_url() ?>dist/js/pages/datatable/buttons/dataTables.buttons.min.js"></script>
+    <script src="<?php echo base_url() ?>dist/js/pages/datatable/buttons/buttons.flash.min.js"></script>
+    <script src="<?php echo base_url() ?>dist/js/pages/datatable/buttons/buttons.html5.min.js"></script>
+    <script src="<?php echo base_url() ?>dist/js/pages/datatable/buttons/buttons.print.min.js"></script>	
+	 <script src="<?php echo base_url() ?>dist/js/pages/datatable/jszip.min.js"></script>	
+    <script src="<?php echo base_url() ?>dist/js/pages/datatable/datatable-advanced.init.js"></script>
   <!-- Feather Icon -->
   <script>
     feather.replace();

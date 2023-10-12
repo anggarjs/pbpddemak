@@ -109,6 +109,20 @@ class Capel extends CI_Controller {
 		$this->load->view('beranda', $data);
 	}
 	
+	function download_data(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_download_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_download();		
+		
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('capel/view_all_capel_download', $data, true);
+		$this->load->view('beranda', $data);
+	}	
+	
 	function Update($id_capel){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');

@@ -282,7 +282,22 @@ class Capel_model extends CI_Model {
 		$this->db->order_by('tgl_persetujuan', 'ASC');			
 		$query = $this->db->get();
 		return $query;
-	}//end of function		
+	}//end of function
+
+	function get_all_data_download(){
+		$this->db->select("*");
+		$this->db->from('view_download_plgn');
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
+	function get_all_data_download_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_download_plgn');	
+		$this->db->where('id_ulp',$ulp);
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
 	
 }//end of class
 ?>
