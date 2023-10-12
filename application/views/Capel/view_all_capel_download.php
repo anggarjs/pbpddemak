@@ -57,15 +57,18 @@
       											<tr>
 											
 													<td><?= $data->nama_ulp; ?></td>
-													<td><?= $data->nama_capel; ?></td>
+													<td><?php 
+														if($data->nama_capel)
+															echo $data->nama_capel;
+														else
+															echo $data->srt_nama_capel;														
+													?></td>
 													<td><?= number_format($data->daya_lama); ?></td>
 													<td><?php 
 														if($data->srt_daya_awal_capel < 1)
 															echo number_format($data->daya_baru);
-														else{
-															
-															echo number_format($data->srt_daya_awal_capel);
-														}
+														else
+															echo number_format($data->srt_daya_awal_capel);														
 													?></td>
 													<td><?= number_format($data->biaya_penyambungan); ?></td>
 													<td><?= number_format($data->biaya_investasi); ?></td>
