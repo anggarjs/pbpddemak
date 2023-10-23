@@ -26,7 +26,7 @@ class Admin extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 
-		$data['data_capel'] 		= $this->capel_model->get_all_data_capel();
+		$data['data_capel'] 		= $this->capel_model->get_all_data_capel_hapus();
 
 		$data['nama_user'] 			= $_SESSION['username'];
 		$data['content'] 			= $this->load->view('Admin/view_all_capel_hapus', $data, true);
@@ -116,10 +116,27 @@ class Admin extends CI_Controller {
 		$delete_items = $this->input->post('check');
 		if ($delete_items) {
 			foreach ($delete_items as $item) {
-				/* echo $item.'<br>'; */
 				$this->capel_model->hapus_capel($item);
+				
+				foreach ($this->capel_model->get_data_capel($item)->result() as $row) {
+					$data['id_ulp']					= $row->id_ulp;
+					$data['nama_capel']				= $row->nama_capel;
+					$data['daya_baru']				= $row->daya_baru;
+					$data['srt_nama_capel']			= $row->srt_nama_capel;
+					$data['srt_daya_awal_capel']	= $row->srt_daya_awal_capel;			
+					
+				}
+				
+				$path 			= 'uploads/'.$data['id_ulp'].'/';
+				$full_path_xls	= $path.'RAB_'.$data['id_ulp'].'_'.$data['nama_capel'].'_'.$data['daya_baru'].'VA.xlsx';
+				echo $full_path_xls;
+				unlink($full_path_xls);
+				
+				$full_path_pdf	= $path.'SRT_PLGN_an_'.$data['srt_nama_capel'].'_'.$data['srt_daya_awal_capel'].'VA.xlsx';
+				echo $full_path_pdf;
+				unlink($full_path_pdf);
 			}			
-			redirect('Admin/view_capel_hapus');
+			//redirect('Admin/view_capel_hapus');
 		} 
 	}	
 	
