@@ -387,9 +387,10 @@ class Capel extends CI_Controller {
 						}
 						// ----- HANDLER NAMA MATERIAL TIDAK ADA DALAM LIST -----
 						else{
-							$path 				= 'uploads/'.$this->input->post('pilihan_ulp').'/';
+							//delete temporary file
+							$path						= './uploads/'.$ulp.'/';
 							unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-							$this->session->set_userdata('alert_upload','Material '.$data_material.' Pelanggan Atas Nama '.trim($nama_pelanggan).' Tidak ada dalam Database');
+							$this->session->set_userdata('alert_upload_excel','Material '.$data_material.' Pelanggan Atas Nama '.trim($nama_pelanggan).' Tidak ada dalam Database');
 							
 							//rollback database
 							$this->material_model->hapus_kebutuhan_mdu($id_capel);
