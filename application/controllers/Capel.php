@@ -294,24 +294,31 @@ class Capel extends CI_Controller {
 						'status_perluasan'		=> $this->input->post('status_perluasan'),
 					);
 					
-					if(str_contains($hasil_pbp, 'DIV')) {
-						$real_pbp				= 25;
-						$kesimpulan				= 'Perlu Persetujuan ACC UP3';
-						$pointer				= 1;
+					if($biaya_sambung >= $biaya_invest){
+						$real_pbp			= 0;
+						$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+						$pointer			= 0;
 					}
-					else{
-						if($hasil_pbp <= 5){
-							/* echo 'b'; */
-							$real_pbp			= $hasil_pbp;
-							$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
-							$pointer			= 0;
+					else{				
+						if(str_contains($hasil_pbp, 'DIV')) {
+							$real_pbp				= 25;
+							$kesimpulan				= 'Perlu Persetujuan ACC UP3';
+							$pointer				= 1;
 						}
-						if($hasil_pbp <= 25 && $hasil_pbp > 5){
-							/* echo 'c'; */
-							$real_pbp			= $hasil_pbp;
-							$kesimpulan			= 'Perlu Persetujuan ACC UP3';
-							$pointer			= 1;
-						}						
+						else{
+							if($hasil_pbp <= 5){
+								/* echo 'b'; */
+								$real_pbp			= $hasil_pbp;
+								$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+								$pointer			= 0;
+							}
+							if($hasil_pbp <= 25 && $hasil_pbp > 5){
+								/* echo 'c'; */
+								$real_pbp			= $hasil_pbp;
+								$kesimpulan			= 'Perlu Persetujuan ACC UP3';
+								$pointer			= 1;
+							}						
+						}
 					}
 
 					
