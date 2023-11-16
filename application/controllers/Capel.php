@@ -304,7 +304,34 @@ class Capel extends CI_Controller {
 							$real_pbp				= 25;
 							$kesimpulan				= 'Perlu Persetujuan ACC UP3';
 							$pointer				= 1;
-						}
+/* 							
+							$count					= 0;
+							$start_data				= 7;
+							$akhir_data				= 32;
+							for ($i = $start_data;$i<=$akhir_data;$i++) {
+								$temp_pv_net_benefit		= $spreadsheet->getSheetByName('KKF')->getCell('Q'.(string)$i)->getValue();
+								if(strstr($temp_pv_net_benefit,'=')==true)
+									$data_pv_net_benefit 	= $spreadsheet->getSheetByName('KKF')->getCell('Q'.(string)$i)->getOldCalculatedValue();
+								
+								if($data_pv_net_benefit > 0)
+									$count++;
+								
+							}//end for
+							
+							if($count <= 20){
+								$real_pbp			= 25-$count;
+								$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+								$pointer			= 0;									
+							}//end if
+							else{
+								$real_pbp			= 25-$count;
+								$kesimpulan			= 'Perlu Persetujuan ACC UP3';
+								$pointer			= 1;									
+							}//end else		
+
+	 */							
+						}//end if
+						
 						else{
 							if($hasil_pbp <= 5){
 								/* echo 'b'; */
@@ -317,9 +344,9 @@ class Capel extends CI_Controller {
 								$real_pbp			= $hasil_pbp;
 								$kesimpulan			= 'Perlu Persetujuan ACC UP3';
 								$pointer			= 1;
-							}						
-						}
-					}
+							}//end if				
+						}//end else
+					}//end else
 
 					
 					$data_kkf = array(
