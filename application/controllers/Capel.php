@@ -247,11 +247,18 @@ class Capel extends CI_Controller {
 				$config['upload_path']		= './uploads/'.$data['id_ulp'].'/';
 				$config['allowed_types'] 	= 'xlsx|xls';
 				$config['max_size'] 		= 16384;
+				
+				$file_name 					= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
+				if(file_exists($file_name)) {
+					//$message = "The file $file_name exists";
+					unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+				}
+				
 				$this->load->library('upload', $config);		
 
 				if ($this->upload->do_upload('filerab')){
 
-					$file_name 			= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
+					
 					$arr_file 			= explode('.', $file_name);
 					$extension 			= end($arr_file);
 					if('csv' == $extension) 
