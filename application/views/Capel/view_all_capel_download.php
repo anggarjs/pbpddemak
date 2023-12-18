@@ -83,7 +83,12 @@
 															echo date_format(date_create($data->tgl_entry_aplikasi), "d-m-Y");
 														?>
 													</td>
-													<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
+													<td>
+													<?php 
+															if(!is_null($data->tgl_persetujuan))
+															echo date_format(date_create($data->tgl_persetujuan), "d-m-Y");
+														?>
+													</td>
 													<td><?php
 														if(!is_null($data->tgl_lengkap_material))
 															echo date_format(date_create($data->tgl_lengkap_material),"d-m-Y"); 
