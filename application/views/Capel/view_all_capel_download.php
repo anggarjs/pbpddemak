@@ -77,7 +77,7 @@
 													<td><?= $data->status_capel; ?></td>		
 													<td><?= $data->status_material; ?></td>
 													<td><?= date_format(date_create($data->tgl_surat_diterima),"d-m-Y"); ?></td>
-													<td><?= date_format(date_create($data->tgl_entry_aplikasi), "d-m-Y"); ?></td>
+													<td><?= date_format($data->tgl_entry_aplikasi, "d-m-Y"); ?></td>
 													<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
 													<td><?php
 														if(!is_null($data->tgl_lengkap_material))
