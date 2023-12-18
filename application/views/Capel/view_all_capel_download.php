@@ -47,6 +47,7 @@
 												<th>Status Capel</th>
       											<th>Status Material</th>
 												<th>Tgl Surat Diterima</th>
+												<th>Tanggal Persetujuan dari UP3</th>
       											<th>Tgl Lgkp Material</th>
 												<th>Selisih Hari</th>											
       										</tr>
@@ -75,6 +76,7 @@
 													<td><?= $data->status_capel; ?></td>		
 													<td><?= $data->status_material; ?></td>
 													<td><?= date_format(date_create($data->tgl_surat_diterima),"d-m-Y"); ?></td>
+													<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
 													<td><?php
 														if(!is_null($data->tgl_lengkap_material))
 															echo date_format(date_create($data->tgl_lengkap_material),"d-m-Y"); 
