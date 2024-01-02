@@ -1183,6 +1183,26 @@ WA System PBPD UP3 Demak
 			$tgl_lengkap_material			= $row->tgl_lengkap_material;		
 		}
 		
+		$data_material 						= $this->material_model->get_data_material($id_capel);
+		$i						= 1;
+		$string_material		= '';
+		$string_material_wa		= "";		
+		foreach ($data_material->result() as $row) {
+			$string_material	.= $i.'. ';
+			$string_material .= $row->nama_detail_mdu.' sebanyak : ';
+			$string_material .= $row->volume_mdu.' ';
+			$string_material .= $row->satuan.'<br>';
+			
+			$string_material_wa		.= $i.'. ';
+			$string_material_wa 	.= $row->nama_detail_mdu.' : ';
+			$string_material_wa 	.= '*'.$row->volume_mdu.' ';
+			$string_material_wa 	.= $row->satuan.'*'."\n";
+		
+			$i++;
+		}
+		//echo $string_material_wa;
+		
+		
 		$new_date		= date('Y-m-d', strtotime($tgl_lengkap_material .' +14 day'));
 		$new_date2		= date_format(date_create($new_date),"d-m-Y");
 		/* echo $new_date2; */
@@ -1311,6 +1331,8 @@ WA System PBPD UP3 Demak
 		'.$status_material.'<br></p><br>		
 		<p class=MsoNormal><b>Keterangan Material : </b><br>
 		'.$keterangan_material.'<br></p><br>
+		<p class=MsoNormal><b>Rincian Material yang perlu direservasi : </b><br>
+		'.$string_material.'<br></p><br>		
 		<p class=MsoNormal><b>Username Updater : </b><br>
 		'.$_SESSION['username'].'<br></p><br>			
 
@@ -1336,10 +1358,7 @@ WA System PBPD UP3 Demak
 		//-----------------------------------------------------------------------setting teks WA
 		//setting to email
 		$target			= '';
-		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
-			if($row->phone_number)
-				$target		.= $row->phone_number.',';
-		}		
+	
 
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
 			if($row->phone_number)
@@ -1353,6 +1372,13 @@ WA System PBPD UP3 Demak
 		foreach ($this->users_model->get_data_user_by_role('3')->result() as $row) {
 			$target		.= $row->phone_number.',';
 		}
+		
+		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
+			if($row->phone_number)
+				$target		.= $row->phone_number.',';
+		}			
+		
+		
 		$target			= substr_replace($target,"",-1);
 		//echo $target;
 		
@@ -1380,6 +1406,8 @@ Rp '.number_format($biaya_investasi).'
 *Keterangan Material :*
 '.$keterangan_material.'
 
+*Rincian Material yang perlu direservasi :*
+'.$string_material_wa.'
 *Username Updater :*
 '.$_SESSION['username'].'
 

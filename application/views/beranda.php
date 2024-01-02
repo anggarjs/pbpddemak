@@ -315,7 +315,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <i class="mdi mdi-account-multiple"></i>
                   <span class="hide-menu">Manajemen User</span>
                 </a>
-                <ul aria-expanded="false" class="collapse first-level">
+                <ul aria-expanded="false" class="collapse first-level">			
                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>User/Tambah" class="sidebar-link">
                       <i class="mdi mdi-account-network"></i>
@@ -336,6 +336,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <span class="hide-menu">Administrator</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a href="<?php echo base_url() ?>Admin/view_capel_hapus" class="sidebar-link">
+                      <i class="mdi mdi-border-vertical"></i>
+                      <span class="hide-menu"> Rollback ke Permohonan</span>
+                    </a>
+                  </li>
+				
                   <li class="sidebar-item">
                     <a href="<?php echo base_url() ?>Admin/view_capel_hapus" class="sidebar-link">
                       <i class="mdi mdi-border-vertical"></i>
