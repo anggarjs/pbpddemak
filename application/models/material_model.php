@@ -93,6 +93,25 @@ class Material_model extends CI_Model
 		return $query;
 	}//end of function
 	
+	function get_tipe_trafo(){	
+		$this->db->select("*");
+		$this->db->from('data_detail_mdu');
+		$this->db->where('id_master_mdu',15);
+		$query = $this->db->get();			
+		return $query;	
+	}//end of function
+	
+	function get_merk_trafo(){	
+		$this->db->select("*");
+		$this->db->from('data_merk_material');
+		$query = $this->db->get();			
+		return $query;	
+	}//end of function
+	
+	function insert_material_rusak($data){	
+		$this->db->insert('data_material_rusak', $data);
+	}//end of function		
+	
 	function rollback_material($data, $id_capel){	
 		$this->db->where('id_capel', $id_capel);
 		$this->db->update('data_kebutuhan_mdu', $data);
