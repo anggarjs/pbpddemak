@@ -409,7 +409,9 @@ class Input extends CI_Controller {
 		$target			= substr_replace($target,"",-1);
 		$curl 			= curl_init();
 		
-		$teks_wa		= '*DENGAN HORMAT,*
+		$teks_wa		= '[INFO PBPD - SURAT PLGN]
+		
+*DENGAN HORMAT,*
 
 Berikut kami informasikan terdapat permohonan surat dari '.$nama_ulp.' dengan rincian sebagai berikut :
 

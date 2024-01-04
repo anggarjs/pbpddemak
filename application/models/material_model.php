@@ -110,7 +110,53 @@ class Material_model extends CI_Model
 	
 	function insert_material_rusak($data){	
 		$this->db->insert('data_material_rusak', $data);
-	}//end of function		
+	}//end of function
+	
+	function cek_material_rusak($no_pole_material_rusak,$id_detail_mdu){		
+		$this->db->select('id_material_rusak');
+		$this->db->from('data_material_rusak');		
+		$this->db->like('no_pole_material_rusak',$no_pole_material_rusak);
+		$this->db->where('id_detail_mdu',$id_detail_mdu);
+		$query = $this->db->get();
+		return $query;		
+	}//end of function
+	
+	function get_data_material_rusak($id_material_rusak){		
+		$this->db->select('*');
+		$this->db->from('view_material_rusak');		
+		$this->db->where('id_material_rusak',$id_material_rusak);
+		$query = $this->db->get();
+		return $query;		
+	}//end of function
+	
+	function get_all_material_rusak(){
+		$this->db->select("*");
+		$this->db->from('view_material_rusak');	
+		$this->db->order_by('tgl_material_rusak', 'ASC');	
+		$query = $this->db->get();			
+		return $query;
+	}//end of function
+	
+	function get_all_material_rusak_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_material_rusak');
+		$this->db->where('id_ulp',$ulp);
+		$this->db->order_by('tgl_material_rusak', 'ASC');			
+		$query = $this->db->get();
+		return $query;
+	}//end of function
+	
+	function get_status_material_rusak(){
+		$this->db->select('*');
+		$this->db->from('data_status_material_rusak');
+		$query = $this->db->get();
+		return $query;
+	} //end of function
+	
+	function update_material_rusak($data, $id_material_rusak){	
+		$this->db->where('id_material_rusak', $id_material_rusak);
+		$this->db->update('data_material_rusak', $data);
+	}//end of function	
 	
 	function rollback_material($data, $id_capel){	
 		$this->db->where('id_capel', $id_capel);

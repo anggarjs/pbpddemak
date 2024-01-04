@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, nice admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, " />
   <meta name="description" content="Nice is powerful and clean admin dashboard template, inpired from Google's Material Design" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Dashboard PBPD Demak</title>
+  <title>Dashboard Kons PLN Demak</title>
   <link rel="canonical" href="https://www.wrappixel.com/templates/niceadmin/" />
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="18x18" href="<?php echo base_url() ?>assets/image_lain/pln.png" />
@@ -74,7 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <!--End Logo icon -->
               <!-- Logo text -->
               <span class="logo-text text-light" style="position: relative; top: 2px;">
-                PBPD Demak
+                Kons Demak App
               </span>
             </a>
             <a class="sidebartoggler d-none d-md-block mt-1" href="javascript:void(0)" data-sidebartype="mini-sidebar">
@@ -226,12 +226,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<span class="hide-menu"> Upload Surat Plgn PBPD</span>
 						</a>
 					</li>
-					<li class="sidebar-item">
-						<a href="<?php echo base_url() ?>Logistik/upload_trafo_rusak" class="sidebar-link">
-							 <i class="mdi mdi-clipboard-check"></i>
-							<span class="hide-menu"> Upload Material Rusak</span>
-						</a>
-					</li>
+
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/view_capel_bermohon" class="sidebar-link">
 							<i class="mdi mdi-arrange-bring-forward"></i>
@@ -259,9 +254,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/download_data" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
-							<span class="hide-menu"> Download Data</span>
+							<span class="hide-menu"> Download Data Plgn PBPD</span>
 						</a>
 					</li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Logistik/upload_trafo_rusak" class="sidebar-link">
+							 <i class="mdi mdi-clipboard-check"></i>
+							<span class="hide-menu"> Upload Material Rusak</span>
+						</a>
+					</li>					
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Logistik/view_material_rusak" class="sidebar-link">
+							<i class="mdi mdi-priority-low"></i>
+							<span class="hide-menu"> Update Material Rusak</span>
+						</a>
+					</li>					
 				</ul>
             </li>
 			<?php } ?>	
@@ -300,7 +307,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/download_data" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
-							<span class="hide-menu"> Download Data</span>
+							<span class="hide-menu"> Download Data Plgn PBPD</span>
 						</a>
 					</li>				
 				</ul>
@@ -316,11 +323,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
 					<li class="sidebar-item">
-						<a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
-						<i class="mdi mdi-priority-low"></i>
-						<span class="hide-menu"> Pengecekan Material PBPD</span>
+						<a href="<?php echo base_url() ?>Logistik/view_material_rusak" class="sidebar-link">
+						<i class="mdi mdi-arrange-bring-forward"></i>
+						<span class="hide-menu"> Update Material Rusak</span>
 						</a>
-					</li>			
+					</li>						
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Logistik/View_plgn_lengkap" class="sidebar-link">
 						<i class="mdi mdi-arrange-bring-forward"></i>

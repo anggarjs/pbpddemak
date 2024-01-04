@@ -610,9 +610,11 @@ class Capel extends CI_Controller {
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['tgl_persetujuan']			= $row->tgl_persetujuan;					
 			}
-			$content_wa		= '*DENGAN HORMAT,*
+		$content_wa		= '[INFO PBPD]
+		
+*DENGAN HORMAT,*
 
-Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang telah *mendapat persetujuan* dengan rincian data sebagai berikut :
+Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' telah *mendapat persetujuan* dengan rincian data sebagai berikut :
 
 *Nama Calon Pelanggan :*
 '.$data['nama_capel'].'	
@@ -726,9 +728,11 @@ WA System PBPD UP3 Demak
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['tgl_persetujuan']		= $row->tgl_persetujuan;					
 			}
-			$content_wa		= '*DENGAN HORMAT,*
+		$content_wa		= '[INFO PBPD]
+		
+*DENGAN HORMAT,*
 
-Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang perlu *membutuhkan persetujuan dari UP3* dengan rincian data sebagai berikut :
+Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang *perlu persetujuan dari UP3* dengan rincian data sebagai berikut :
 
 *Nama Calon Pelanggan :*
 '.$data['nama_capel'].'	
@@ -742,7 +746,7 @@ Rp '.number_format($data['biaya_penyambungan']).'
 *Biaya Investasi :*
 Rp '.number_format($data['biaya_investasi']).'
 
-*Nomor Permohonan Persetujuan :*
+*Nomor Surat AMS Permohonan Persetujuan :*
 '.$this->input->post('no_permohonan_acc').'
 
 *Tanggal Permohonan Persetujuan :*
@@ -826,9 +830,11 @@ WA System PBPD UP3 Demak
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
 				$data['tgl_persetujuan']		= $row->tgl_persetujuan;					
 			}
-			$content_wa		= '*DENGAN HORMAT,*
+		$content_wa		= '[INFO PBPD]
+		
+*DENGAN HORMAT,*
 
-Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' yang telah *mendapat persetujuan* dengan rincian data sebagai berikut :
+Berikut kami informasikan terdapat permohonan PBPD dari '.$data['nama_ulp'].' telah *mendapat persetujuan* dengan rincian data sebagai berikut :
 
 *Nama Calon Pelanggan :*
 '.$data['nama_capel'].'	
@@ -842,10 +848,10 @@ Rp '.number_format($data['biaya_penyambungan']).'
 *Biaya Investasi :*
 Rp '.number_format($data['biaya_investasi']).'
 
-*Nomor Persetujuan :*
+*Nomor Surat AMS Persetujuan :*
 '.$data['nomor_persetujuan'].' (Persetujuan UP3)
 
-*Tanggal Persetujuan :*
+*Tanggal Surat AMS Persetujuan :*
 '.date_format(date_create($data['tgl_persetujuan']),"d-m-Y").' 
 
 *Username Input :*
@@ -1384,7 +1390,9 @@ WA System PBPD UP3 Demak
 		
 		$curl 			= curl_init();
 		
-		$teks_wa		= '*DENGAN HORMAT,*
+		$teks_wa		= '[INFO PBPD - MATERIAL]
+		
+*DENGAN HORMAT,*
 
 Berikut kami informasikan permohonanan PBPD dari '.$nama_ulp.' telah *lengkap material* dengan rincian sebagai berikut :
 

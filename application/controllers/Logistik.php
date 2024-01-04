@@ -3,12 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Logistik extends CI_Controller
 {
-    public function __construct()
-    {
+	public function __construct(){
         parent::__construct();
         $this->load->model('capel_model');
         $this->load->model('material_model');
+		$this->load->model('google_model');
+		$this->load->model('users_model');
     }
+	
     public function materialkurangPBPD(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');		
@@ -155,10 +157,10 @@ class Logistik extends CI_Controller
 				$this->material_model->insert_material_rusak($data_material_rusak);
 				
 				//get id capel
-				$id_material_rusak	= $this->material_model->cek_material_rusak(trim($this->input->post('no_pole_material_rusak')),$this->input->post('pilihan_tipe_trafo'))->row()->id_material_rusak;				
+				$id_material_rusak	= $this->material_model->cek_material_rusak(trim($this->input->post('no_pole_trafo')),$this->input->post('pilihan_tipe_trafo'))->row()->id_material_rusak;				
 				
-				//$this->send_WA($id_material_rusak,$this->input->post('pilihan_ulp'));
-				//redirect('Capel/view_capel_bermohon');
+				$this->send_WA($id_material_rusak,$this->input->post('pilihan_ulp'));
+				redirect('Logistik/view_material_rusak');
 			}
 		}
 	}	
@@ -190,27 +192,99 @@ class Logistik extends CI_Controller
 			return TRUE;
 	}//end of function	
 	
-	function send_WA($id_capel,$id_ulp){
+	function view_material_rusak(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+				
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->material_model->get_all_material_rusak_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->material_model->get_all_material_rusak();		
+		
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('Logistik/view_material_rusak', $data, true);
+		$this->load->view('beranda', $data);
+	}
+	
+	function Update_Material_Rusak($id_material_rusak){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+
+		$this->form_validation->set_rules('tgl_diganti_material', 'Tanggal Penggantian Material', 'required');
+		$this->form_validation->set_rules('catatan_vendor_retur', 'Vendor Retur Material', 'required');
+		
+		// Setting Error Message
+		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
+		// Setting Delimiter
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');			
+		
+		if($this->form_validation->run() == FALSE){
+			foreach ($this->material_model->get_data_material_rusak($id_material_rusak)->result() as $row) {
+				$data['id_ulp']						= $row->id_ulp;
+				$data['no_pole_material_rusak']		= $row->no_pole_material_rusak;
+				$data['nama_detail_mdu']			= $row->nama_detail_mdu;
+				$data['tgl_material_rusak']			= $row->tgl_material_rusak;
+				$data['id_detail_mdu']				= $row->id_detail_mdu;
+				$data['id_status_material_rusak']	= $row->id_status_material_rusak;
+				$data['tgl_diganti_material']		= $row->tgl_diganti_material;
+				$data['tgl_material_retur']			= $row->tgl_material_retur;		
+				$data['catatan_vendor_retur']		= $row->catatan_vendor_retur;		
+				$data['nama_merk_material']			= $row->nama_merk_material;		
+			}
+			
+
+			$data['id_material_rusak']			= $id_material_rusak;
+
+ 			$path 								= 'uploads/'.$data['id_ulp'].'/';
+			$data['path_file']					= $path.'BA_KRONOLOGIS_'.$data['no_pole_material_rusak'].'_'. $data['id_detail_mdu'].'.pdf';
+		
+ 			//$status_material['0'] 		= "- Pilih Status Material -";
+			$capel 					= $this->material_model->get_status_material_rusak();
+			foreach($capel->result() as $row){
+				$status_material[$row->id_status_material_rusak] = $row->status_material_rusak; 
+			}
+			$data['status_material'] 	= $status_material; 
+			
+			
+			$data['nama_user'] 			= $_SESSION['username'];
+			$data['content'] 			= $this->load->view('Logistik/form_update_material_rusak',$data,true);
+			$this->load->view('beranda',$data);
+		}
+		else{
+			$data_plg = array(
+
+				'tgl_diganti_material' 		=> $this->input->post('tgl_diganti_material'),
+				'tgl_material_retur' 		=> $this->input->post('tgl_material_retur'),
+				'catatan_vendor_retur' 		=> $this->input->post('catatan_vendor_retur'),
+				'id_status_material_rusak' 	=> $this->input->post('status_material'),						
+			);	
+			
+			//update into database
+			$this->material_model->update_material_rusak($data_plg,$this->input->post('id_material_rusak'));		
+			redirect('Logistik/view_material_rusak');
+		}
+	}//end of function	
+	
+	function send_WA($id_material_rusak,$id_ulp){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 		
-		$wa_token				=	$this->google_model->get_data_oauth_google()->row()->token_whatssap;
+		$wa_token						=	$this->google_model->get_data_oauth_google()->row()->token_whatssap;
 		
-		foreach ($this->capel_model->get_data_capel($id_capel)->result() as $row) {
-			$nama_awal					= $row->srt_nama_capel;
-			$alamat_awal				= $row->srt_alamat_capel;	
-			$daya_awal					= $row->srt_daya_awal_capel;
-			$tgl_mohon					= $row->tgl_surat_diterima;
+		foreach ($this->material_model->get_data_material_rusak($id_material_rusak)->result() as $row) {
+			$no_pole_material_rusak		= $row->no_pole_material_rusak;
+			$nama_detail_mdu			= $row->nama_detail_mdu;	
+			$tgl_material_rusak			= $row->tgl_material_rusak;
 			$nama_ulp					= $row->nama_ulp;
 		}
 		
 		//-----------------------------------------------------------------------setting teks WA
 		//setting to email
 		$target			= '';
-		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
+/* 		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {
 			if($row->phone_number)
 			$target		.= $row->phone_number.',';
-		}		
+		} */
 
 		foreach ($this->users_model->get_data_user_by_role('1')->result() as $row) {
 			if($row->phone_number)
@@ -226,17 +300,14 @@ class Logistik extends CI_Controller
 
 Berikut kami informasikan terdapat permohonan material pengganti dari '.$nama_ulp.' dengan rincian sebagai berikut :
 
-*No Pole Trafo Rusak :*
-'.$nama_awal.'	
+*No Pole Material Rusak :*
+'.$no_pole_material_rusak.'	
 
-*Tipe Trafo :*
-'.number_format($daya_awal).' VA 
+*Tipe Material Rusak :*
+'.$nama_detail_mdu.'
 
-*Merk Trafo :*
-'.number_format($daya_awal).' VA 
-
-*Tanggal Trafo Rusak :*
-'.date_format(date_create($tgl_mohon),"d-m-Y").' 
+*Tanggal Material Rusak :*
+'.date_format(date_create($tgl_material_rusak),"d-m-Y").' 
 
 *Username Uploader :*
 '.$_SESSION['username'].'
