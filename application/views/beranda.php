@@ -324,10 +324,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <ul aria-expanded="false" class="collapse first-level">
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Logistik/view_material_rusak" class="sidebar-link">
-						<i class="mdi mdi-arrange-bring-forward"></i>
+						<i class="mdi mdi-clipboard-check"></i>
 						<span class="hide-menu"> Update Material Rusak</span>
 						</a>
-					</li>						
+					</li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
+						<i class="mdi mdi-clipboard-check"></i>
+						<span class="hide-menu"> Update Kelengkapan Material</span>
+						</a>
+					</li>					
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Logistik/View_plgn_lengkap" class="sidebar-link">
 						<i class="mdi mdi-arrange-bring-forward"></i>
