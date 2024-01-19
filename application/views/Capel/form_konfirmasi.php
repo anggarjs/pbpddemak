@@ -176,6 +176,19 @@
 									</div>
 									<?php echo form_error('nomor_persetujuan'); ?>
 								</div>	
+							</div>
+							<!-- ROW #8 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>Rencana Tanggal Bayar Plgn :</b></label>
+										<input type="date" class="form-control" name="rencana_tgl_byr_plgn" 
+										value="<?php if(set_value('rencana_tgl_byr_plgn')!='') echo set_value('rencana_tgl_byr_plgn');?>"/>										
+									</div>
+									<?php echo form_error('rencana_tgl_byr_plgn'); ?>
+								</div>
+								<div class="col-md-6">
+								</div>	
 							</div>									
 
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>								

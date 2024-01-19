@@ -306,54 +306,29 @@ class Capel extends CI_Controller {
 						$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
 						$pointer			= 0;
 					}
+					
 					else{				
 						if(str_contains($hasil_pbp, 'DIV')) {
-							$real_pbp				= 25;
-							$kesimpulan				= 'Perlu Persetujuan ACC UP3';
-							$pointer				= 1;
-/* 							
-							$count					= 0;
-							$start_data				= 7;
-							$akhir_data				= 32;
-							for ($i = $start_data;$i<=$akhir_data;$i++) {
-								$temp_pv_net_benefit		= $spreadsheet->getSheetByName('KKF')->getCell('Q'.(string)$i)->getValue();
-								if(strstr($temp_pv_net_benefit,'=')==true)
-									$data_pv_net_benefit 	= $spreadsheet->getSheetByName('KKF')->getCell('Q'.(string)$i)->getOldCalculatedValue();
-								
-								if($data_pv_net_benefit > 0)
-									$count++;
-								
-							}//end for
-							
-							if($count <= 20){
-								$real_pbp			= 25-$count;
-								$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
-								$pointer			= 0;									
-							}//end if
-							else{
-								$real_pbp			= 25-$count;
-								$kesimpulan			= 'Perlu Persetujuan ACC UP3';
-								$pointer			= 1;									
-							}//end else		
-
-	 */							
+							$real_pbp			= 25;
+							$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+							$pointer			= 0;				
 						}//end if
 						
 						else{
 							if($hasil_pbp <= 5){
-								/* echo 'b'; */
+								
 								$real_pbp			= $hasil_pbp;
 								$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
 								$pointer			= 0;
 							}
 							if($hasil_pbp <= 25 && $hasil_pbp > 5){
-								/* echo 'c'; */
+								
 								$real_pbp			= $hasil_pbp;
-								$kesimpulan			= 'Perlu Persetujuan ACC UP3';
-								$pointer			= 1;
+								$kesimpulan			= 'Dapat Dilanjut Pengecekan Material';
+								$pointer			= 0;
 							}//end if				
 						}//end else
-					}//end else
+					}//end else 
 
 					
 					$data_kkf = array(
@@ -552,7 +527,8 @@ class Capel extends CI_Controller {
 				$data['daya_baru']				= $row->daya_baru;
 				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
 				$data['srt_daya_awal_capel']	= $row->srt_daya_awal_capel;
-				$data['srt_nama_capel']			= $row->srt_nama_capel;					
+				$data['srt_nama_capel']			= $row->srt_nama_capel;	
+				//$data['rencana_tgl_byr_plgn']	= $row->rencana_tgl_byr_plgn;	
 			}
 			
 			$array_data_material 		= array();
@@ -582,6 +558,8 @@ class Capel extends CI_Controller {
 				'id_status_capel'		=> 2,
 				'tgl_persetujuan'		=> $this->input->post('tgl_persetujuan'),
 				'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
+				'rencana_tgl_byr_plgn' 	=> $this->input->post('rencana_tgl_byr_plgn'),
+				
 			);
 			
 			//update into database
@@ -608,7 +586,7 @@ class Capel extends CI_Controller {
 				$data['daya_baru']				= $row->daya_baru;
 				$data['biaya_penyambungan']		= $row->biaya_penyambungan;
 				$data['nomor_persetujuan']		= $row->nomor_persetujuan;
-				$data['tgl_persetujuan']			= $row->tgl_persetujuan;					
+				$data['tgl_persetujuan']		= $row->tgl_persetujuan;					
 			}
 		$content_wa		= '[INFO PBPD]
 		
