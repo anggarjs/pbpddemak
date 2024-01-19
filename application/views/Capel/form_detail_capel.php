@@ -181,7 +181,61 @@
 									</div>	
 								</div>	
 							</div>						
-							
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
+							<!-- ROW #8 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>Tanggal Persetujuan :</b></label>
+										<input type="date" class="form-control" name="tgl_persetujuan" 
+										value="<?php 
+										if(set_value('tgl_persetujuan')!='') 
+											echo set_value('tgl_persetujuan');
+										else
+											echo $tgl_persetujuan;										
+										
+										?>"/>										
+									</div>
+									<?php echo form_error('tgl_persetujuan'); ?>
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">	
+										<label>No BA Persetujuan dari ULP :</label>
+										<input
+										  type="text"
+										  class="form-control"
+										  name="nomor_persetujuan"
+										value="<?php 
+										if(set_value('nomor_persetujuan')!='') 
+											echo set_value('nomor_persetujuan');
+										else
+											echo $nomor_persetujuan;
+										 ?>"/>
+										  
+										
+									</div>
+									<?php echo form_error('nomor_persetujuan'); ?>
+								</div>	
+							</div>
+							<!-- ROW #8 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>Rencana Tanggal Bayar Plgn :</b></label>
+										<input type="date" class="form-control" name="rencana_tgl_byr_plgn" 
+										value="<?php 
+										if(set_value('rencana_tgl_byr_plgn')!='') 
+											echo set_value('rencana_tgl_byr_plgn');
+										else
+											echo $rencana_tgl_byr_plgn;										
+										
+										?>"/>											
+									</div>
+									<?php echo form_error('rencana_tgl_byr_plgn'); ?>
+								</div>
+								<div class="col-md-6">
+								</div>	
+							</div>							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							
 							<!-- ROW #7 -->
@@ -232,6 +286,19 @@
 								</table>
 							</div>
 							
+						</div>
+						<div class="p-3 border-top">
+							<div class="text-end">
+								<button
+								type="submit"
+								class="
+								btn btn-info
+								rounded-pill
+								px-4
+								waves-effect waves-light
+								">Simpan
+								</button>
+							</div>
 						</div>
       					<?php echo form_close(); ?>
       				</div>

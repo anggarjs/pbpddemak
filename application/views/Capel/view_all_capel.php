@@ -36,6 +36,7 @@
       											<th width="5%">Detail</th>
       											<th>Nama ULP</th>
       											<th>Tgl Disetujui</th>
+												<th>Tgl Byr Plgn</th>
       											<th>Status Capel</th>
       											<th>Status Material</th>
       											<th>Nama Capel</th>
@@ -55,6 +56,15 @@
       												</td>
       												<td><?= $data->nama_ulp; ?></td>
       												<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
+														<td>
+															<?php
+																if(is_null($data->rencana_tgl_byr_plgn))
+																	echo '-';
+																else
+																	echo date_format(date_create($data->rencana_tgl_byr_plgn), "d-m-Y");
+																	
+															?>
+														</td>
       												<td><?= $data->status_capel; ?></td>
       												<td><?= $data->status_material; ?></td>													
       												<td><?= $data->nama_capel; ?></td>

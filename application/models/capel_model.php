@@ -41,7 +41,7 @@ class Capel_model extends CI_Model {
 		$this->db->from('view_capel');
 		$this->db->where('id_status_capel <','4');
 		$this->db->where('id_status_capel >','1');	
-		$this->db->order_by('tgl_persetujuan', 'ASC');	
+		$this->db->order_by('rencana_tgl_byr_plgn', 'DESC');	
 		$query = $this->db->get();			
 		return $query;
 	}//end of function
@@ -61,7 +61,7 @@ class Capel_model extends CI_Model {
 		$this->db->where('id_ulp',$ulp);
 		$this->db->where('id_status_capel <','4');
 		$this->db->where('id_status_capel >','1');
-		$this->db->order_by('tgl_persetujuan', 'ASC');			
+		$this->db->order_by('rencana_tgl_byr_plgn', 'DESC');			
 		$query = $this->db->get();
 		return $query;
 	}//end of function	

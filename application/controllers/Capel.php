@@ -127,9 +127,10 @@ class Capel extends CI_Controller {
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
 
-		$this->form_validation->set_rules('status_capel', 'Status Permohonan Pelanggan', 'required|callback_validasi_data_list');
-		$this->form_validation->set_rules('nomor_surat_up3_ulp', 'Nomor Surat Persetujuan UP3', 'required');
-		$this->form_validation->set_rules('tgl_persetujuan_up3', 'Tanggal Surat Persetujuan UP3', 'required');
+		
+		$this->form_validation->set_rules('nomor_persetujuan', 'Nomor Persetujuan', 'required');
+		$this->form_validation->set_rules('tgl_persetujuan', 'Tanggal Surat Persetujuan', 'required');
+		$this->form_validation->set_rules('rencana_tgl_byr_plgn', 'Rencana Tanggal Bayar Pelanggan', 'required');
 
 		// Setting Error Message
 		$this->form_validation->set_message('required', 'Error, Silahkan mengisi data %s');
@@ -153,19 +154,13 @@ class Capel extends CI_Controller {
 				$data['status_material']		= $row->status_material;	
 				$data['tgl_lengkap_material']	= $row->tgl_lengkap_material;	
 				$data['keterangan_material']	= $row->keterangan_material;	
-				$data['tgl_peremajaan']			= $row->tgl_peremajaan;			
+				$data['tgl_peremajaan']			= $row->tgl_peremajaan;
+				$data['rencana_tgl_byr_plgn']	= $row->rencana_tgl_byr_plgn;	
 			}
 			$data['id_capel']					= $id_capel;
 
 			$path 								= 'uploads/'.$data['id_ulp'].'/';
 			$data['path_file']					= $path.'RAB_'.$data['id_ulp'].'_'.$data['nama_capel']	.'_'. $data['daya_baru'].'VA.xlsx';;
-		
- 			$status_capel['0'] 		= "- Pilih Status Pelanggan -";
-			$capel 					= $this->capel_model->get_status_capel();
-			foreach($capel->result() as $row){
-				$status_capel[$row->id_status_capel] = $row->status_capel; 
-			}
-			$data['status_capel'] 	= $status_capel;
 			
 			$data['data_material'] 		= $this->material_model->get_data_material($id_capel);
 			
@@ -176,9 +171,9 @@ class Capel extends CI_Controller {
 		}
 		else{	
 			$data_plg = array(
-				'id_status_capel'		=> $this->input->post('status_capel'),
-				'nomor_surat_up3_ulp'	=> $this->input->post('nomor_surat_up3_ulp'),
-				'tgl_persetujuan_up3' 	=> $this->input->post('tgl_persetujuan_up3'),
+				'tgl_persetujuan'		=> $this->input->post('tgl_persetujuan'),
+				'nomor_persetujuan' 	=> $this->input->post('nomor_persetujuan'),
+				'rencana_tgl_byr_plgn' 	=> $this->input->post('rencana_tgl_byr_plgn'),
 			);
 			//update into database
 			$this->capel_model->update_capel($data_plg,$this->input->post('id_capel'));			
