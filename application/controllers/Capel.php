@@ -109,6 +109,20 @@ class Capel extends CI_Controller {
 		$this->load->view('beranda', $data);
 	}
 	
+	function view_rollback_ke_surat(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		if($_SESSION['kode_ulp'] != '52550')
+			$data['data_capel'] 	= $this->capel_model->get_all_data_error_ulp($_SESSION['kode_ulp']);
+		else
+			$data['data_capel'] 	= $this->capel_model->get_all_data_error();		
+		
+		$data['nama_user'] 			= $_SESSION['username'];
+		$data['content'] 			= $this->load->view('capel/view_all_capel_rollback', $data, true);
+		$this->load->view('beranda', $data);
+	}	
+	
 	function download_data(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
@@ -1582,4 +1596,24 @@ WA System PBPD UP3 Demak
 		$mail->send();	
 	}
 	
+	function rollback_capel_selected(){
+		$delete_items = $this->input->post('check');
+		if ($delete_items) {
+			foreach ($delete_items as $item) {
+				//echo $item.'<br>';
+
+				$this->material_model->hapus_kebutuhan_mdu($item);
+				$this->material_model->hapus_kebutuhan_tibet($item);
+				$data_plg = array(
+					'status_perluasan'		=> 0,
+					'nama_capel' 			=> '',
+					'id_status_capel' 		=> 0,
+				);
+				//update into database
+				$this->capel_model->update_capel($data_plg,$item);					
+		
+			}			
+			redirect('Capel/view_rollback_ke_surat');
+		} 
+	}	
 }

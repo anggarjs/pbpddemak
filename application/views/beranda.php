@@ -252,6 +252,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</a>
 					</li>
 					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Capel/view_rollback_ke_surat" class="sidebar-link">
+							<i class="mdi mdi-priority-low"></i>
+							<span class="hide-menu"> Rollback ke Srt Plgn</span>
+						</a>
+					</li>					
+					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/download_data" class="sidebar-link">
 							<i class="mdi mdi-border-vertical"></i>
 							<span class="hide-menu"> Download Data Plgn PBPD</span>

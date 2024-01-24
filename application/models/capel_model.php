@@ -111,7 +111,8 @@ class Capel_model extends CI_Model {
 	function get_all_data_capel_sudah_bayar(){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->where('id_status_capel <','3');
+		$this->db->where('id_status_capel <','4');
+		$this->db->where('id_status_capel >','2');
 		$query = $this->db->get();
 		return $query;
 	}//end of function	
@@ -119,7 +120,8 @@ class Capel_model extends CI_Model {
 	function get_all_data_capel_sudah_bayar_ulp($ulp){
 		$this->db->select("*");
 		$this->db->from('view_capel');
-		$this->db->where('id_status_capel','3');		
+		$this->db->where('id_status_capel <','4');
+		$this->db->where('id_status_capel >','2');		
 		$this->db->where('id_ulp',$ulp);
 		$query = $this->db->get();
 		return $query;
@@ -304,6 +306,28 @@ class Capel_model extends CI_Model {
 	function get_all_data_download_ulp($ulp){
 		$this->db->select("*");
 		$this->db->from('view_download_plgn');	
+		$this->db->where('id_ulp',$ulp);
+		$query = $this->db->get();
+		return $query;
+	}//end of function
+	
+	function get_all_data_error(){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('status_perluasan >','0');
+		$this->db->where('id_status_capel','0');
+		$this->db->where('nama_capel !=','');
+		$query = $this->db->get();
+		return $query;
+	}//end of function	
+	
+	
+	function get_all_data_error_ulp($ulp){
+		$this->db->select("*");
+		$this->db->from('view_capel');
+		$this->db->where('status_perluasan >','0');
+		$this->db->where('id_status_capel','0');
+		$this->db->where('nama_capel !=','');
 		$this->db->where('id_ulp',$ulp);
 		$query = $this->db->get();
 		return $query;

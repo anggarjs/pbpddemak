@@ -22,20 +22,20 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan
+      							Data Calon Pelanggan Perlu Perbaikan
       						</h4>
       					</div>
       					<div class="card-body">
       					<?php
 							$attributes 	= array('class' => 'form-horizontal');
-							echo form_open('Admin/hapus_capel_selected', $attributes);
-						?>
+							echo form_open('Capel/rollback_capel_selected', $attributes);
+						?>						
 							<button id="addRow" class="btn btn-danger" type="submit" name="hapus_capel">
-								<i data-feather="minus" class="feather-sm"></i> Hapus Data
-							</button>
-							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
+								<i data-feather="minus" class="feather-sm"></i> Rollback Data
+							</button>						
+      						<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>
 							<div class="table-responsive">
-								<table style="width: 100%" id="tabel-view-allcapel" class="no-wrap table-bordered table-hover table">
+								<table style="width: 100%" id="tabel-view-user" class="no-wrap table-bordered table-hover table">
 									<thead>
 										<!-- start row -->
 										<tr>
@@ -48,41 +48,35 @@
 											</th>
 											<th>Nama ULP</th>
 											<th>Nama Capel</th>
-											<th>Rencana Daya (VA)</th>
-											<th>Status Capel</th>
-											<th>Status Material</th>
-											
-											
-																						
+											<th>Daya Capel</th>
+											<th>BP</th>
+											<th>RAB</th>
+											<th>Status Material</th>						
 										</tr>
 										<!-- end row -->
 									</thead>
 									<tbody>
 										<?php foreach ($data_capel->result() as $data) : ?>
-										<tr>
-											<td>
-												<div class="d-flex justify-content-center">
-													<div class="form-check">
-														<input class="form-check-input" style="position: relative; right: 7px;" type="checkbox" value="<?php echo $data->id_capel; ?>" id="flexCheckDefault" name="check[]">
+											<tr>
+												<td>
+													<div class="d-flex justify-content-center">
+														<div class="form-check">
+															<input class="form-check-input" style="position: relative; right: 7px;" type="checkbox" value="<?php echo $data->id_capel; ?>" id="flexCheckDefault" name="check[]">
+														</div>
 													</div>
-												</div>
-											</td>
-											<td><?= $data->nama_ulp; ?></td>
-											<td><?php 
-											if($data->nama_capel)
-												echo $data->nama_capel; 
-											else
-												echo $data->srt_nama_capel; 
-											?></td>
-											<td><?= number_format($data->daya_baru); ?></td>
-											<td><?= $data->status_capel; ?></td>
-											<td><?= $data->status_material; ?></td>
-										</tr>
+												</td>												
+												<td><?= $data->nama_ulp; ?></td>
+												<td><?= $data->nama_capel; ?></td>
+												<td><?= number_format($data->daya_baru); ?></td>
+												<td><?= number_format($data->biaya_penyambungan); ?></td>
+												<td><?= number_format($data->biaya_investasi); ?></td>
+												<td><?= $data->status_material; ?></td>			
+											</tr>
 										<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>
-						<?php echo form_close(); ?>	
+						<?php echo form_close(); ?>								
       					</div>
       				</div>
       			</div><!-- end <div class="col-12"> -->
