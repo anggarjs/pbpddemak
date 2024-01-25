@@ -22,7 +22,7 @@
       				<div class="card">
       					<div class="card-header bg-info">
       						<h4 class="card-title text-white">
-      							Data Calon Pelanggan Telah Disetujui
+      							Data Calon Pelanggan Telah Ada Rencana Bayar
       						</h4>
       					</div>
       					<div class="card-body">
@@ -35,7 +35,9 @@
 												<th width="5%">Update</th>
 												<th>Nama ULP</th>
 												<th>Tgl Disetujui</th>
-												<th>Status Material</th>	
+												<th>Tgl Rencana Bayar</th>
+												<th>Status Material</th>
+												<th>Status Pelanggan</th>	
       											<th>Nama Capel</th>
       																
       										</tr>
@@ -53,7 +55,10 @@
       												</td>												
 													<td><?= $data->nama_ulp; ?></td>
 													<td><?= date_format(date_create($data->tgl_persetujuan), "d-m-Y"); ?></td>
+													<td><?= date_format(date_create($data->rencana_tgl_byr_plgn), "d-m-Y"); ?></td>
+													
 													<td><?= $data->status_material; ?></td>
+													<td><?= $data->status_capel; ?></td>
 													<td><?= $data->nama_capel; ?></td>
 																
       											</tr>
