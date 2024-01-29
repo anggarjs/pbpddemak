@@ -35,6 +35,7 @@
 											<th>Nama ULP</th>
 											<th>Nama Capel</th>
 											<th>Daya Capel</th>
+											<th>Status Capel</th>
 											<th>Nama Material</th>
 											<th>Volume</th>
 										</tr>
@@ -52,6 +53,7 @@
 												<td><?php echo html_escape($material->nama_ulp); ?></td>
 												<td><?php echo html_escape($material->nama_capel); ?></td>
 												<td><?php echo html_escape(number_format($material->daya_baru)); ?></td>
+												<td><?php echo html_escape($material->status_capel); ?></td>
 												<td><?php echo html_escape($material->nama_detail_mdu); ?></td>
 												<td><?php echo html_escape($material->volume_mdu); ?></td>
 											</tr>

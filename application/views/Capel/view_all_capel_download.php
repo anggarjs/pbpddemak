@@ -50,7 +50,8 @@
 												<th>Tanggal Entri Aplikasi</th>
 												<th>Tanggal Persetujuan dari UP3</th>
       											<th>Tgl Lgkp Material</th>
-												<th>Selisih Hari</th>											
+												<th>Selisih Hari</th>
+<th>Rencana Tgl Bayar</th>														
       										</tr>
       										<!-- end row -->
       									</thead>
@@ -96,7 +97,13 @@
 
 														?>
 													</td>
-													<td><?= $data->SELISIH_HARI; ?> Hari </td>												
+													<td><?= $data->SELISIH_HARI; ?> Hari </td>
+													<td><?php
+														if(!is_null($data->rencana_tgl_byr_plgn))
+															echo date_format(date_create($data->rencana_tgl_byr_plgn),"d-m-Y"); 
+														
+
+														?> </td>	
       											</tr>
       										<?php endforeach; ?>
       									</tbody>
