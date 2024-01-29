@@ -69,8 +69,12 @@ class Input extends CI_Controller {
 			$config['upload_path']		= './uploads/'.$this->input->post('pilihan_ulp').'/';
 			$config['allowed_types'] 	= 'pdf';
 			$config['max_size'] 		= 16384;
+			
+			echo 'bunga';
 			$this->load->library('upload', $config);
 			if ($this->upload->do_upload('filesurat')){
+				
+				echo 'angga';
 
 				$data_plg = array(
 					'id_ulp'					=> $this->input->post('pilihan_ulp'),

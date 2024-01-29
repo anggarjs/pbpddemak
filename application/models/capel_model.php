@@ -41,7 +41,7 @@ class Capel_model extends CI_Model {
 		$this->db->from('view_capel');
 		$this->db->where('id_status_capel <','4');
 		$this->db->where('id_status_capel >','1');	
-		$this->db->order_by('rencana_tgl_byr_plgn', 'DESC');	
+		$this->db->order_by('rencana_tgl_byr_plgn', 'ASC');	
 		$query = $this->db->get();			
 		return $query;
 	}//end of function
@@ -61,7 +61,7 @@ class Capel_model extends CI_Model {
 		$this->db->where('id_ulp',$ulp);
 		$this->db->where('id_status_capel <','4');
 		$this->db->where('id_status_capel >','1');
-		$this->db->order_by('rencana_tgl_byr_plgn', 'DESC');			
+		$this->db->order_by('rencana_tgl_byr_plgn', 'ASC');			
 		$query = $this->db->get();
 		return $query;
 	}//end of function	
@@ -70,6 +70,7 @@ class Capel_model extends CI_Model {
 		$this->db->select("*");
 		$this->db->from('view_capel');
 		$this->db->where('id_status_capel >','1');
+		$this->db->where('id_status_capel <','4');
 		$this->db->where('id_status_material <','4');
 		$this->db->where('rencana_tgl_byr_plgn !=','');
 		$this->db->order_by('rencana_tgl_byr_plgn', 'ASC');
