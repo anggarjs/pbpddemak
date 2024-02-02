@@ -71,7 +71,7 @@ class Capel_model extends CI_Model {
 		$this->db->from('view_capel');
 		$this->db->where('id_status_capel >','1');
 		$this->db->where('id_status_capel <','4');
-		$this->db->where('id_status_material <','4');
+		$this->db->where('id_status_material <','3');
 		$this->db->where('rencana_tgl_byr_plgn !=','');
 		$this->db->order_by('rencana_tgl_byr_plgn', 'ASC');
 		//$this->db->order_by('tgl_persetujuan', 'ASC');
