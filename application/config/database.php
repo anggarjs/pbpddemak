@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.4.60.72',
+	'hostname' => '10.4.140.17',
 	'database' => 'pbpddemak',
 
 	/* 	'hostname' => 'db4free.net',
