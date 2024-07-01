@@ -373,7 +373,7 @@ class Capel extends CI_Controller {
 					
 					//handler jika file rab adalah rab non-perumahan, maka kolom harga satuan ada di I5
 					if (empty($spreadsheet->getSheetByName('HARGA SATUAN')->getCell('Q5')->getValue())) {
-						$new_var_tahun_hss	= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('Q5')->getValue());
+						$new_var_tahun_hss	= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue());
 						if($new_var_tahun_hss[2] < 2023){
 							$path 				= 'uploads/'.$data['id_ulp'].'/';
 							unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
