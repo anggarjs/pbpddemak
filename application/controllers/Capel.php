@@ -356,13 +356,33 @@ class Capel extends CI_Controller {
 					}
 					
 					//cek apakah menggunakan HSS 2022
-					$new_var_tahun_hss		= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue()); 
-					if($new_var_tahun_hss[2] < 2023){					
-						$path 					= 'uploads/'.$data['id_ulp'].'/';
-						unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
-						$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' Menggunakan HSS sebelum tahun 2023');
-						redirect('Capel/Update_permohonan/'.$id_capel);	
-					}				
+					//$new_var_tahun_hss		= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue()); 
+					//$new_var_tahun_hss_n	= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('Q5')->getValue());
+					$nama_pelanggan;
+					
+					//handler jika file rab adalah rab perumahan, maka kolom harga satuan ada di Q5
+					if (empty($spreadsheet->getSheetByName('HARGA SATUAN')->getCell('I5')->getValue())) {
+						$new_var_tahun_hss_n	= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('Q5')->getValue());
+						if($new_var_tahun_hss_n[2] < 2023){
+							$path 				= 'uploads/'.$data['id_ulp'].'/';
+							unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+							$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' --- '.trim($new_var_tahun_hss_n).' Menggunakan HSS sebelum tahun 2023');
+							redirect('Capel/Update_permohonan/'.$id_capel);	
+						}
+					}
+					
+					//handler jika file rab adalah rab non-perumahan, maka kolom harga satuan ada di I5
+					if (empty($spreadsheet->getSheetByName('HARGA SATUAN')->getCell('Q5')->getValue())) {
+						$new_var_tahun_hss	= explode(' ',$spreadsheet->getSheetByName('HARGA SATUAN')->getCell('Q5')->getValue());
+						if($new_var_tahun_hss[2] < 2023){
+							$path 				= 'uploads/'.$data['id_ulp'].'/';
+							unlink($path.'Temporary'.$_SESSION['nama_user'].'.xlsx');
+							$this->session->set_userdata('alert_upload_excel','Data Pelanggan Atas Nama '.trim($nama_pelanggan).' --- '.trim($new_var_tahun_hss).' Menggunakan HSS sebelum tahun 2023');
+							redirect('Capel/Update_permohonan/'.$id_capel);	
+						}
+					}
+					
+					
 					// END OF HANDLER UPLOAD RAB  ------------------------------------------------------------ //
 
 					//updating into database
