@@ -1250,7 +1250,7 @@ WA System PBPD UP3 Demak
 		//setting to email
 		foreach ($this->users_model->get_data_user_by_ulp($id_ulp)->result() as $row) {	
 			$mail->addAddress($row->email_user, '');
-			$mail->addAddress($row->email_user2, '');
+			//$mail->addAddress($row->email_user2, '');
 		}		
 		
 		//setting CC email
