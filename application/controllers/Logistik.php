@@ -36,6 +36,18 @@ class Logistik extends CI_Controller
         $this->load->view('beranda', $data);		
 	}
 	
+	function view_tiang_siap_bayar(){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+		$data['data_capel'] 	= $this->material_model->get_tibet_kurang();
+		
+       
+		$data['nama_user'] 		= $_SESSION['username'];
+        $data['content'] 		= $this->load->view('logistik/view_tiang_siap_bayar', $data, true);
+        $this->load->view('beranda', $data);		
+	}	
+	
 	function view_material_lengkap(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
