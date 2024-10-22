@@ -77,6 +77,11 @@ class Material_model extends CI_Model
 	function detail_material_lengkap($id_detail_mdu){
 		$this->db->where('id_detail_mdu', $id_detail_mdu);
 		return $this->db->get('view_rincian_plgn_lengkap_mdu')->result();
+	}
+
+	function detail_tibet_kurang($id_detail_mdu){
+		$this->db->where('id_detail_mdu', $id_detail_mdu);
+		return $this->db->get('view_kebutuhan_tibet')->result();
 	}	
 	
 	function get_material_kurang(){

@@ -46,7 +46,7 @@
 											<tr>
 												<td>
 													<div class="d-flex justify-content-around">
-														<a href="<?php echo base_url('Logistik/detailMaterial_kurang/') . $data->id_detail_mdu; ?>">
+														<a href="<?php echo base_url('Logistik/detailTibet_kurang/') . $data->id_detail_mdu; ?>">
 															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
 														</a>
 													</div>

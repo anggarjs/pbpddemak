@@ -48,6 +48,18 @@ class Logistik extends CI_Controller
         $this->load->view('beranda', $data);		
 	}	
 	
+    function detailTibet_kurang($id_detail_mdu){
+		if(!isset($_SESSION['username']))
+			redirect('Welcome');
+		
+        $data['material_kurang'] 	= $this->material_model->detail_tibet_kurang($id_detail_mdu);
+        
+        
+		$data['nama_user'] 			= $_SESSION['username'];  
+		$data['content'] 			= $this->load->view('Logistik/view_detail_tibet', $data, true);
+		$this->load->view('beranda', $data);
+    }	
+	
 	function view_material_lengkap(){
 		if(!isset($_SESSION['username']))
 			redirect('Welcome');
