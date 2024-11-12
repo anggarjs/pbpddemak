@@ -359,6 +359,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</a>
 					</li>
 					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Logistik/view_material_kurang_per_plgn" class="sidebar-link">
+						<i class="mdi mdi-arrange-bring-forward"></i>
+						<span class="hide-menu"> Rekap Material Kurang per Plgn</span>
+						</a>
+					</li>					
+					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Logistik/view_tiang_siap_bayar" class="sidebar-link">
 						<i class="mdi mdi-arrange-bring-forward"></i>
 						<span class="hide-menu"> Rekap Kebutuhan Tiang Siap Bayar</span>

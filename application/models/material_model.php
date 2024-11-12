@@ -91,6 +91,13 @@ class Material_model extends CI_Model
 		return $query;
 	}//end of function
 	
+	function get_material_kurang_per_plgn(){
+		$this->db->select("*");
+		$this->db->from('view_material_kurang_per_pelanggan');
+		$query = $this->db->get();			
+		return $query;
+	}//end of function	
+	
 	function get_tibet_kurang(){
 		$this->db->select("*");
 		$this->db->from('view_rekap_keb_tibet');
