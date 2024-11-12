@@ -161,10 +161,53 @@
 									<?php echo form_error('keterangan_material'); ?>
 								</div>	
 							</div>						
-							
 							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
 							
 							<!-- ROW #7 -->
+							<div class="row">
+								<div class="col-md-6">	
+									<div class="mb-3">
+										<label><b>Data List Tiang Beton :</b></label>
+									</div>									
+								</div>
+								<div class="col-md-6">
+									<div class="mb-3">
+									</div>	
+								</div>	
+							</div>
+							<div class="table-responsive">
+								<table id="zero_config" class="table table-striped table-bordered text-nowrap" >
+									<thead>
+									<!-- start row -->
+										<tr>
+											<th>No</th>
+											<th>Tipe Tiang Beton</th>
+											<th>Satuan</th>
+											<th>Volume</th>
+										</tr>
+										<!-- end row -->
+									</thead>
+									<tbody>
+										<?php
+										$i		= 1;
+										foreach ($data_tibet->result() as $row) {
+											echo '<tr>';
+											echo '<td>' . $i . '</td>';
+											echo '<td>' . $row->nama_detail_mdu . '</td>';
+											echo '<td>' . $row->satuan . '</td>';
+											echo '<td>' . $row->volume_tibet . '</td>';
+											echo '</tr>';
+											$i++;
+										}
+										?>
+									</tbody>
+
+								</table>
+							</div>							
+							
+							<h5 class="card-subtitle mb-3 border-bottom pb-3"></h5>	
+							
+							<!-- ROW #8 -->
 							<div class="row">
 								<div class="col-md-6">	
 									<div class="mb-3">

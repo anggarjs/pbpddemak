@@ -36,7 +36,7 @@
                       " style="width: 100%;" >
 									<thead>
 										<tr>
-											
+											<th width = "5%">Detail</th>
 											<th>Nama ULP</th>
 											<th>Nama Capel</th>
 											<th>Daya Capel</th>
@@ -47,7 +47,14 @@
 									</thead>
 									<tbody>
 										<?php foreach ($material_kurang as $material) : ?>
-											<tr>											
+											<tr>
+												<td>
+													<div class="d-flex justify-content-around">
+														<a href="<?php echo base_url('Capel/Update_material/') . $material->id_capel; ?>">
+															<span style="position: relative; bottom:2px;" class="text-info"><i data-feather="edit"></i></span>
+														</a>
+													</div>
+												</td>											
 												<td><?php echo html_escape($material->nama_ulp); ?></td>
 												<td><?php echo html_escape($material->nama_capel); ?></td>
 												<td><?php echo html_escape(number_format($material->daya_baru)); ?></td>
