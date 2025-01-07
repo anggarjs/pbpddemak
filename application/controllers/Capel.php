@@ -604,7 +604,7 @@ class Capel extends CI_Controller {
 			rename($file_name,$path_new_file);
 			
 			//send email notice to user
-			$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
+			//$this->send_email_survei($this->input->post('id_capel'),$this->input->post('id_ulp'));
 			
 			foreach ($this->capel_model->get_data_capel($this->input->post('id_capel'))->result() as $row) {
 				$data['id_ulp']					= $row->id_ulp;
