@@ -263,6 +263,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<span class="hide-menu"> Download Data Plgn PBPD</span>
 						</a>
 					</li>
+					<!--
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Logistik/upload_trafo_rusak" class="sidebar-link">
 							 <i class="mdi mdi-clipboard-check"></i>
@@ -274,7 +275,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<i class="mdi mdi-priority-low"></i>
 							<span class="hide-menu"> Update Material Rusak</span>
 						</a>
-					</li>					
+					</li>
+					-->
 				</ul>
             </li>
 			<?php } ?>	
@@ -328,12 +330,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <span class="hide-menu">Logistik</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-					<li class="sidebar-item">
+<!-- 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Logistik/view_material_rusak" class="sidebar-link">
 						<i class="mdi mdi-clipboard-check"></i>
 						<span class="hide-menu"> Update Material Rusak</span>
 						</a>
-					</li>
+					</li> -->
 					<li class="sidebar-item">
 						<a href="<?php echo base_url() ?>Capel/view_capel_approved" class="sidebar-link">
 						<i class="mdi mdi-clipboard-check"></i>
@@ -372,6 +374,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</li>
                 </ul>
               </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                  <i class="mdi mdi-receipt"></i>
+                  <span class="hide-menu">Konstruksi</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Fso/Upload_excel" class="sidebar-link">
+						<i class="mdi mdi-clipboard-check"></i>
+						<span class="hide-menu"> Data Anomali Koord FSO</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Fso/view_anomali_lat" class="sidebar-link">
+						<i class="mdi mdi-arrange-bring-forward"></i>
+						<span class="hide-menu"> Rekap Anomali Koord (LAT)</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a href="<?php echo base_url() ?>Fso/view_anomali_long" class="sidebar-link">
+						<i class="mdi mdi-arrange-bring-forward"></i>
+						<span class="hide-menu"> Rekap Anomali Koord (LONG)</span>
+						</a>
+					</li>						
+                </ul>
+              </li>			  
             <?php } ?>
 
             <!-- only admin akses -->
