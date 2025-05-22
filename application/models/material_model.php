@@ -81,6 +81,7 @@ class Material_model extends CI_Model
 
 	function detail_tibet_kurang($id_detail_mdu){
 		$this->db->where('id_detail_mdu', $id_detail_mdu);
+		$this->db->where('id_status_capel <', '3');
 		return $this->db->get('view_kebutuhan_tibet')->result();
 	}	
 	
