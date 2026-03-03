@@ -254,7 +254,7 @@ class Capel extends CI_Controller {
 				$config['file_name'] 		= $new_name;
 				
 				$config['upload_path']		= './uploads/'.$data['id_ulp'].'/';
-				$config['allowed_types'] 	= 'xlsx|xls';
+				$config['allowed_types'] 	= '*';
 				$config['max_size'] 		= 16384;
 				
 				$file_name 					= $path.'Temporary'.$_SESSION['nama_user'].'.xlsx';
